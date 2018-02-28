@@ -14,7 +14,7 @@ function PathPage(path) {
 
 
 function PathDb(parsedurl, res) {
-    switch (parsedurl.path) {
+    switch (parsedurl.pathname) {
         case '/caslte':
             return forDb.findAl(forDb.Fraction, res);
         case '/hero':

@@ -1,3 +1,5 @@
+var forDb = require('./models/forDb');
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -183,6 +185,49 @@ module.exports = function(app, passport) {
         });
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    app.get('/fraction',function(req, res) {
+        return forDb.findAl(forDb.Fraction, res);
+    });
+
+    app.get('/hero',function(req, res) {
+        return forDb.findAl(forDb.Hero, res);
+    });
+
+    app.get('/magic',function(req, res) {
+        return forDb.findAl(forDb.Magic, res);
+    });
+
+    app.get('/army',function(req, res) {
+        return forDb.findAl(forDb.Army, res);
+    });
+
+    app.get('/castle',function(req, res) {
+        return forDb.findAl(forDb.Castle, res);
+    });
 
 };
 

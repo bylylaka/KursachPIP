@@ -1,3 +1,18 @@
+var forDb = require('./../app/models/forDb');
+
+
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+sequelize
+    .authenticate()
+    .then(() => {
+    console.log('Connection has been established successfully.');
+})
+.catch(err => {
+    console.error('Unable to connect to the database:\n\n\n\n\n\n', err);
+});
+
+
 // load all the things we need
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -19,17 +34,25 @@ module.exports = function(passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
-    });
+    passport.serializeUser(function(id, done) {
 
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+        sequelize.query("SELECT \"user\".\"id\" as \"user_id\", \"facebook\".\"id\" as \"facebook_id\", \"local\".\"id\" as \"local_id\", \"local\".\"email\" AS \"local_email\", \"local\".\"password\" AS \"local_password\", \"facebook\".\"token\" AS \"facebook_token\", \"facebook\".\"email\" AS \"facebook_email\", \"facebook\".\"name\" AS \"facebook_name\",\n" +
+            "\"twitter\".\"id\" as \"twitter_id\", \"twitter\".displayName as \"twitter_displayname\", \"twitter\".\"token\" as \"twitter_token\", \"twitter\".\"username\" as \"twitter_username\"\n" +
+            "FROM \"user\" LEFT JOIN \"facebook\" ON \"user\".\"facebook\" = \"facebook\".\"id\" LEFT JOIN \"local\" ON \"user\".\"local\" = \"local\".\"id\" LEFT JOIN \"twitter\" ON \"user\".twitter = \"twitter\".\"id\" WHERE \"user\".\"id\" = "+id).spread((results, metadata) => {
+            console.log('\n\n\n\n\n\n');
+            console.log(results[0]);
+            done(null, results[0]);
         });
     });
 
+
+
+    // used to deserialize the user
+    passport.deserializeUser(function(user, done) {
+        // forDb.User.findOne({where : {id: id}}).then(user => {        //FORLOCAL
+        done(null, user);
+        // });
+    });
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
@@ -43,24 +66,18 @@ module.exports = function(passport) {
 
             // asynchronous
             process.nextTick(function() {
-                User.findOne({ 'local.email' :  email }, function(err, user) {
-                    // if there are any errors, return the error
-                    if (err)
-                        return done(err);
 
-                    // if no user is found, return the message
-                    if (!user)
-                        return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                    if (!user.validPassword(password))
-                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
-                    // all is well, return user
-                    else
-                        return done(null, user);
-                });
+                    forDb.Local.findOne({where : {email: email}}).then(user => {
+                        if (!user) {
+                            return done(null, false, req.flash('loginMessage', 'No user found.'));
+                        }
+                        else {
+                            forDb.User.findOne({where : {local: user.id}}).then(usero => {
+                                return done(null, usero.id);
+                            });
+                        }
+                    });
             });
-
         }));
 
     // =========================================================================
@@ -77,48 +94,58 @@ module.exports = function(passport) {
             // asynchronous
             process.nextTick(function() {
 
-                //  Whether we're signing up or connecting an account, we'll need
-                //  to know if the email address is in use.
-                User.findOne({'local.email': email}, function(err, existingUser) {
+                if (!req.user) {
 
-                    // if there are any errors, return the error
-                    if (err)
-                        return done(err);
+                    forDb.Local.findOne({where: {email: email}}).then(function (user) {
 
-                    // check to see if there's already a user with that email
-                    if (existingUser)
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-
-                    //  If we're logged in, we're connecting a new local account.
-                    if(req.user) {
-                        var user            = req.user;
-                        user.local.email    = email;
-                        user.local.password = user.generateHash(password);
-                        user.save(function(err) {
-                            if (err)
-                                throw err;
-                            return done(null, user);
+                        if (!user) {
+                            var newLocal = forDb.Local.build({       //saveLocal
+                                email: email,
+                                password: password
+                            });
+                            newLocal.save().done(function () {
+                                forDb.Local.findOne({where: {email: email}}).then(function (user) {
+                                    var newUser = forDb.User.build({       //saveUser
+                                        local: user.dataValues.id
+                                    }).save().done(function () {
+                                        forDb.User.findOne({where: {local: user.dataValues.id}}).then(function (usero) {
+                                            return done(null, usero.dataValues.id);
+                                        });
+                                    });
+                                });
+                            });
+                        }
+                        else {
+                            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        }
+                    });
+                }
+                else {
+                    forDb.Local.findOne({where : {email: email}}).then(user => {
+                        if (!user) {
+                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
+                                var newLocal = forDb.Local.build({       //save
+                                    email: email,
+                                    password : password
+                                });
+                                newLocal.save().done(function () {
+                                    forDb.Local.findOne({where : {email: email}}).then(function(userL) {
+                                        usero.updateAttributes({
+                                            local: userL.id
+                                        }).done(function () {
+                                            return done(null, usero.dataValues.id);
+                                            });
+                                        });
+                                    });
+                                });
+                            }
+                        else {
+                                console.log('That account was already taken.');
+                                return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
+                            }
                         });
-                    }
-                    //  We're not logged in, so we're creating a brand new user.
-                    else {
-                        // create the user
-                        var newUser            = new User();
-
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
-
-                        newUser.save(function(err) {
-                            if (err)
-                                throw err;
-
-                            return done(null, newUser);
-                        });
-                    }
-
-                });
+                }
             });
-
         }));
 
     // =========================================================================
@@ -142,61 +169,67 @@ module.exports = function(passport) {
                 // check if the user is already logged in
                 if (!req.user) {
 
-                    User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
-                        if (err)
-                            return done(err);
-
-                        if (user) {
-
-                            // if there is a user id already but no token (user was linked at one point and then removed)
-                            if (!user.facebook.token) {
-                                user.facebook.token = token;
-                                user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                                user.facebook.email = profile.emails[0].value;
-
-                                user.save(function(err) {
-                                    if (err)
-                                        throw err;
-                                    return done(null, user);
+                    forDb.Facebook.findOne({where : {id: profile.id}}).then(function(user) {
+                        if (!user){
+                            var newFacebook = forDb.Facebook.build({       //save
+                                id: profile.id,
+                                email: profile.emails[0].value,
+                                name: profile.name.givenName+' '+profile.name.familyName,
+                                token: token
+                            });
+                            newFacebook.save().done(function() {
+                                var newUser = forDb.User.build({       //save
+                                    facebook: profile.id
+                                }).save().done(function() {
+                                    forDb.User.findOne({where : {facebook: profile.id}}).then(function(usero) {
+                                        return done(null, usero.dataValues.id);
+                                    });
                                 });
-                            }
+                            });
+                        }
+                        else {
+                            user.updateAttributes({
+                                id: profile.id,
+                                email: profile.emails[0].value,
+                                name: profile.name.givenName+' '+profile.name.familyName,
+                                token: token
+                            });
 
-                            return done(null, user); // user found, return that user
-                        } else {
-                            // if there is no user, create them
-                            var newUser            = new User();
-
-                            newUser.facebook.id    = profile.id;
-                            newUser.facebook.token = token;
-                            newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                            newUser.facebook.email = profile.emails[0].value;
-
-                            newUser.save(function(err) {
-                                if (err)
-                                    throw err;
-                                return done(null, newUser);
+                            forDb.User.findOne({where: {facebook: profile.id}}).then(function (usero) {
+                                return done(null, usero.dataValues.id);
                             });
                         }
                     });
+                }
+                else {              //if Already login
 
-                } else {
-                    // user already exists and is logged in, we have to link accounts
-                    var user            = req.user; // pull the user out of the session
+                    forDb.Facebook.findOne({where : {id: profile.id}}).then(function(userF) {
+                        if (!userF) {
+                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
 
-                    user.facebook.id    = profile.id;
-                    user.facebook.token = token;
-                    user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                    user.facebook.email = profile.emails[0].value;
+                                var newFacebook = forDb.Facebook.build({       //save
+                                    id: profile.id,
+                                    email: profile.emails[0].value,
+                                    name: profile.name.givenName + ' ' + profile.name.familyName,
+                                    token: token
+                                });
+                                newFacebook.save().done(function () {
 
-                    user.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, user);
+                                    usero.updateAttributes({
+                                        facebook: profile.id
+                                    }).done(function () {
+                                        return done(null, usero.dataValues.id);
+                                    });
+                                });
+                            });
+                        }
+                        else {
+                            console.log('That account was already taken.');
+                            return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
+                        }
                     });
-
                 }
             });
-
         }));
 
     // =========================================================================
@@ -218,136 +251,150 @@ module.exports = function(passport) {
                 // check if the user is already logged in
                 if (!req.user) {
 
-                    User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-                        if (err)
-                            return done(err);
-
-                        if (user) {
-                            // if there is a user id already but no token (user was linked at one point and then removed)
-                            if (!user.twitter.token) {
-                                user.twitter.token       = token;
-                                user.twitter.username    = profile.username;
-                                user.twitter.displayName = profile.displayName;
-
-                                user.save(function(err) {
-                                    if (err)
-                                        throw err;
-                                    return done(null, user);
+                    forDb.Twitter.findOne({where : {id: profile.id}}).then(function(user) {
+                        if (!user){
+                            var newTwitter = forDb.Twitter.build({       //save
+                                id: profile.id,
+                                username: profile._json.name,
+                                displayname: profile._json.screen_name,
+                                token: token
+                            });
+                            newTwitter.save().done(function() {
+                                var newUser = forDb.User.build({       //save
+                                    twitter: profile.id
+                                }).save().done(function() {
+                                    forDb.User.findOne({where : {twitter: profile.id}}).then(function(usero) {
+                                        return done(null, usero.dataValues.id);
+                                    });
                                 });
-                            }
+                            });
+                        }
+                        else {
+                            user.updateAttributes({
+                                id: profile.id,
+                                username: profile.name,
+                                displayname: profile.screen_name,
+                                token: token
+                            });
 
-                            return done(null, user); // user found, return that user
-                        } else {
-                            // if there is no user, create them
-                            var newUser                 = new User();
-
-                            newUser.twitter.id          = profile.id;
-                            newUser.twitter.token       = token;
-                            newUser.twitter.username    = profile.username;
-                            newUser.twitter.displayName = profile.displayName;
-
-                            newUser.save(function(err) {
-                                if (err)
-                                    throw err;
-                                return done(null, newUser);
+                            forDb.User.findOne({where: {twitter: profile.id}}).then(function (usero) {
+                                return done(null, usero.dataValues.id);
                             });
                         }
                     });
+                }
+                else {              //if Already login
 
-                } else {
-                    // user already exists and is logged in, we have to link accounts
-                    var user                 = req.user; // pull the user out of the session
+                    forDb.Twitter.findOne({where : {id: profile.id}}).then(function(userT) {
+                        if (!userT) {
+                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
 
-                    user.twitter.id          = profile.id;
-                    user.twitter.token       = token;
-                    user.twitter.username    = profile.username;
-                    user.twitter.displayName = profile.displayName;
+                                var newTwitter = forDb.Twitter.build({       //save
+                                    id: profile.id,
+                                    username: profile.name,
+                                    displayname: profile.screen_name,
+                                    token: token
+                                });
+                                newTwitter.save().done(function () {
 
-                    user.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, user);
+                                    usero.updateAttributes({
+                                        twitter: profile.id
+                                    }).done(function () {
+                                        return done(null, usero.dataValues.id);
+                                    });
+                                });
+                            });
+                        }
+                        else {
+                            console.log('That account was already taken.');
+                            return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
+                        }
                     });
                 }
-
             });
 
         }));
 
     // =========================================================================
-    // GOOGLE ==================================================================
+    // GOOGLE =================================
+    // =================================
     // =========================================================================
-    passport.use(new GoogleStrategy({
-
-            clientID        : configAuth.googleAuth.clientID,
-            clientSecret    : configAuth.googleAuth.clientSecret,
-            callbackURL     : configAuth.googleAuth.callbackURL,
-            passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-
-        },
-        function(req, token, refreshToken, profile, done) {
-
-            // asynchronous
-            process.nextTick(function() {
-
-                // check if the user is already logged in
-                if (!req.user) {
-
-                    User.findOne({ 'google.id' : profile.id }, function(err, user) {
-                        if (err)
-                            return done(err);
-
-                        if (user) {
-
-                            // if there is a user id already but no token (user was linked at one point and then removed)
-                            if (!user.google.token) {
-                                user.google.token = token;
-                                user.google.name  = profile.displayName;
-                                user.google.email = profile.emails[0].value; // pull the first email
-
-                                user.save(function(err) {
-                                    if (err)
-                                        throw err;
-                                    return done(null, user);
-                                });
-                            }
-
-                            return done(null, user);
-                        } else {
-                            var newUser          = new User();
-
-                            newUser.google.id    = profile.id;
-                            newUser.google.token = token;
-                            newUser.google.name  = profile.displayName;
-                            newUser.google.email = profile.emails[0].value; // pull the first email
-
-                            newUser.save(function(err) {
-                                if (err)
-                                    throw err;
-                                return done(null, newUser);
-                            });
-                        }
-                    });
-
-                } else {
-                    // user already exists and is logged in, we have to link accounts
-                    var user               = req.user; // pull the user out of the session
-
-                    user.google.id    = profile.id;
-                    user.google.token = token;
-                    user.google.name  = profile.displayName;
-                    user.google.email = profile.emails[0].value; // pull the first email
-
-                    user.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, user);
-                    });
-
-                }
-
-            });
-
-        }));
-
+    // passport.use(new GoogleStrategy({        //СЛОЖНА С АЙДИ((((99((((((((9
+    //
+    //         clientID        : configAuth.googleAuth.clientID,
+    //         clientSecret    : configAuth.googleAuth.clientSecret,
+    //         callbackURL     : configAuth.googleAuth.callbackURL,
+    //         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    //
+    //     },
+    //     function(req, token, refreshToken, profile, done) {
+    //
+    //         // asynchronous
+    //         process.nextTick(function() {
+    //
+    //             // check if the user is already logged in
+    //             if (!req.user) {
+    //
+    //                 forDb.Google.findOne({where : {id: profile.id}}).then(function(user) {
+    //                     if (!user){
+    //                         var newGoogle = forDb.Google.build({       //save
+    //                             id: profile.id,
+    //                             name: profile._json.displayName,
+    //                             email: profile._json.emails[0].value,
+    //                             token: token
+    //                         });
+    //                         newGoogle.save().done(function() {
+    //                             var newUser = forDb.User.build({       //save
+    //                                 google: profile.id
+    //                             }).save().done(function() {
+    //                                 forDb.User.findOne({where : {google: profile.id}}).then(function(usero) {
+    //                                     return done(null, usero.dataValues.id);
+    //                                 });
+    //                             });
+    //                         });
+    //                     }
+    //                     else {
+    //                         user.updateAttributes({
+    //                             id: profile.id,
+    //                             name: profile._json.displayName,
+    //                             email: profile._json.emails[0].value,
+    //                             token: token
+    //                         });
+    //
+    //                         forDb.User.findOne({where: {google: profile.id}}).then(function (usero) {
+    //                             return done(null, usero.dataValues.id);
+    //                         });
+    //                     }
+    //                 });
+    //             }
+    //             else {              //if Already login
+    //
+    //                 forDb.Google.findOne({where : {id: profile.id}}).then(function(userF) {
+    //                     if (!userF) {
+    //                         forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
+    //
+    //                             var newGoogle = forDb.Google.build({       //save
+    //                                 id: profile.id,
+    //                                 name: profile._json.displayName,
+    //                                 email: profile._json.emails[0].value,
+    //                                 token: token
+    //                             });
+    //                             newGoogle.save().done(function () {
+    //
+    //                                 usero.updateAttributes({
+    //                                     google: profile.id
+    //                                 }).done(function () {
+    //                                     return done(null, usero.dataValues.id);
+    //                                 });
+    //                             });
+    //                         });
+    //                     }
+    //                     else {
+    //                         console.log('That account was already taken.');
+    //                         return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
+    //                     }
+    //                 });
+    //             }
+    //         });
+    //     }));
 };

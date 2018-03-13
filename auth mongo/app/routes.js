@@ -208,24 +208,23 @@ module.exports = function(app, passport) {
 
 
 
-
-    app.get('/fraction',function(req, res) {
+    app.get('/fraction', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Fraction, res);
     });
 
-    app.get('/hero',function(req, res) {
+    app.get('/hero', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Hero, res);
     });
 
-    app.get('/magic',function(req, res) {
+    app.get('/magic', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Magic, res);
     });
 
-    app.get('/army',function(req, res) {
+    app.get('/army', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Army, res);
     });
 
-    app.get('/castle',function(req, res) {
+    app.get('/castle', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Castle, res);
     });
 
@@ -236,5 +235,5 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.redirect('/');
+    res.send('Please, log in');
 }

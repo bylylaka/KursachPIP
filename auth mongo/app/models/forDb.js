@@ -46,6 +46,9 @@ const Hero = sequelize.define('Hero', {
     experience: {
         type: Sequelize.INTEGER
     },
+    user: {
+        type: Sequelize.BIGINT
+    },
     gold: {
         type: Sequelize.INTEGER
     }},{

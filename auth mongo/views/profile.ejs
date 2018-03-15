@@ -5,12 +5,29 @@
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         body        { padding-top:80px; word-wrap:break-word; }
     </style>
 </head>
 <body>
 <div class="container">
+
+
+
+   <form id="form" action="/submitfraction" method="post" style="display: none">
+       <h2>Выбери фракцию!</h2>
+       <p><input name="fraction" type="radio" value="orda" checked> Орда </p>
+       <p><input name="fraction" type="radio" value="alians"> Альянс </p>
+       <p><input name="fraction" type="radio" value="elphs"> Эльфы </p>
+
+       <button type="submit" value="123">Отправить</button>
+   </form>
+
+
+
+
+
 
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
@@ -92,9 +109,20 @@
 
     </div>
 </div>
-
-
-
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/submitfraction",
+            success: function(data){
+                if (data == 'Этот пидр не выбрал фракцию!')
+                    $('#form').css('display', 'block');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

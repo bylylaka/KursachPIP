@@ -2,6 +2,10 @@ var forDb = require('./models/forDb');
 
 module.exports = function(app, passport) {
 
+    var bodyParser = require ( "body-parser" ) ;
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+
 // normal routes ===============================================================
 
     // show the home page (will also have our login links)
@@ -189,25 +193,6 @@ module.exports = function(app, passport) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     app.get('/fraction', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Fraction, res);
     });
@@ -228,7 +213,46 @@ module.exports = function(app, passport) {
         return forDb.findAl(forDb.Castle, res);
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    app.post('/submitfraction', isLoggedIn, function(req, res) {        //После регистрации
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
+                if (fraction != null)
+                    hero.updateAttributes({
+                        fraction: fraction.id
+                    });
+            });
+        });
+        res.send("Added fraction!");
+    });
+
+
+
+    app.get('/submitfraction', isLoggedIn, function(req, res) {        //После входа
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            if (hero.dataValues.fraction == null)
+                res.send("Этот пидр не выбрал фракцию!")
+        });
+        res.send("Он уже выбрал фракцию");
+    });
+
 };
+
+
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {

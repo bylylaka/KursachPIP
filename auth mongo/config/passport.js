@@ -36,8 +36,8 @@ module.exports = function(passport) {
         sequelize.query("SELECT \"user\".\"id\" as \"user_id\", \"facebook\".\"id\" as \"facebook_id\", \"local\".\"id\" as \"local_id\", \"local\".\"email\" AS \"local_email\", \"local\".\"password\" AS \"local_password\", \"facebook\".\"token\" AS \"facebook_token\", \"facebook\".\"email\" AS \"facebook_email\", \"facebook\".\"name\" AS \"facebook_name\",\n" +
             "\"twitter\".\"id\" as \"twitter_id\", \"twitter\".displayName as \"twitter_displayname\", \"twitter\".\"token\" as \"twitter_token\", \"twitter\".\"username\" as \"twitter_username\"\n" +
             "FROM \"user\" LEFT JOIN \"facebook\" ON \"user\".\"facebook\" = \"facebook\".\"id\" LEFT JOIN \"local\" ON \"user\".\"local\" = \"local\".\"id\" LEFT JOIN \"twitter\" ON \"user\".twitter = \"twitter\".\"id\" WHERE \"user\".\"id\" = "+id).spread((results, metadata) => {
-            console.log('\n\n\n\n\n\n');
-            console.log(results[0]);
+            // console.log('\n\n\n\n\n\n');
+            // console.log(results[0]);
             done(null, results[0]);
         });
     });
@@ -106,6 +106,21 @@ module.exports = function(passport) {
                                         local: user.dataValues.id
                                     }).save().done(function () {
                                         forDb.User.findOne({where: {local: user.dataValues.id}}).then(function (usero) {
+
+
+
+
+
+                                            var newHero = forDb.Hero.build({       //saveLocal
+                                                name: email,
+                                                user: usero.dataValues.id
+                                            });
+                                            newHero.save();
+
+
+
+
+
                                             return done(null, usero.dataValues.id);
                                         });
                                     });
@@ -179,6 +194,22 @@ module.exports = function(passport) {
                                     facebook: profile.id
                                 }).save().done(function() {
                                     forDb.User.findOne({where : {facebook: profile.id}}).then(function(usero) {
+
+
+
+
+
+
+                                        var newHero = forDb.Hero.build({       //saveLocal
+                                            name: profile.name.givenName+' '+profile.name.familyName,
+                                            user: usero.dataValues.id
+                                        });
+                                        newHero.save();
+
+
+
+
+
                                         return done(null, usero.dataValues.id);
                                     });
                                 });
@@ -261,6 +292,20 @@ module.exports = function(passport) {
                                     twitter: profile.id
                                 }).save().done(function() {
                                     forDb.User.findOne({where : {twitter: profile.id}}).then(function(usero) {
+
+
+
+
+
+                                        var newHero = forDb.Hero.build({       //saveLocal
+                                            name: profile._json.name,
+                                            user: usero.dataValues.id
+                                        });
+
+
+
+
+
                                         return done(null, usero.dataValues.id);
                                     });
                                 });
@@ -303,7 +348,7 @@ module.exports = function(passport) {
                             });
                         }
                         else {
-                            console.log('That account was already taken.');
+                             console.log('That account was already taken.');
                             return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
                         }
                     });

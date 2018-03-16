@@ -136,16 +136,6 @@ const Castle = sequelize.define('Castle', {
 
 
 
-
-
-
-
-
-
-
-
-
-
 const User = sequelize.define('user', {
     id: {
         type: Sequelize.BIGINT,
@@ -269,6 +259,25 @@ const google = sequelize.define('Google', {
 
 
 
+
+const messages = sequelize.define('Messages', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    message: {
+        type: Sequelize.STRING
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'messages'
+});
+
+
+
+
 // var newCastle = Castle.build({       //save
 //     fraction: 3
 // });
@@ -283,6 +292,28 @@ const google = sequelize.define('Google', {
 
 
 
+
+
+
+
+
+exports.addMessage = function addMessage(message) {        //Show all entities
+    var newMessage = messages.build({       //save
+        message: message
+    });
+    newMessage.save();
+};
+
+
+exports.getMessages = function getMessages() {        //Show all entities
+    messages.findAll().then(objes => {
+        return "123";
+    });
+};
+
+
+
+
 exports.findAl = function findAl(Obj, res) {        //Show all entities
     Obj.findAll().then(objes => {
         objes.forEach(function(ob) {
@@ -291,6 +322,9 @@ exports.findAl = function findAl(Obj, res) {        //Show all entities
         res.end();
     });
 };
+
+
+
 
 exports.Fraction = Fraction;
 exports.Hero = Hero;
@@ -302,3 +336,4 @@ exports.Local = Local;
 exports.Facebook = facebook;
 exports.Twitter = twitter;
 exports.Google = google;
+exports.Messages = messages;

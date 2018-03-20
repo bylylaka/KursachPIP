@@ -12,6 +12,7 @@ var configDB = require('./config/database.js');
 require('./config/passport')(passport); // pass passport for configuration
 var WebSocketServer = require('ws').Server;
 var forDb = require('./app/models/forDb');
+var expressWs = require('express-ws')(app);
 
 
 // set up our express application
@@ -36,37 +37,35 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 
 
-//WebSocket
-var clients = {};
-var wss = new WebSocketServer({ port: wsport });
-
-wss.on('connection', function (ws) {
-
-    var id = Math.random();
-    clients[id] = ws;
-
-
-    forDb.Messages.findAll().then(message => {
-        message.forEach(function(mes) {
-            console.log(mes.dataValues.message)
-            ws.send(mes.dataValues.message);
-        });
-    });
-
-
-    ws.on('message', function (message) {
-        for (var key in clients) {
-            clients[key].send(message);
-        }
-        forDb.addMessage(message);
-    });
-
-    ws.on('close', function() {
-        console.log('соединение закрыто ' + id);
-        delete clients[id];
-    });
-    console.log('User connected');
-});
+// //WebSocket
+// var clients = {};
+// var wss = new WebSocketServer({ port: wsport });
+//
+// wss.on('connection', function (ws, req) {
+//
+//     var id = Math.random();
+//     clients[id] = ws;
+//
+//     forDb.Messages.findAll().then(message => {
+//         message.forEach(function(mes) {
+//             ws.send(mes.dataValues.message);
+//         });
+//     });
+//
+//     ws.on('message', function (message) {
+//         for (var key in clients) {
+//             clients[key].send(message);
+//         }
+//         console.log('\n\n\n\n')
+//         forDb.addMessage(message);
+//     });
+//
+//     ws.on('close', function() {
+//         console.log('соединение закрыто ' + id);
+//         delete clients[id];
+//     });
+//     console.log('User connected');
+// });
 
 
 

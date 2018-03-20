@@ -216,6 +216,8 @@ module.exports = function(passport) {
                             });
                         }
                         else {
+                            if (!profile.emails)
+                                profile.emails=["null"];
                             user.updateAttributes({
                                 id: profile.id,
                                 email: profile.emails[0].value,
@@ -301,6 +303,7 @@ module.exports = function(passport) {
                                             name: profile._json.name,
                                             user: usero.dataValues.id
                                         });
+                                        newHero.save();
 
 
 

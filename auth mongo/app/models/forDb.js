@@ -266,6 +266,9 @@ const messages = sequelize.define('Messages', {
         primaryKey: true,
         autoIncrement: true
     },
+    hero: {
+        type: Sequelize.STRING,
+    },
     message: {
         type: Sequelize.STRING
     }},{
@@ -297,18 +300,12 @@ const messages = sequelize.define('Messages', {
 
 
 
-exports.addMessage = function addMessage(message) {        //Show all entities
+exports.addMessage = function addMessage(message, hero) {        //Show all entities
     var newMessage = messages.build({       //save
-        message: message
+        message: message,
+        hero: hero
     });
     newMessage.save();
-};
-
-
-exports.getMessages = function getMessages() {        //Show all entities
-    messages.findAll().then(objes => {
-        return "123";
-    });
 };
 
 

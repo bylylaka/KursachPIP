@@ -1,10 +1,12 @@
 var forDb = require('./models/forDb');
+var path    = require("path");
 
 module.exports = function(app, passport) {
-
+    var expressWs = require('express-ws')(app);
     var bodyParser = require ( "body-parser" ) ;
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
+    var clients = {};
 
 // normal routes ===============================================================
 
@@ -217,17 +219,6 @@ module.exports = function(app, passport) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     app.post('/submitfraction', isLoggedIn, function(req, res) {        //После регистрации
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
@@ -235,22 +226,70 @@ module.exports = function(app, passport) {
                     hero.updateAttributes({
                         fraction: fraction.id
                     });
+                res.send("Added fraction!");
             });
         });
-        res.send("Added fraction!");
     });
-
 
 
     app.get('/submitfraction', isLoggedIn, function(req, res) {        //После входа
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             if (hero.dataValues.fraction == null)
-                res.send("Этот пидр не выбрал фракцию!")
+                res.send("Этот пидр не выбрал фракцию!");
+            else
+                res.send("Он уже выбрал фракцию");
         });
-        res.send("Он уже выбрал фракцию");
     });
 
+
+
+
+
+
+
+
+
+
+
+
+    // PROFILE SECTION =========================
+    app.get('/chat', isLoggedIn, function(req, res) {
+        res.sendFile(path.join(__dirname+'/../views/ws.html'));
+    });
+
+    app.ws('/echo', function(ws, req) {         //Тут типо WebSocket
+        var id;
+        var name;
+
+        forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            id = user.dataValues.id;
+            clients[id] = ws;
+        });
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            name = hero.dataValues.name;
+        });
+
+        forDb.Messages.findAll().then(message => {
+            message.forEach(function(mes) {
+                ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
+            });
+        });
+
+        ws.on('message', function (message) {
+            for (var key in clients) {
+                clients[key].send(name+':\t'+message);
+            }
+            forDb.addMessage(message, name);
+        });
+
+        ws.on('close', function() {
+            console.log('соединение закрыто ' + id);
+            delete clients[id];
+        });
+        console.log('User connected');
+    });
 };
+
 
 
 

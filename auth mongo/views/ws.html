@@ -21,15 +21,11 @@
 
 
 <script>
-    var ws = new WebSocket('ws://localhost:8081');
+    var ws = new WebSocket('ws://localhost:8080/echo');
 
     ws.onopen = function () {
         console.log('websocket is connected ...');
     };
-
-
-
-
 
     document.forms.publish.onsubmit = function() {
         var outgoingMessage = this.message.value;
@@ -37,10 +33,8 @@
         return false;
     };
 
-
     ws.onmessage = function(event) {
         var incomingMessage = event.data;
-        console.log('Сообщение:  ' + incomingMessage);
         showMessage(incomingMessage);
     };
 

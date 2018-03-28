@@ -211,8 +211,8 @@ module.exports = function(app, passport) {
         return forDb.findAl(forDb.Army, res);
     });
 
-    app.get('/castle', isLoggedIn, function(req, res) {
-        return forDb.findAl(forDb.Castle, res);
+    app.get('/castle', isLoggedIn, function(req, res) {         //ВЕРНИ АУТИНТИФИКАЦИЮ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        forDb.findAl(forDb.Castle, res);
     });
 
 
@@ -298,5 +298,5 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.send('Please, log in');
+    res.send({"Error":"Please, log in"});
 }

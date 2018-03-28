@@ -1,17 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+//import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './index.css';
-
-
-function Forma() {
-    return (<div className="text-center">
-        <p>Login or Register with:</p>
-        <a href="/login" className="btn btn-default"><span className="fa fa-user"></span> Local Login</a>
-        <a href="/signup" className="btn btn-default"><span className="fa fa-user"></span> Local Signup</a>
-        <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
-        <a href="/auth/twitter" className="btn btn-info"><span className="fa fa-twitter"></span> Twitter</a>
-    </div>)
-}
+var React = require('react');
+var ReactDOM = require('react-dom');
+var BrowserRouter = require ('react-router-dom').BrowserRouter;
+var Route = require ('react-router-dom').Route;
+var Link = require ('react-router-dom').Link;
 
 
 function Header() {
@@ -20,5 +15,73 @@ function Header() {
     </div>);
 }
 
+const BasicExample = () => (
+    <div>
+        <BrowserRouter>
+            <div>
+                <Route exact path="/" component={Main} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Login} />
+                <Route path="/auth/facebook" component={Login} />
+                <Route path="/auth/twitter" component={Login} />
+            </div>
+        </BrowserRouter>
+    </div>
+);
 
-ReactDOM.render(<div><Header/><Forma/></div>, document.getElementById('root'))
+
+const Main = () => (
+        <div className="text-center">
+            <Header/>
+            <p>Login or Register with:</p>
+            <Link to="/login"> Local Login</Link>
+            <Link to="/signup"> Local Signup</Link>
+            <Link to="/auth/facebook"> Facebook</Link>
+            <Link to="/auth/twitter"> Twitter</Link>
+            <hr />
+        </div>
+);
+
+const Login = () => (
+    <div className="text-center">
+        <Header/>
+        <form action="/login" method="post">
+            <div>
+                <label>Email</label>
+                <input type="text" name="email"/>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password"/>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+);
+
+
+const About = () => (
+    <div>
+        <Header/>
+        <h2>About</h2>
+    </div>
+);
+
+
+function REstApi() {
+    fetch('/castle')
+        .then((res) => {
+            res.json().then((data) => {
+                console.log(data);  //Вывод в консоль
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    return (<p>Hello</p>);
+}
+
+
+
+ReactDOM.render(<REstApi></REstApi>, document.getElementById('root'))

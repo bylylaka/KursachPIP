@@ -313,10 +313,7 @@ exports.addMessage = function addMessage(message, hero) {        //Show all enti
 
 exports.findAl = function findAl(Obj, res) {        //Show all entities
     Obj.findAll().then(objes => {
-        objes.forEach(function(ob) {
-            res.write(JSON.stringify(ob.dataValues));
-        });
-        res.end();
+        res.send(objes);
     });
 };
 

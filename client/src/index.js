@@ -1,7 +1,9 @@
 //import React from 'react';
 // import ReactDOM from 'react-dom';
 // import { BrowserRouter, Route, Link } from 'react-router-dom';
+// import axios from "axios";
 import './index.css';
+import AllCustles from './forCustle'
 var React = require('react');
 var ReactDOM = require('react-dom');
 var BrowserRouter = require ('react-router-dom').BrowserRouter;
@@ -24,6 +26,7 @@ const BasicExample = () => (
                 <Route path="/signup" component={Login} />
                 <Route path="/auth/facebook" component={Login} />
                 <Route path="/auth/twitter" component={Login} />
+                <Route path="/castle" component={AllCustles} />
             </div>
         </BrowserRouter>
     </div>
@@ -73,7 +76,7 @@ function REstApi() {
     fetch('/castle')
         .then((res) => {
             res.json().then((data) => {
-                console.log(data);  //Вывод в консоль
+                console.log(data.Error);  //Вывод в консоль
             })
         })
         .catch((err) => {
@@ -84,4 +87,11 @@ function REstApi() {
 
 
 
-ReactDOM.render(<REstApi></REstApi>, document.getElementById('root'))
+
+
+
+
+
+
+
+ReactDOM.render(<BasicExample/>, document.getElementById('root'))

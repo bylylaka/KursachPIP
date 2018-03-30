@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/castle', // redirect to the secure profile section      //БЫЛО profile!!!!!!!!!!!!!!!!!!!!!
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -211,7 +211,7 @@ module.exports = function(app, passport) {
         return forDb.findAl(forDb.Army, res);
     });
 
-    app.get('/castle', isLoggedIn, function(req, res) {         //ВЕРНИ АУТИНТИФИКАЦИЮ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    app.get('/castle', isLoggedIn, function(req, res) {     //ВЕРНИ isLoggedIn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         forDb.findAl(forDb.Castle, res);
     });
 
@@ -298,5 +298,5 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.send({"Error":"Please, log in"});
+    res.send();
 }

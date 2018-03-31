@@ -27,6 +27,7 @@ const BasicExample = () => (
                 <Route path="/auth/facebook" component={Login} />
                 <Route path="/auth/twitter" component={Login} />
                 <Route path="/castle" component={AllCustles} />
+                <Route path="/profile" component={Profile} />
             </div>
         </BrowserRouter>
     </div>
@@ -87,9 +88,12 @@ function REstApi() {
 
 
 
-
-
-
+const Profile = () => (
+    <div>
+        <Header/>
+        <h2>Hello!</h2>
+    </div>
+);
 
 
 

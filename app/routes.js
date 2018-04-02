@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/castle', // redirect to the secure profile section      //БЫЛО profile!!!!!!!!!!!!!!!!!!!!!
+        successRedirect : '/profile', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -211,14 +211,32 @@ module.exports = function(app, passport) {
         return forDb.findAl(forDb.Army, res);
     });
 
-    app.get('/castle', isLoggedIn, function(req, res) {     //ВЕРНИ isLoggedIn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        forDb.findAl(forDb.Castle, res);
+    app.get('/castle', isLoggedIn, function(req, res) {
+        //forDb.findAl(forDb.Castle, res);
+        forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            forDb.availableCastles(forDb.Castle, forDb.Hero, user, res);
+        });
+    });
+
+
+    app.get('/enter/:id', isLoggedIn, function(req, res) {
+        forDb.Hero.update({ castle: req.params.id }, { where : {user: req.user.user_id } }).then(function () {
+            res.send("Success, sukan!");
+        });
+    });
+
+
+    app.get('/castles/:castle', isLoggedIn, function(req, res) {
+        //res.send("castle is " + req.params.castle);
+        forDb.Castle.findAll({ where: { name : req.params.castle } }).then(function (castle) {
+            res.send(castle);
+        });
     });
 
 
 
 
-
+    /*
     app.post('/submitfraction', isLoggedIn, function(req, res) {        //После регистрации
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
@@ -241,6 +259,7 @@ module.exports = function(app, passport) {
         });
     });
 
+*/
 
 
 

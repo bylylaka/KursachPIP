@@ -3,7 +3,11 @@
 // import { BrowserRouter, Route, Link } from 'react-router-dom';
 // import axios from "axios";
 import './index.css';
-import AllCustles from './forCustle'
+import Castle from "./castle";
+import AllCastles from "./forCastle";
+
+import Enter from "./enter";
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var BrowserRouter = require ('react-router-dom').BrowserRouter;
@@ -26,7 +30,9 @@ const BasicExample = () => (
                 <Route path="/signup" component={Login} />
                 <Route path="/auth/facebook" component={Login} />
                 <Route path="/auth/twitter" component={Login} />
-                <Route path="/castle" component={AllCustles} />
+                <Route path="/castle" component={AllCastles} />
+                <Route path="/castles/:castle" component={Castle} />
+                <Route path="/enter/:castle_id" component={Enter} />
             </div>
         </BrowserRouter>
     </div>
@@ -73,7 +79,7 @@ const About = () => (
 
 
 function REstApi() {
-    fetch('/castle')
+    fetch('/castlePPPPPP')
         .then((res) => {
             res.json().then((data) => {
                 console.log(data.Error);  //Вывод в консоль
@@ -84,14 +90,6 @@ function REstApi() {
         })
     return (<p>Hello</p>);
 }
-
-
-
-
-
-
-
-
 
 
 ReactDOM.render(<BasicExample/>, document.getElementById('root'))

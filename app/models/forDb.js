@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+    host: 'localhost',
+    dialect: 'postgres',
+});
 sequelize
     .authenticate()
     .then(() => {
@@ -27,6 +30,27 @@ const Fraction = sequelize.define('Fraction', {
 
 
 
+const Castle = sequelize.define('Castle', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    fraction: {
+        type: Fraction
+    },
+    name: {
+        type: Sequelize.STRING
+    },
+    rating: {
+        type: Sequelize.INTEGER
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'castle'
+});
+
 
 const Hero = sequelize.define('Hero', {
     id: {
@@ -40,8 +64,8 @@ const Hero = sequelize.define('Hero', {
     gender: {
         type: Sequelize.STRING
     },
-    fraction: {///////////////
-        type: Fraction
+    castle: {///////////////
+        type: Castle
     },
     experience: {
         type: Sequelize.INTEGER
@@ -117,21 +141,6 @@ const Army = sequelize.define('Army', {
 
 
 
-
-const Castle = sequelize.define('Castle', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    fraction: {
-        type: Fraction
-    }},{
-    timestamps: false,
-    freezeTableName: true,
-    // define the table's name
-    tableName: 'castle'
-});
 
 
 
@@ -318,7 +327,23 @@ exports.findAl = function findAl(Obj, res) {        //Show all entities
 };
 
 
-
+exports.availableCastles = function availableCastles(castle, hero, user, res) {;
+    //res.write(her.dataValues.user + '');
+    //res.end();
+    hero.findOne({
+        where : { user: user.id }
+    }).then(function(heroChild) {
+        castle.findOne({
+            where : { id: heroChild.castle }
+        }).then(function(castleChild) {
+            castle.findAll({
+                where: {fraction: castleChild.fraction}
+            }).then(function (fractionChildren) {
+                res.send(fractionChildren);
+            })
+        })
+    })
+};
 
 exports.Fraction = Fraction;
 exports.Hero = Hero;

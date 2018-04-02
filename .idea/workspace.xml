@@ -5360,11 +5360,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="507">
               <caret line="34" column="46" lean-forward="false" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+=======
+            <state relative-caret-position="136">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
               <folding>
                 <element signature="e#162#183#0" expanded="true" />
               </folding>
@@ -5372,6 +5377,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="forCastle.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/forCastle.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -5399,6 +5405,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
               <caret line="24" column="38" lean-forward="false" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+=======
+      <file leaf-file-name="forCustle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/forCustle.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="325">
+              <caret line="19" column="5" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
               <folding />
             </state>
           </provider>
@@ -5407,8 +5420,23 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="218">
               <caret line="221" column="14" lean-forward="true" selection-start-line="221" selection-start-column="14" selection-end-line="221" selection-end-column="14" />
+=======
+            <state relative-caret-position="-1834">
+              <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/profile.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="45" column="27" lean-forward="false" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="27" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
               <folding />
             </state>
           </provider>
@@ -5426,6 +5454,17 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
+=======
+      <find>findAl</find>
+      <find>send</find>
+      <find>submitfraction</find>
+      <find>user</find>
+      <find>hero</find>
+      <find>test</find>
+      <find>session</find>
+      <find>ws</find>
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
       <find>add</find>
       <find>express</find>
       <find>dev</find>
@@ -5444,6 +5483,7 @@
       <find>fet</find>
       <find>cast</find>
       <find>Login</find>
+<<<<<<< HEAD
       <find>.js</find>
       <find>login</find>
       <find>index.js</find>
@@ -5456,6 +5496,11 @@
       <find>rest</find>
       <find>castle</find>
       <find>BasicExample</find>
+=======
+      <find>REstApi</find>
+      <find>prof</find>
+      <find>Test</find>
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -5480,6 +5525,7 @@
         <option value="$PROJECT_DIR$/client/package.json" />
         <option value="$PROJECT_DIR$/views/profile.ejs" />
         <option value="$PROJECT_DIR$/client/src/forCustle.js" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/models/forDb.js" />
         <option value="$PROJECT_DIR$/client/src/forCastle.js" />
         <option value="$PROJECT_DIR$/config/passport.js" />
@@ -5488,6 +5534,10 @@
         <option value="$PROJECT_DIR$/app/routes.js" />
         <option value="$PROJECT_DIR$/client/src/index.js" />
         <option value="$PROJECT_DIR$/client/src/enter.js" />
+=======
+        <option value="$PROJECT_DIR$/app/routes.js" />
+        <option value="$PROJECT_DIR$/client/src/index.js" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
       </list>
     </option>
   </component>
@@ -5512,7 +5562,7 @@
     <handled-path value="$PROJECT_DIR$/client/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -5541,6 +5591,7 @@
               <item name="KursachPIP" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
+<<<<<<< HEAD
               <item name="KursachPIP" type="b2602c69:ProjectViewProjectNode" />
               <item name="KursachPIP" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
@@ -5559,6 +5610,10 @@
             <path>
               <item name="KursachPIP" type="b2602c69:ProjectViewProjectNode" />
               <item name="KursachPIP" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="auth mongo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="auth mongo" type="462c0819:PsiDirectoryNode" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -5691,17 +5746,25 @@
       <workItem from="1522159471470" duration="88000" />
       <workItem from="1522262593190" duration="5916000" />
       <workItem from="1522421672505" duration="228000" />
+<<<<<<< HEAD
       <workItem from="1522430760920" duration="6955000" />
       <workItem from="1522534610558" duration="762000" />
       <workItem from="1522535394166" duration="41668000" />
+=======
+      <workItem from="1522430760920" duration="9246000" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="200099000" />
+=======
+    <option name="totallyTimeSpent" value="159960000" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2359375" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -5710,7 +5773,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31707317" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3573701" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3220697" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997879" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -5952,6 +6019,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/views/profile.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1938">
@@ -5961,6 +6029,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/package.json">
+=======
+    <entry file="file://$PROJECT_DIR$/client/yarn.lock" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="36" lean-forward="true" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
@@ -6024,10 +6096,17 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/src/success.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+=======
+    <entry file="file://$PROJECT_DIR$/client/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
           <folding />
         </state>
       </provider>
@@ -6040,16 +6119,24 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="221" column="14" lean-forward="true" selection-start-line="221" selection-start-column="14" selection-end-line="221" selection-end-column="14" />
+=======
+    <entry file="file://$PROJECT_DIR$/views/profile.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="45" column="27" lean-forward="false" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="27" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/index.js">
+    <entry file="file://$PROJECT_DIR$/app/routes.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="507">
           <caret line="34" column="46" lean-forward="false" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
           <folding>
@@ -6080,7 +6167,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="38" lean-forward="false" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+=======
+        <state relative-caret-position="-1834">
+          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="31" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/forCustle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="19" column="5" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#162#183#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

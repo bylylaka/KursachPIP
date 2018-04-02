@@ -212,10 +212,14 @@ module.exports = function(app, passport) {
     });
 
     app.get('/castle', isLoggedIn, function(req, res) {
+<<<<<<< HEAD
         //forDb.findAl(forDb.Castle, res);
         forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
             forDb.availableCastles(forDb.Castle, forDb.Hero, user, res);
         });
+=======
+        forDb.findAl(forDb.Castle, res);
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
     });
 
 

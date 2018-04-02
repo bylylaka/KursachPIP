@@ -30,9 +30,14 @@ const BasicExample = () => (
                 <Route path="/signup" component={Login} />
                 <Route path="/auth/facebook" component={Login} />
                 <Route path="/auth/twitter" component={Login} />
+<<<<<<< HEAD
                 <Route path="/castle" component={AllCastles} />
                 <Route path="/castles/:castle" component={Castle} />
                 <Route path="/enter/:castle_id" component={Enter} />
+=======
+                <Route path="/castle" component={AllCustles} />
+                <Route path="/profile" component={Profile} />
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
             </div>
         </BrowserRouter>
     </div>
@@ -92,4 +97,18 @@ function REstApi() {
 }
 
 
+<<<<<<< HEAD
+=======
+
+const Profile = () => (
+    <div>
+        <Header/>
+        <h2>Hello!</h2>
+    </div>
+);
+
+
+
+
+>>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
 ReactDOM.render(<BasicExample/>, document.getElementById('root'))

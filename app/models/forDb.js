@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-    host: 'localhost',
-    dialect: 'postgres',
-});
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 sequelize
     .authenticate()
     .then(() => {
@@ -331,7 +328,7 @@ exports.availableCastles = function availableCastles(castle, hero, user, res) {;
     //res.write(her.dataValues.user + '');
     //res.end();
     hero.findOne({
-        where : { user: user.id }
+        where : { user: user.user_id }
     }).then(function(heroChild) {
         castle.findOne({
             where : { id: heroChild.castle }

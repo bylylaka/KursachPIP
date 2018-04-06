@@ -1,14 +1,14 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js dev
+  D:\Node js\node.exe D:\yarn\bin\yarn.js deb
 
 PATH: 
-  C:\Program Files\Haskell\bin;D:\Program Files\Haskell Platform\8.2.2\lib\extralibs\bin;D:\Program Files\Haskell Platform\8.2.2\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Intel\iCLS Client\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\Common Files\Acronis\VirtualFile\;C:\Program Files (x86)\Common Files\Acronis\VirtualFile64\;C:\Program Files (x86)\Common Files\Acronis\FileProtector\;C:\Program Files (x86)\Common Files\Acronis\FileProtector64\;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;D:\Program Files\nodejs\;D:\Program Files\Haskell Platform\8.2.2\mingw\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\maxim\AppData\Roaming\cabal\bin;C:\Users\maxim\AppData\Roaming\local\bin;C:\Users\maxim\AppData\Local\Microsoft\WindowsApps;C:\Users\maxim\AppData\Local\atom\bin;C:\masm32\bin;C:\Users\maxim\AppData\Local\Microsoft\WindowsApps;C:\Users\maxim\AppData\Local\GitHubDesktop\bin;C:\Users\maxim\AppData\Roaming\npm;C:\Users\maxim\AppData\Local\Yarn\bin
+  C:\Program Files\Haskell\bin;D:\haskel\8.2.2\lib\extralibs\bin;D:\haskel\8.2.2\bin;D:\oracle\db11g\app\oracle\product\11.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;D:\Git\cmd;C:\Program Files (x86)\Skype\Phone\;D:\masm32\bin;C:\Program Files(x86)\PuTTY\;C:\Program Files\Java\jdk1.8.0_131\bin;D:\Node js\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\haskel\8.2.2\mingw\bin;D:\yarn\bin\;C:\Users\Максим\AppData\Roaming\cabal\bin;D:\haskel\bin;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Local\atom\bin;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Roaming\npm;C:\Users\Максим\AppData\Local\GitHubDesktop\bin;D:\cygwin64FUCK\bin\cmake.exe;;D:\ VS Code\bin;C:\Users\Максим\AppData\Local\Yarn\bin
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  8.9.4
+  9.3.0
 
 Platform: 
   win32 x64
@@ -1152,17 +1152,14 @@ Lockfile:
       xmldom "0.1.x"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c concurrently --kill-others-on-fail "yarn server" "yarn client"
-  Directory: C:\Users\maxim\Desktop\pip_bitch\KursachPIP
-  Output:
-  
-      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
-      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
-      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
-      at emitTwo (events.js:126:13)
-      at ChildProcess.emit (events.js:214:7)
-      at maybeClose (internal/child_process.js:925:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
+  Error: Command "deb" not found. Did you mean "dev"?
+      at new MessageError (D:\yarn\lib\cli.js:186:110)
+      at D:\yarn\lib\cli.js:87307:17
+      at Generator.next (<anonymous>)
+      at step (D:\yarn\lib\cli.js:98:30)
+      at D:\yarn\lib\cli.js:116:14
+      at new Promise (<anonymous>)
+      at new F (D:\yarn\lib\cli.js:23451:28)
+      at D:\yarn\lib\cli.js:95:12
+      at runCommand (D:\yarn\lib\cli.js:87312:22)
+      at Object.<anonymous> (D:\yarn\lib\cli.js:87412:14)

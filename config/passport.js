@@ -2,10 +2,7 @@ var forDb = require('./../app/models/forDb');
 
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-    host: 'localhost',
-    dialect: 'postgres',
-});
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 sequelize
     .authenticate()
     .then(() => {

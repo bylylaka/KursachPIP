@@ -212,14 +212,10 @@ module.exports = function(app, passport) {
     });
 
     app.get('/castle', isLoggedIn, function(req, res) {
-<<<<<<< HEAD
         //forDb.findAl(forDb.Castle, res);
-        forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
-            forDb.availableCastles(forDb.Castle, forDb.Hero, user, res);
-        });
-=======
-        forDb.findAl(forDb.Castle, res);
->>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
+        //forDb.Local.findOne({where : {id: req.user}}).then(function(user) {
+            forDb.availableCastles(forDb.Castle, forDb.Hero, req.user, res);
+        //});
     });
 
 
@@ -237,6 +233,20 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/myHero', isLoggedIn, function(req, res) {
+        forDb.Hero.findAll({ where: { user : req.user.user_id } }).then(function (hero) {
+            res.send(hero);
+        });
+    });
+
+    app.post('/changeProlile', isLoggedIn, function (req, res) {
+        console.log('\n\n\n');
+        console.log(req.body)
+        forDb.Hero.update({ name: req.body.name, castle: req.body.castle, gender: req.body.gender, gold: req.body.gold},
+            { where : {user: req.user.user_id } }).then(function () {
+            res.send();
+        });
+    });
 
 
 

@@ -288,6 +288,68 @@ const messages = sequelize.define('Messages', {
 });
 
 
+const Post = sequelize.define('Post', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    title: {
+        type: Sequelize.STRING,
+    },
+    content: {
+        type: Sequelize.STRING
+    },
+    user_id: {
+        type: User
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'post'
+});
+
+const Comment = sequelize.define('Comment', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    content: {
+        type: Sequelize.STRING,
+    },
+    post_id: {
+        type: Post
+    },
+    user_id: {
+        type: User
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'comment'
+});
+
+const Likes = sequelize.define('Likes', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    post_id: {
+        type: Post
+    },
+    user_id: {
+        type: User
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'likes'
+});
+
+
+
 
 
 // var newCastle = Castle.build({       //save
@@ -331,7 +393,7 @@ exports.availableCastles = function availableCastles(castle, hero, user, res) {;
     //res.write(her.dataValues.user + '');
     //res.end();
     hero.findOne({
-        where : { user: user.id }
+        where : { user: user.user_id }
     }).then(function(heroChild) {
         castle.findOne({
             where : { id: heroChild.castle }
@@ -356,3 +418,7 @@ exports.Facebook = facebook;
 exports.Twitter = twitter;
 exports.Google = google;
 exports.Messages = messages;
+
+exports.Post = Post;
+exports.Comment = Comment;
+exports.Likes = Likes;

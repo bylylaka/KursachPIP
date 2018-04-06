@@ -36,3 +36,41 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 app.listen(port);
 
 console.log('The magic happens on port ' + port);
+
+
+
+
+
+/////////////////////////////
+
+var xmpp = require('simple-xmpp');
+
+xmpp.on('online', function(data) {
+    console.log('Connected with JID: ' + data.jid.user);
+    xmpp.send('maximus0371@jabber.com', 'hello! time is ' + new Date(), false);
+});
+
+xmpp.on('chat', function(from, message) {
+    xmpp.send(from, 'echo: ' + message);
+});
+
+xmpp.on('error', function(err) {
+    console.error(err);
+});
+
+xmpp.on('subscribe', function(from) {
+    if (from === 'maximus0371@jabber.ru') {
+        xmpp.acceptSubscription(from);
+    }
+});
+
+xmpp.connect({
+    jid	                : 'maximus1998g@jabber.ru',
+    password		    : '1qaz@WSX',
+    host				: 'jabber.ru',
+    port				: 5222
+});
+
+xmpp.subscribe('maximus0371@jabber.ru');
+// check for incoming subscription requests
+xmpp.getRoster();

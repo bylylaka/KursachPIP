@@ -6,6 +6,8 @@ import './index.css';
 import Castle from "./castle";
 import AllCastles from "./forCastle";
 
+import Posts from "./posts";
+import Post from "./post";
 import Enter from "./enter";
 
 var React = require('react');
@@ -30,14 +32,12 @@ const BasicExample = () => (
                 <Route path="/signup" component={Login} />
                 <Route path="/auth/facebook" component={Login} />
                 <Route path="/auth/twitter" component={Login} />
-<<<<<<< HEAD
                 <Route path="/castle" component={AllCastles} />
                 <Route path="/castles/:castle" component={Castle} />
                 <Route path="/enter/:castle_id" component={Enter} />
-=======
-                <Route path="/castle" component={AllCustles} />
                 <Route path="/profile" component={Profile} />
->>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
+                <Route path="/posts" component={Posts} />
+                <Route path="/post/:post" component={Post} />
             </div>
         </BrowserRouter>
     </div>
@@ -97,9 +97,6 @@ function REstApi() {
 }
 
 
-<<<<<<< HEAD
-=======
-
 const Profile = () => (
     <div>
         <Header/>
@@ -109,6 +106,4 @@ const Profile = () => (
 
 
 
-
->>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
 ReactDOM.render(<BasicExample/>, document.getElementById('root'))

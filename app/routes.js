@@ -212,14 +212,11 @@ module.exports = function(app, passport) {
     });
 
     app.get('/castle', isLoggedIn, function(req, res) {
-<<<<<<< HEAD
+
         //forDb.findAl(forDb.Castle, res);
-        forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
-            forDb.availableCastles(forDb.Castle, forDb.Hero, user, res);
-        });
-=======
-        forDb.findAl(forDb.Castle, res);
->>>>>>> fde7b4c4868fb92a3810acedfa25519e5257819e
+        //forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            forDb.availableCastles(forDb.Castle, forDb.Hero, req.user, res);
+        //});
     });
 
 
@@ -238,6 +235,73 @@ module.exports = function(app, passport) {
     });
 
 
+    /**************************************POSTS LOGIC(BEGIN)**********************************************************/
+    const promise = require('bluebird');
+    const initOptions = {
+        promiseLib: promise // overriding the default (ES6 Promise);
+    };
+    const pgp = require('pg-promise')(initOptions);
+    const cn = {
+        host: 'localhost', // 'localhost' is the default;
+        port: 5432, // 5432 is the default;
+        database: 'heroes',
+        user: 'postgres',
+        password: '1qaz@WSX'
+    };
+
+    const db = pgp(cn); // database instance;
+
+    /*
+    app.get('/post/:post', isLoggedIn, function(req, res) {
+        promise.all([
+            db.query("SELECT * FROM Post WHERE id = " + req.params.post),
+            db.query("SELECT * FROM Comment WHERE post_id = " + req.params.post),
+            db.query("SELECT COUNT(id) FROM  Likes WHERE post_id = " + req.params.post)
+        ]).then(([post, comments, likes]) =>
+            res.send({
+                post,
+                comments,
+                likes
+            }))
+            .catch(err => res.send('Ops, something has gone wrong'))
+    });
+    */
+
+
+    app.get('/post/:post/comments', isLoggedIn, function(req, res) {
+        forDb.Comment.findAll({ where: { post_id : req.params.post } }).then(function (comments) {
+            res.send(comments);
+        });
+    });
+
+    app.get('/post/:post/likes', isLoggedIn, function(req, res) {
+        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
+            //res.send(result.count);
+            res.send(result.rows);
+            //console.log(result.rows);
+        });
+
+    });
+
+    app.get('/post/:post', isLoggedIn, function(req, res) {
+        forDb.Post.findAll({ where: { id : req.params.post } }).then(function (post) {
+            res.send(post);
+        });
+    });
+
+
+
+    app.get('/posts', isLoggedIn, function(req, res) {
+        forDb.findAl(forDb.Post, res);
+    });
+
+
+    app.get('/posts', isLoggedIn, function(req, res) {
+        forDb.findAl(forDb.Post, res);
+    });
+
+
+    /**************************************POSTS LOGIC(END)************************************************************/
 
 
     /*

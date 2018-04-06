@@ -5,6 +5,7 @@
 import './index.css';
 import Castle from "./castle";
 import AllCastles from "./forCastle";
+import Profile from "./profile"
 
 import Posts from "./posts";
 import Post from "./post";
@@ -83,6 +84,7 @@ const About = () => (
 );
 
 
+<<<<<<< HEAD
 function REstApi() {
     fetch('/castlePPPPPP')
         .then((res) => {
@@ -105,5 +107,19 @@ const Profile = () => (
 );
 
 
+=======
+// function REstApi() {
+//     fetch('/castlePPPPPP')
+//         .then((res) => {
+//             res.json().then((data) => {
+//                 console.log(data.Error);  //Вывод в консоль
+//             })
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+//     return (<p>Hello</p>);
+// }
+>>>>>>> cd457a7f31ad64dc3c98cfe87f12782570e25934
 
 ReactDOM.render(<BasicExample/>, document.getElementById('root'))

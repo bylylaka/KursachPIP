@@ -329,6 +329,8 @@ module.exports = function(app, passport) {
         res.end();
     });
 
+    /*****************************************************************************************************************/
+    /*
     app.get('/post/:post/addLike', function(req, res) {
         forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
             if(!like){
@@ -351,6 +353,53 @@ module.exports = function(app, passport) {
 
         res.end();
     });
+    */
+
+
+
+
+    app.ws('/post/:post/addLike', function(ws, req) {
+
+        let likes = 0;
+        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
+            likes = result.count;
+            ws.send(likes);
+        });
+
+        let id;
+        forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            id = user.dataValues.id;
+            clients[id] = ws;
+        });
+
+        ws.on('message', function () {
+
+            forDb.addOrRemoveLike(req.params.post, req.user.user_id);
+
+            forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
+                likes = result.count;
+                ws.send(likes);
+            });
+
+        });
+
+        ws.on('close', function() {
+            console.log('соединение закрыто ' + id);
+            delete clients[id];
+        });
+    });
+
+
+
+
+
+
+
+
+
+    /*****************************************************************************************************************/
+
+
 
     app.post('/addPost', function(req, res) {
         let newPost = forDb.Post.build({

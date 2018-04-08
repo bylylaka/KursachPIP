@@ -10,9 +10,11 @@ export default class Post extends React.Component {
             post: '',
             comments: '',
             heroes: '',
-            likes: 0,
+            likes: new Array(),
             comment_content: '',
-            hero: ''
+            hero: '',
+
+            like: 213
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,6 +24,17 @@ export default class Post extends React.Component {
 
     componentDidMount() {
         const { post } = this.props.match.params;
+
+        //////////////////////////////////////////////
+        this.connection = new WebSocket(`ws://localhost:8080/post/${post}/addLike`);
+        // listen to onmessage event
+        this.connection.onmessage = evt => {
+            // add the new message to state
+            this.setState({
+                likes: [evt.data]
+            })
+        };
+        //////////////////////////////////////////////;
 
         axios.all([
             axios.get(`/post/${post}`),
@@ -33,7 +46,8 @@ export default class Post extends React.Component {
             .then(axios.spread((post, comments, likes, heroes, hero) => {
                 this.setState({ post: post.data });
                 this.setState({ comments: comments.data });
-                this.setState({ likes: likes.data });
+                //////////////////////////////изменить на Likes
+                this.setState({ like: likes.data });
                 this.setState({ heroes: heroes.data });
 
 
@@ -66,20 +80,22 @@ export default class Post extends React.Component {
 
     addLike(event){
         const { post } = this.props.match.params;
+        this.connection.send(this.state.likes);
 
+        /*
         axios
             .get(`/post/${post}/addLike`)
             .then()
             .catch(error => console.log(error));
 
-
-        /*refresh page*/
         window.location.reload();
+        */
     }
 
     Likes(){
         return (
-            <button onClick={this.addLike}>Лукасов: {this.state.likes.length}</button>
+            <button onClick={this.addLike}>Лукасов: {this.state.likes}</button>
+            //<button onClick={this.addLike}>Лукасов: {this.state.likes.length}</button>
         )
     }
 
@@ -131,6 +147,7 @@ export default class Post extends React.Component {
         );
     }
 
+    //{this.Likes ()}
     render() {
         return (
             <div className="App">
@@ -139,7 +156,8 @@ export default class Post extends React.Component {
                 <a>Комментарии:</a>
                 <hr/>
                 {this.Comments ()}
-                {this.Likes ()}
+                <button onClick={this.addLike}>Лукасов: {this.state.likes}</button>
+
                 <br/>
                 {this.AddComment ()}
                 <br/><hr/>

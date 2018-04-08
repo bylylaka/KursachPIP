@@ -25,18 +25,18 @@ export default class Chat extends React.Component {
     }
 
     handleData(data) {
-        this.state.messages.push(data)
+        this.state.messages.push(data);
         this.setState({ mes: data});
     }
 
     handleSubmit = event => {
         event.preventDefault();
         this.connection.send(this.state.mes);
-    }
+    };
 
     onChange = e => {
         this.setState({ mes: e.target.value });
-    }
+    };
 
 
 render() {
@@ -46,7 +46,7 @@ render() {
                 <input type="text" name="message" onChange={this.onChange}/>
                 <input type="submit" value="Отправить"/>
             </form>
-            <div>{ this.state.messages.map( (msg) => <p >{ msg }</p> )}</div>
+            <div>{ this.state.messages.map( (msg) => <p>{ msg }</p> )}</div>
         </div>
     );
 }

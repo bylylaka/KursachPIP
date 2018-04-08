@@ -336,40 +336,12 @@ module.exports = function(app, passport) {
         res.end();
     });
 
-    /*****************************************************************************************************************/
-    /*
-    app.get('/post/:post/addLike', function(req, res) {
-        forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
-            if(!like){
-                let newLike = forDb.Likes.build({
-                    post_id: req.params.post,
-                    user_id: req.user.user_id
-                });
-                newLike.save().then(() => {});
-            }
-            else{
-                let newLike = forDb.Likes.destroy({
-                    where:{
-                        post_id: req.params.post,
-                        user_id: req.user.user_id
-                    }
-                });
-            }
-
-        });
-
-        res.end();
-    });
-    */
-
-
-
-
     app.ws('/post/:post/addLike', function(ws, req) {
 
         let likes = 0;
         forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
             likes = result.count;
+            console.log("\n\n\n\ninit likes "+likes+"\n\n\n");
             ws.send(likes);
         });
 
@@ -380,14 +352,28 @@ module.exports = function(app, passport) {
         });
 
         ws.on('message', function () {
+            forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
+                if(!like){
+                    let newLike = forDb.Likes.build({
+                        post_id: req.params.post,
+                        user_id: req.user.user_id
+                    });
+                    newLike.save().then(() => {});
+                    likes += 1;
+                    ws.send(likes);
+                }
+                else{
+                    let newLike = forDb.Likes.destroy({
+                        where:{
+                            post_id: req.params.post,
+                            user_id: req.user.user_id
+                        }
+                    });
+                    likes -= 1;
+                    ws.send(likes);
+                }
 
-            forDb.addOrRemoveLike(req.params.post, req.user.user_id);
-
-            forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
-                likes = result.count;
-                ws.send(likes);
             });
-
         });
 
         ws.on('close', function() {
@@ -395,17 +381,6 @@ module.exports = function(app, passport) {
             delete clients[id];
         });
     });
-
-
-
-
-
-
-
-
-
-    /*****************************************************************************************************************/
-
 
 
     app.post('/addPost', function(req, res) {

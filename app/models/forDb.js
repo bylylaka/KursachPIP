@@ -1,10 +1,9 @@
 const Sequelize = require('sequelize');
 
-// const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-//     host: 'localhost',
-//     dialect: 'postgres',
-// });
-const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+ const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+     host: 'localhost',
+     dialect: 'postgres',
+    });
 
 sequelize
     .authenticate()
@@ -407,27 +406,6 @@ exports.findAl = function findAl(Obj, res) {        //Show all entities
         res.send(objes.reverse());
     });
 };
-
-exports.addOrRemoveLike = function addOrRemoveLike(post_id, user_id) {
-    Likes.findOne({ where: { post_id : post_id, user_id: user_id } }).then(like => {
-        if(!like){
-            let newLike = Likes.build({
-                post_id: post_id,
-                user_id: user_id
-            });
-            newLike.save().then(() => {});
-        }
-        else{
-            let newLike = Likes.destroy({
-                where:{
-                    post_id: post_id,
-                    user_id: user_id
-                }
-            });
-        }
-    });
-};
-
 
 exports.availableCastles = function availableCastles(castle, hero, user, res) {;
     //res.write(her.dataValues.user + '');

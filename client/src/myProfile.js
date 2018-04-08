@@ -3,7 +3,7 @@ import './profile.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
-export default class Profile extends React.Component {
+export default class MyCabinet extends React.Component {
 
     constructor() {
         super();
@@ -18,9 +18,9 @@ export default class Profile extends React.Component {
     }
 
     componentDidMount() {
-        const { profile } = this.props.match.params
+        const { Profile } = this.props.match.params
         axios
-            .get(`/profiles/${profile}`)
+            .get(`/myHero`)
             .then(response => {
                 this.setState({
                     id: response.data[0].id,
@@ -34,14 +34,38 @@ export default class Profile extends React.Component {
             .catch(error => console.log(error));
     }
 
+
+
+    handleChange = event => {
+        this.setState({ gender: event.target.value });
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        axios.post(`/changeProlile`, this.state)
+            .then(res => {
+                alert('Данные изменены!');
+            })
+    }
+
     Atrib(props) {
-        return (
-            <div>
-                <p style={{ display: 'inline', marginRight: '20px' }}>{props.name}: </p>
-                <p style={{ display: 'inline' }}>{props.value}</p>
-                <br/>
+        return (props.readonly)
+            ? <div className="Attribute">
+                <p>{props.name}: </p>
+                <input type="text" value={props.value} readOnly="true" onChange={this.handleChange}></input>
             </div>
-    )}
+            : <div className="Attribute">
+                <p>{props.name}: </p>
+                <input type="text" value={props.value} onChange={this.handleChange}></input>
+            </div>
+    }
+
+    Option(props) {
+        return (this.state.gender ==  props.gender)
+            ? <option selected name = "gender" value={props.gender}>{props.gender}</option>
+            : <option name = "gender" value={props.gender}>{props.gender}</option>
+    }
 
     Prolife () {
         return (
@@ -49,10 +73,19 @@ export default class Profile extends React.Component {
                 <p>Your profile</p>
                 <form onSubmit={this.handleSubmit}>
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
-                    {this.Atrib({name :"gender", value: this.state.gender, readonly: 'true'})}
+
+                    <div className="Attribute">
+                        <p>gender:</p>
+                        <select name="gender" onChange={this.handleChange}>
+                            {this.Option({gender: 'man'})}
+                            {this.Option({gender: 'woman'})}
+                        </select>
+                    </div>
+
                     {this.Atrib({name :"castle", value: this.state.castle, readonly: 'true'})}
                     {this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}
                     {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
+                    <button>Send data!</button>
                 </form>
             </div>)
     }
@@ -64,4 +97,12 @@ export default class Profile extends React.Component {
             </div>
         );
     }
+}
+
+
+const options = {
+    position: 'bottom center',
+    timeout: 5000,
+    offset: '30px',
+    transition: 'scale'
 }

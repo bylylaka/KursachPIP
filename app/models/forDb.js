@@ -1,17 +1,20 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-    host: 'localhost',
-    dialect: 'postgres',
-});
+// const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+//     host: 'localhost',
+//     dialect: 'postgres',
+// });
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+
 sequelize
     .authenticate()
     .then(() => {
-    console.log('Connection has been established successfully.');
-})
-.catch(err => {
-    console.error('Unable to connect to the database:\n\n\n\n\n\n', err);
-});
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:\n\n\n\n\n\n', err);
+    });
+
 
 const Fraction = sequelize.define('Fraction', {
     id: {
@@ -306,8 +309,11 @@ const Post = sequelize.define('Post', {
     content: {
         type: Sequelize.STRING
     },
-    user_id: {
-        type: User
+    // user_id: {
+    //     type: User
+    // },
+    hero_id: {
+        type: Sequelize.INTEGER
     },
     date_and_time: {
         type: Sequelize.STRING
@@ -383,11 +389,12 @@ const Likes = sequelize.define('Likes', {
 
 
 
-exports.addMessage = function addMessage(message, hero, heroId) {        //Show all entities
+exports.addMessage = function addMessage(message, hero, heroId, castle) {        //Show all entities
     var newMessage = messages.build({       //save
         message: message,
         hero: hero,
-        heroid: heroId
+        heroid: heroId,
+        castle: castle
     });
     newMessage.save();
 };

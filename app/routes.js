@@ -68,7 +68,7 @@ module.exports = function(app, passport) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect : 'http://localhost:3000/profile',
-            failureRedirect : '/'
+            failureRedirect : 'http://localhost:3000'
         }));
 
     // twitter --------------------------------
@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {
             successRedirect : 'http://localhost:3000/profile',
-            failureRedirect : '/'
+            failureRedirect : 'http://localhost:3000'
         }));
 
 
@@ -118,7 +118,7 @@ module.exports = function(app, passport) {
     // handle the callback after facebook has authorized the user
     app.get('/connect/facebook/callback',
         passport.authorize('facebook', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 
@@ -130,7 +130,7 @@ module.exports = function(app, passport) {
     // handle the callback after twitter has authorized the user
     app.get('/connect/twitter/callback',
         passport.authorize('twitter', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 
@@ -169,7 +169,7 @@ module.exports = function(app, passport) {
         var user            = req.user;
         user.facebook.token = undefined;
         user.save(function(err) {
-            res.redirect('/profile');
+            res.redirect('http://localhost:3000/profile');
         });
     });
 
@@ -178,7 +178,7 @@ module.exports = function(app, passport) {
         var user           = req.user;
         user.twitter.token = undefined;
         user.save(function(err) {
-            res.redirect('/profile');
+            res.redirect('http://localhost:3000/profile');
         });
     });
 
@@ -356,7 +356,7 @@ module.exports = function(app, passport) {
         let newPost = forDb.Post.build({
             title: req.body.title,
             content: req.body.content,
-            user_id: req.body.user_id
+            hero_id: req.body.hero_id
         });
         newPost.save().then(() => {});
 
@@ -484,7 +484,7 @@ module.exports = function(app, passport) {
             for (var key in clients) {
                 clients[key].send(name+':\t'+message);
             }
-            forDb.addMessage(message, name, heroid);
+            forDb.addMessage(message, name, heroid, castle);
         });
 
         ws.on('close', function() {

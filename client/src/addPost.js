@@ -7,7 +7,7 @@ export default class Post extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: '',
+            hero: '',
             title: '',
             content: '',
         };
@@ -22,7 +22,7 @@ export default class Post extends React.Component {
             .get(`/myHero`)
             .then(response => {
                 this.setState({
-                    user: response.data
+                    hero: response.data
                 });
             })
             .catch(error => console.log(error));
@@ -32,9 +32,9 @@ export default class Post extends React.Component {
 
         e.preventDefault();
 
-        let user_id;
-        let user = Object.values(this.state.user).map((user) => {
-            user_id = user.id
+        let hero_id;
+        let user = Object.values(this.state.hero).map((user) => {
+            hero_id = user.id
         });
 
         fetch('/addPost', {
@@ -46,7 +46,7 @@ export default class Post extends React.Component {
             body: JSON.stringify({
                 title: this.state.title,
                 content: this.state.content,
-                user_id: user_id
+                hero_id: hero_id
             })
         });
         this.props.history.push('/posts');

@@ -242,6 +242,13 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/profiles/:profile', isLoggedIn,  function(req, res) {
+        forDb.Hero.findAll({ where: { id : req.params.profile } }).then(function (hero) {
+            console.log(hero.dataValues)
+            res.send(hero);
+        });
+    });
+
     app.post('/changeProlile', isLoggedIn, function (req, res) {
         console.log('\n\n\n');
         console.log(req.body)

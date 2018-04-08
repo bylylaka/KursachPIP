@@ -278,6 +278,12 @@ const messages = sequelize.define('Messages', {
     hero: {
         type: Sequelize.STRING,
     },
+    heroid: {
+        type: Sequelize.INTEGER,
+    },
+    castle: {
+        type: Sequelize.INTEGER,
+    },
     message: {
         type: Sequelize.STRING
     }},{
@@ -377,10 +383,11 @@ const Likes = sequelize.define('Likes', {
 
 
 
-exports.addMessage = function addMessage(message, hero) {        //Show all entities
+exports.addMessage = function addMessage(message, hero, heroId) {        //Show all entities
     var newMessage = messages.build({       //save
         message: message,
-        hero: hero
+        hero: hero,
+        heroid: heroId
     });
     newMessage.save();
 };

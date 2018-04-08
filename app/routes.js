@@ -62,24 +62,24 @@ module.exports = function(app, passport) {
     // facebook -------------------------------
 
     // send to facebook to do the authentication
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+    app.post('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 
     // twitter --------------------------------
 
     // send to twitter to do the authentication
-    app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
+    app.post('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authenticated the user
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 
@@ -423,6 +423,7 @@ module.exports = function(app, passport) {
     app.ws('/echo', function(ws, req) {         //Тут типо WebSocket
         var id;
         var name;
+        var heroid;
 
         forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
             id = user.dataValues.id;
@@ -430,6 +431,7 @@ module.exports = function(app, passport) {
         });
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             name = hero.dataValues.name;
+            heroid = hero.dataValues.id;
         });
 
         forDb.Messages.findAll().then(message => {
@@ -442,7 +444,47 @@ module.exports = function(app, passport) {
             for (var key in clients) {
                 clients[key].send(name+':\t'+message);
             }
-            forDb.addMessage(message, name);
+            forDb.addMessage(message, name, heroid);
+        });
+
+        ws.on('close', function() {
+            console.log('соединение закрыто ' + id);
+            delete clients[id];
+        });
+        console.log('User connected');
+    });
+
+
+    app.ws('/echoCastle', function(ws, req) {         //Тут типо WebSocket ДЛЯ ЧАТА ЗАМКА!
+        var id;
+        var name;
+        var heroid;
+        var castle;
+
+        forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            id = user.dataValues.id;
+            clients[id] = ws;
+        });
+
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            name = hero.dataValues.name;
+            heroid = hero.dataValues.id;
+            castle = hero.dataValues.castle;
+
+            forDb.Messages.findAll({ where: { castle: castle}}).then(message => {
+                console.log('\n\n\n' + castle)
+                message.forEach(function(mes) {
+                    ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
+                });
+            });
+        });
+
+
+        ws.on('message', function (message) {
+            for (var key in clients) {
+                clients[key].send(name+':\t'+message);
+            }
+            forDb.addMessage(message, name, heroid);
         });
 
         ws.on('close', function() {

@@ -290,6 +290,12 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/addPost/heroes', isLoggedIn, function(req, res) {
+        forDb.Hero.findAll().then(function (heroes) {
+            res.send(heroes);
+        });
+    });
+
     app.get('/post/:post/likes', isLoggedIn, function(req, res) {
         forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
             //res.send(result.count);
@@ -299,17 +305,71 @@ module.exports = function(app, passport) {
 
     });
 
+    app.get('/post/:post/heroes', isLoggedIn, function(req, res) {
+        forDb.Hero.findAll().then(function (heroes) {
+            res.send(heroes);
+        });
+    });
+
+
+    app.use('/post/:post/addComment', bodyParser.urlencoded({
+        extended: true
+    }));
+
+    app.post('/post/:post/addComment', function(req, res) {
+        if(req.body.post_id !== undefined){
+            let newComment = forDb.Comment.build({
+                content: req.body.content,
+                post_id: req.body.post_id,
+                user_id: req.body.user_id
+            });
+            newComment.save().then(() => {});
+
+        }
+        res.end();
+    });
+
+    app.get('/post/:post/addLike', function(req, res) {
+        forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
+            if(!like){
+                let newLike = forDb.Likes.build({
+                    post_id: req.params.post,
+                    user_id: req.user.user_id
+                });
+                newLike.save().then(() => {});
+            }
+            else{
+                let newLike = forDb.Likes.destroy({
+                    where:{
+                        post_id: req.params.post,
+                        user_id: req.user.user_id
+                    }
+                });
+            }
+
+        });
+
+        res.end();
+    });
+
+    app.post('/addPost', function(req, res) {
+        let newPost = forDb.Post.build({
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.body.user_id
+        });
+        newPost.save().then(() => {});
+
+        res.end();
+    });
+
+
     app.get('/post/:post', isLoggedIn, function(req, res) {
         forDb.Post.findAll({ where: { id : req.params.post } }).then(function (post) {
             res.send(post);
         });
     });
 
-
-
-    app.get('/posts', isLoggedIn, function(req, res) {
-        forDb.findAl(forDb.Post, res);
-    });
 
 
     app.get('/posts', isLoggedIn, function(req, res) {

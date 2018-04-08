@@ -303,6 +303,9 @@ const Post = sequelize.define('Post', {
     },
     user_id: {
         type: User
+    },
+    date_and_time: {
+        type: Sequelize.STRING
     }},{
     timestamps: false,
     freezeTableName: true,
@@ -324,6 +327,9 @@ const Comment = sequelize.define('Comment', {
     },
     user_id: {
         type: User
+    },
+    date_and_time: {
+        type: Sequelize.STRING
     }},{
     timestamps: false,
     freezeTableName: true,
@@ -385,7 +391,7 @@ exports.addMessage = function addMessage(message, hero) {        //Show all enti
 
 exports.findAl = function findAl(Obj, res) {        //Show all entities
     Obj.findAll().then(objes => {
-        res.send(objes);
+        res.send(objes.reverse());
     });
 };
 

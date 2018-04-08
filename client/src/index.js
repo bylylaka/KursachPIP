@@ -10,6 +10,7 @@ import Profile from "./profile"
 import Posts from "./posts";
 import Post from "./post";
 import Enter from "./enter";
+import addPost from "./addPost";
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -37,6 +38,7 @@ const BasicExample = () => (
                 <Route path="/castles/:castle" component={Castle} />
                 <Route path="/enter/:castle_id" component={Enter} />
                 <Route path="/profile" component={Profile} />
+                <Route path="/addPost" component={addPost} />
                 <Route path="/posts" component={Posts} />
                 <Route path="/post/:post" component={Post} />
             </div>
@@ -84,7 +86,6 @@ const About = () => (
 );
 
 
-<<<<<<< HEAD
 function REstApi() {
     fetch('/castlePPPPPP')
         .then((res) => {
@@ -98,28 +99,5 @@ function REstApi() {
     return (<p>Hello</p>);
 }
 
-
-const Profile = () => (
-    <div>
-        <Header/>
-        <h2>Hello!</h2>
-    </div>
-);
-
-
-=======
-// function REstApi() {
-//     fetch('/castlePPPPPP')
-//         .then((res) => {
-//             res.json().then((data) => {
-//                 console.log(data.Error);  //Вывод в консоль
-//             })
-//         })
-//         .catch((err) => {
-//             console.log(err)
-//         })
-//     return (<p>Hello</p>);
-// }
->>>>>>> cd457a7f31ad64dc3c98cfe87f12782570e25934
 
 ReactDOM.render(<BasicExample/>, document.getElementById('root'))

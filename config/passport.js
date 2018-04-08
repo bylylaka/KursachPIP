@@ -2,7 +2,10 @@ var forDb = require('./../app/models/forDb');
 
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+    host: 'localhost',
+    dialect: 'postgres',
+});
 sequelize
     .authenticate()
     .then(() => {
@@ -50,6 +53,7 @@ module.exports = function(passport) {
         done(null, user);
         // });
     });
+
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================

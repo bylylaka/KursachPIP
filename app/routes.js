@@ -62,24 +62,24 @@ module.exports = function(app, passport) {
     // facebook -------------------------------
 
     // send to facebook to do the authentication
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+    app.post('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 
     // twitter --------------------------------
 
     // send to twitter to do the authentication
-    app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
+    app.post('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authenticated the user
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {
-            successRedirect : '/profile',
+            successRedirect : 'http://localhost:3000/profile',
             failureRedirect : '/'
         }));
 

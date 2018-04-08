@@ -32,9 +32,7 @@ const BasicExample = () => (
             <div>
                 <Route exact path="/" component={Main} />
                 <Route path="/login" component={Login} />
-                <Route path="/signup" component={Login} />
-                <Route path="/auth/facebook" component={Login} />
-                <Route path="/auth/twitter" component={Login} />
+                <Route path="/signup" component={Signup} />
                 <Route path="/castle" component={AllCastles} />
                 <Route path="/castles/:castle" component={Castle} />
                 <Route path="/enter/:castle_id" component={Enter} />
@@ -55,9 +53,14 @@ const Main = () => (
             <p>Login or Register with:</p>
             <Link to="/login"> Local Login</Link>
             <Link to="/signup"> Local Signup</Link>
-            <Link to="/auth/facebook"> Facebook</Link>
-            <Link to="/auth/twitter"> Twitter</Link>
-            <hr />
+
+            <form action="/auth/facebook" method="POST">
+                <button>Auth with Facebook!</button>
+            </form>
+
+            <form action="/auth/twitter" method="POST">
+                <button>Auth with Twitter!</button>
+            </form>
         </div>
 );
 
@@ -79,6 +82,24 @@ const Login = () => (
     </div>
 );
 
+
+const Signup = () => (
+    <div className="text-center">
+        <Header/>
+        <form action="/signup" method="post">
+            <div>
+                <label>Email</label><br/>
+                <input type="text" name="email"/>
+            </div>
+            <div>
+                <label>Придумайте Password</label><br/>
+                <input type="password" name="password"/>
+            </div>
+
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+);
 
 const About = () => (
     <div>

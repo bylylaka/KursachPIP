@@ -44,3 +44,8 @@ a{
   text-decoration: none;
   margin-right: 50px;
 }
+
+form{
+  display: inline;
+  margin-right: 30px;
+}

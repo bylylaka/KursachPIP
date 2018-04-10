@@ -1,4 +1,5 @@
 import axios from "axios/index";
+import ProgressiveImage from 'react-progressive-image';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
 
@@ -33,7 +34,27 @@ export default class Posts extends React.Component {
                 if(user.user === post.user_id)
                     return <a key={user.user}>{user.name} Запостил:<br/></a>
             });
-            return <Link to={"post/"+post.id}>{user}{post.title}({post.date_and_time})<br/>{post.content}<br/><hr/></Link>
+
+
+            let image;
+            if(post.file !== null){
+                image = (
+                    <React.Fragment>
+                        <ProgressiveImage src={`/post/${post.id}/img`}>
+                            {src => <Link to={"current-post/"+post.id}><img src={src} alt="image" /></Link>}
+                        </ProgressiveImage>
+                    </React.Fragment>
+                );
+            }
+
+            return (
+                <React.Fragment>
+                    <Link to={"current-post/"+post.id}>{user}<h2>{post.title}</h2>({post.date_and_time})<br/>{post.content}<br/></Link>
+                    <br/><br/>
+                    {image}
+                    <hr/>
+               </React.Fragment>
+            )
         });
         return (<div>{posts}</div>);
     }
@@ -48,8 +69,10 @@ export default class Posts extends React.Component {
     render() {
         return (
             <div className="App">
-                {this.Posts ()}
                 {this.AddPost ()}
+                <br/>
+                <hr/>
+                {this.Posts ()}
             </div>
         );
     }

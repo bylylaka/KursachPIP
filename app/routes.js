@@ -404,18 +404,19 @@ module.exports = function(app, passport) {
     });
 
 
-    app.get('/post/:post', isLoggedIn, function(req, res) {
-        forDb.Post.findAll({ where: { id : req.params.post } }).then(function (post) {
-            res.send(post);
-        });
-    });
 
     app.get('/post/:post/img', isLoggedIn, function(req, res) {
         forDb.Post.findOne({ where: { id : req.params.post } }).then(function (post) {
             res.sendfile(path.resolve(`./client/public/uploads/${post.dataValues.file}`));
         });
-
     });
+
+    app.get('/current-post/:post', isLoggedIn, function(req, res) {
+        forDb.Post.findAll({ where: { id : req.params.post } }).then(function (post) {
+            res.send(post);
+        });
+    });
+
 
 
     app.get('/posts', isLoggedIn, function(req, res) {

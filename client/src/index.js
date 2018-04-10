@@ -42,7 +42,7 @@ const BasicExample = () => (
                 <Route path="/profiles/:profile" component={Profile} />
                 <Route path="/addPost" component={addPost} />
                 <Route path="/posts" component={Posts} />
-                <Route path="/post/:post" component={Post} />
+                <Route path="/current-post/:post" component={Post} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/chatCastle" component={ChatCastle} />
             </div>

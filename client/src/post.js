@@ -41,7 +41,7 @@ export default class Post extends React.Component {
         };
 
         axios.all([
-            axios.get(`/post/${post}`),
+            axios.get(`/current-post/${post}`),
             axios.get(`/post/${post}/heroes`),
             axios.get(`/post/${post}/likes`),
             axios.get(`/myHero`),
@@ -63,9 +63,28 @@ export default class Post extends React.Component {
     }
 
     Post () {
-        let post = Object.values(this.state.post).map((data) => {
-            this.state.post_id = data.id;
-            return <a key={data.id}>{data.title}<br/>{data.content}</a>
+        let post = Object.values(this.state.post).map((post) => {
+            this.state.post_id = post.id;
+
+            let image;
+            if(post.file !== null){
+                image = (
+                    <React.Fragment>
+                        <ProgressiveImage src={`/post/${post.id}/img`}>
+                            {src => <img src={src} alt="image"/>}
+                        </ProgressiveImage>
+                    </React.Fragment>
+                );
+            }
+
+            return (
+                <React.Fragment>
+                    <a key={post.id}><h2>{post.title}</h2><br/>{post.content}</a>
+                    <br/><br/>
+                    {image}
+                    <hr/>
+                </React.Fragment>
+            );
         });
 
         return (
@@ -131,7 +150,7 @@ export default class Post extends React.Component {
             <form onSubmit={this.handleSubmit} method="post">
                 <div>
                     <label>Ваш комментарий:</label><br/>
-                    <textarea name="comment" /*value={this.state.comment}*/ onChange={this.handleChange} required/>
+                    <textarea name="comment" onChange={this.handleChange} required/>
                 </div>
                 <button type="submit">Отправить</button>
             </form>
@@ -142,15 +161,6 @@ export default class Post extends React.Component {
         return (
             <div className="App">
                 {this.Post ()}
-                <br/>
-
-
-                <ProgressiveImage src={`/post/${this.state.post_id}/img`}>
-                    {src => <img src={src} alt="image"/>}
-                </ProgressiveImage>
-
-
-                <br/>
                 <a>Комментарии:</a>
                 <hr/>
                 <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>

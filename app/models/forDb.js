@@ -308,13 +308,13 @@ const Post = sequelize.define('Post', {
     content: {
         type: Sequelize.STRING
     },
-    // user_id: {
-    //     type: User
-    // },
+    date_and_time: {
+        type: Sequelize.STRING
+    },
     hero_id: {
         type: Sequelize.INTEGER
     },
-    date_and_time: {
+    file: {
         type: Sequelize.STRING
     }},{
     timestamps: false,
@@ -389,13 +389,22 @@ const Likes = sequelize.define('Likes', {
 
 
 exports.addMessage = function addMessage(message, hero, heroId, castle) {        //Show all entities
-    var newMessage = messages.build({       //save
+    let newMessage = messages.build({       //save
         message: message,
         hero: hero,
         heroid: heroId,
         castle: castle
     });
     newMessage.save();
+};
+
+exports.addComment = function addComment(comment, user_id, post_id) {        //Show all entities
+    let newComment = Comment.build({
+        content: comment,
+        post_id: post_id,
+        user_id: user_id
+    });
+    newComment.save().then(() => {});
 };
 
 

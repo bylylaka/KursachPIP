@@ -224,7 +224,7 @@ module.exports = function(app, passport) {
 
     app.get('/enter/:id', isLoggedIn, function(req, res) {
         forDb.Hero.update({ castle: req.params.id }, { where : {user: req.user.user_id } }).then(function () {
-            res.send("Success, sukan!");
+            res.send("Success!");
         });
     });
 
@@ -251,7 +251,7 @@ module.exports = function(app, passport) {
 
     app.post('/changeProlile', isLoggedIn, function (req, res) {
         console.log('\n\n\n');
-        console.log(req.body)
+        console.log(req.body);
         forDb.Hero.update({ name: req.body.name, castle: req.body.castle, gender: req.body.gender, gold: req.body.gold},
             { where : {user: req.user.user_id } }).then(function () {
             res.send();
@@ -305,9 +305,7 @@ module.exports = function(app, passport) {
 
     app.get('/post/:post/likes', isLoggedIn, function(req, res) {
         forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
-            //res.send(result.count);
             res.send(result.rows);
-            //console.log(result.rows);
         });
 
     });
@@ -318,11 +316,12 @@ module.exports = function(app, passport) {
         });
     });
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
     app.use('/post/:post/addComment', bodyParser.urlencoded({
         extended: true
     }));
 
+    /*
     app.post('/post/:post/addComment', function(req, res) {
         if(req.body.post_id !== undefined){
             let newComment = forDb.Comment.build({
@@ -335,13 +334,46 @@ module.exports = function(app, passport) {
         }
         res.end();
     });
+    */
 
+    app.ws('/post/:post/addComment', function(ws, req) {
+        let id;
+        let name;
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            name = hero.name;
+            id = hero.user;
+            clients[id] = ws;
+        });
+
+        forDb.Comment.findAll({ where: { post_id : req.params.post } }).then(function (comments) {
+            comments.forEach(function(comment) {
+                forDb.Hero.findOne({where : {user: comment.dataValues.user_id}}).then(function(hero) {
+                    ws.send(hero.name + ' (' + comment.dataValues.date_and_time + '): ' + comment.dataValues.content);
+                });
+            });
+        });
+
+        ws.on('message', function (comment) {
+            for (let key in clients) {
+                clients[key].send(name + ' (сейчас): ' + comment);
+            }
+            forDb.addComment(comment, id, req.params.post);
+        });
+
+        ws.on('close', function() {
+            console.log('соединение закрыто ' + id);
+            delete clients[id];
+        });
+        console.log('User connected');
+    });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
     app.ws('/post/:post/addLike', function(ws, req) {
 
         let likes = 0;
         forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
             likes = result.count;
-            console.log("\n\n\n\ninit likes "+likes+"\n\n\n");
             ws.send(likes);
         });
 
@@ -381,17 +413,84 @@ module.exports = function(app, passport) {
             delete clients[id];
         });
     });
+    */
+    app.get('/post/:post/addLike', isLoggedIn, function(req, res) {
+        forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
+            if(!like){
+                let newLike = forDb.Likes.build({
+                    post_id: req.params.post,
+                    user_id: req.user.user_id
+                });
+                newLike.save().then( res.send("Success!") );
+            }
+            else{
+                let newLike = forDb.Likes.destroy({
+                    where:{
+                        post_id: req.params.post,
+                        user_id: req.user.user_id
+                    }
+                });
+                res.send("Success!");
+            }
+        });
+    });
+
+    app.get('/post/:post/isPuttedLike', isLoggedIn, function(req, res) {
+        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
+            if(!like){
+                res.send(null);
+            }
+            else{
+                res.send(like.rows);
+            }
+
+        });
+    });
+
+//////////////////////////////////////////////////////////
+    var crypt = require('crypto-js/aes');
+    var SHA256 = require("crypto-js/sha256");
+    var CryptoJS = require("crypto-js");
+
+    const Crypto = require('node-crypt');
+    const crypto = new Crypto({
+        key: 'b95d8cb128734ff8821ea634dc34334535afe438524a782152d11a5248e71b01',
+        hmacKey: 'dcf8cd2a90b1856c74a9f914abbb5f467c38252b611b138d8eedbe2abb4434fc'
+    });
 
 
-    app.post('/addPost', function(req, res) {
+    let upload = require("express-fileupload");
+    app.use(upload());
+
+    app.post('/addPost', isLoggedIn, function(req, res) {
+
+        let filename = null;
+        console.log(req.files);
+        if(req.files != null){
+            let hash = Date.now() + req.files.file.name;
+            let format = hash.split('.')[1];
+            hash = crypto.encrypt(hash);
+
+            filename = hash + "." + format;
+            filename = filename.replace(/[|]/g, "");
+
+            let imageFile = req.files.file;
+            imageFile.mv(`./client/public/uploads/${filename}`, function(err) {
+                if (err) {
+                    console.log("error");
+                }
+                console.log("file was saved");
+            });
+
+        }
+
         let newPost = forDb.Post.build({
             title: req.body.title,
             content: req.body.content,
-            hero_id: req.body.hero_id
+            hero_id: req.body.hero_id,
+            file: filename
         });
-        newPost.save().then(() => {});
-
-        res.end();
+        newPost.save().then( res.send("Done!") );
     });
 
 

@@ -43,6 +43,7 @@ console.log('The magic happens on port ' + port);
 
 /////////////////////////////
 
+/*
 var xmpp = require('simple-xmpp');
 
 xmpp.on('online', function(data) {
@@ -74,3 +75,4 @@ xmpp.connect({
 xmpp.subscribe('maximus0371@jabber.ru');
 // check for incoming subscription requests
 xmpp.getRoster();
+*/

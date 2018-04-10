@@ -1,6 +1,7 @@
 import axios from "axios/index";
 import $ from 'jquery';
 import './index.css';
+import ProgressiveImage from 'react-progressive-image';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
 
@@ -17,7 +18,9 @@ export default class Post extends React.Component {
             putCounter: 0,
             classLike: '',
             comment: new String(),
-            hero: ''
+            hero: '',
+
+            post_id: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -42,7 +45,6 @@ export default class Post extends React.Component {
             axios.get(`/post/${post}/heroes`),
             axios.get(`/post/${post}/likes`),
             axios.get(`/myHero`),
-
             axios.get(`/post/${post}/isPuttedLike`)
         ])
             .then(axios.spread((post, heroes, likes, hero, isPutted) => {
@@ -58,33 +60,19 @@ export default class Post extends React.Component {
                     this.setState({ classLike: 'yeapLike'});
             }))
             .catch(error => console.log(error));
-
-
     }
 
     Post () {
         let post = Object.values(this.state.post).map((data) => {
+            this.state.post_id = data.id;
             return <a key={data.id}>{data.title}<br/>{data.content}</a>
         });
+
         return (
             <div>{post}</div>
         )
     }
 
-    /*
-    Comments(){
-        let comments = Object.values(this.state.comments).map((comment) => {
-            let heroes = Object.values(this.state.heroes).map((hero) => {
-                if(hero.user === comment.user_id)
-                    return <a key={hero.user}>{hero.name} сказал:<br/></a>
-            });
-            return <a key={comment.id}>{heroes}{comment.content} - {comment.date_and_time}<hr/></a>
-        });
-        return (
-            <div>{comments}</div>
-        )
-    }
-    */
 
     addLike(){
         /*********for front********/
@@ -122,11 +110,6 @@ export default class Post extends React.Component {
             user_id = user.id
         });
 
-        /*
-        axios
-            .get(`/post/${post}/addLike`)
-            .catch(error => console.log(error));
-        */
         $.ajax({
             type: 'GET',
             url: `/post/${post}/addLike`,
@@ -159,6 +142,14 @@ export default class Post extends React.Component {
         return (
             <div className="App">
                 {this.Post ()}
+                <br/>
+
+
+                <ProgressiveImage src={`/post/${this.state.post_id}/img`}>
+                    {src => <img src={src} alt="image"/>}
+                </ProgressiveImage>
+
+
                 <br/>
                 <a>Комментарии:</a>
                 <hr/>

@@ -1,6 +1,7 @@
 import axios from "axios/index";
 import $ from 'jquery';
 import './index.css';
+import ProgressiveImage from 'react-progressive-image';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
 
@@ -17,7 +18,9 @@ export default class Post extends React.Component {
             putCounter: 0,
             classLike: '',
             comment: new String(),
-            hero: ''
+            hero: '',
+
+            post_id: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,11 +41,10 @@ export default class Post extends React.Component {
         };
 
         axios.all([
-            axios.get(`/post/${post}`),
+            axios.get(`/current-post/${post}`),
             axios.get(`/post/${post}/heroes`),
             axios.get(`/post/${post}/likes`),
             axios.get(`/myHero`),
-
             axios.get(`/post/${post}/isPuttedLike`)
         ])
             .then(axios.spread((post, heroes, likes, hero, isPutted) => {
@@ -58,33 +60,38 @@ export default class Post extends React.Component {
                     this.setState({ classLike: 'yeapLike'});
             }))
             .catch(error => console.log(error));
-
-
     }
 
     Post () {
-        let post = Object.values(this.state.post).map((data) => {
-            return <a key={data.id}>{data.title}<br/>{data.content}</a>
+        let post = Object.values(this.state.post).map((post) => {
+            this.state.post_id = post.id;
+
+            let image;
+            if(post.file !== null){
+                image = (
+                    <React.Fragment>
+                        <ProgressiveImage src={`/post/${post.id}/img`}>
+                            {src => <img src={src} alt="image"/>}
+                        </ProgressiveImage>
+                    </React.Fragment>
+                );
+            }
+
+            return (
+                <React.Fragment>
+                    <a key={post.id}><h2>{post.title}</h2><br/>{post.content}</a>
+                    <br/><br/>
+                    {image}
+                    <hr/>
+                </React.Fragment>
+            );
         });
+
         return (
             <div>{post}</div>
         )
     }
 
-    /*
-    Comments(){
-        let comments = Object.values(this.state.comments).map((comment) => {
-            let heroes = Object.values(this.state.heroes).map((hero) => {
-                if(hero.user === comment.user_id)
-                    return <a key={hero.user}>{hero.name} сказал:<br/></a>
-            });
-            return <a key={comment.id}>{heroes}{comment.content} - {comment.date_and_time}<hr/></a>
-        });
-        return (
-            <div>{comments}</div>
-        )
-    }
-    */
 
     addLike(){
         /*********for front********/
@@ -122,11 +129,6 @@ export default class Post extends React.Component {
             user_id = user.id
         });
 
-        /*
-        axios
-            .get(`/post/${post}/addLike`)
-            .catch(error => console.log(error));
-        */
         $.ajax({
             type: 'GET',
             url: `/post/${post}/addLike`,
@@ -148,7 +150,7 @@ export default class Post extends React.Component {
             <form onSubmit={this.handleSubmit} method="post">
                 <div>
                     <label>Ваш комментарий:</label><br/>
-                    <textarea name="comment" /*value={this.state.comment}*/ onChange={this.handleChange} required/>
+                    <textarea name="comment" onChange={this.handleChange} required/>
                 </div>
                 <button type="submit">Отправить</button>
             </form>
@@ -159,7 +161,6 @@ export default class Post extends React.Component {
         return (
             <div className="App">
                 {this.Post ()}
-                <br/>
                 <a>Комментарии:</a>
                 <hr/>
                 <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>

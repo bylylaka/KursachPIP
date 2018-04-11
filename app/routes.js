@@ -244,7 +244,7 @@ module.exports = function(app, passport) {
 
     app.get('/profiles/:profile', isLoggedIn,  function(req, res) {
         forDb.Hero.findAll({ where: { id : req.params.profile } }).then(function (hero) {
-            console.log(hero.dataValues)
+            console.log(hero.dataValues);
             res.send(hero);
         });
     });
@@ -260,6 +260,7 @@ module.exports = function(app, passport) {
     });
 
     /**************************************POSTS LOGIC(BEGIN)**********************************************************/
+
     const promise = require('bluebird');
     const initOptions = {
         promiseLib: promise // overriding the default (ES6 Promise);
@@ -322,21 +323,6 @@ module.exports = function(app, passport) {
         extended: true
     }));
 
-    /*
-    app.post('/post/:post/addComment', function(req, res) {
-        if(req.body.post_id !== undefined){
-            let newComment = forDb.Comment.build({
-                content: req.body.content,
-                post_id: req.body.post_id,
-                user_id: req.body.user_id
-            });
-            newComment.save().then(() => {});
-
-        }
-        res.end();
-    });
-    */
-
     app.ws('/post/:post/addComment', function(ws, req) {
         let id;
         let name;
@@ -368,53 +354,6 @@ module.exports = function(app, passport) {
         console.log('User connected');
     });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-    app.ws('/post/:post/addLike', function(ws, req) {
-
-        let likes = 0;
-        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post } }).then(result => {
-            likes = result.count;
-            ws.send(likes);
-        });
-
-        let id;
-        forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
-            id = user.dataValues.id;
-            clients[id] = ws;
-        });
-
-        ws.on('message', function () {
-            forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
-                if(!like){
-                    let newLike = forDb.Likes.build({
-                        post_id: req.params.post,
-                        user_id: req.user.user_id
-                    });
-                    newLike.save().then(() => {});
-                    likes += 1;
-                    ws.send(likes);
-                }
-                else{
-                    let newLike = forDb.Likes.destroy({
-                        where:{
-                            post_id: req.params.post,
-                            user_id: req.user.user_id
-                        }
-                    });
-                    likes -= 1;
-                    ws.send(likes);
-                }
-
-            });
-        });
-
-        ws.on('close', function() {
-            console.log('соединение закрыто ' + id);
-            delete clients[id];
-        });
-    });
-    */
     app.get('/post/:post/addLike', isLoggedIn, function(req, res) {
         forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
             if(!like){
@@ -435,6 +374,8 @@ module.exports = function(app, passport) {
             }
         });
     });
+
+
 
     app.get('/post/:post/isPuttedLike', isLoggedIn, function(req, res) {
         forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
@@ -495,7 +436,14 @@ module.exports = function(app, passport) {
     });
 
 
-    app.get('/post/:post', isLoggedIn, function(req, res) {
+
+    app.get('/post/:post/img', isLoggedIn, function(req, res) {
+        forDb.Post.findOne({ where: { id : req.params.post } }).then(function (post) {
+            res.sendfile(path.resolve(`./client/public/uploads/${post.dataValues.file}`));
+        });
+    });
+
+    app.get('/current-post/:post', isLoggedIn, function(req, res) {
         forDb.Post.findAll({ where: { id : req.params.post } }).then(function (post) {
             res.send(post);
         });

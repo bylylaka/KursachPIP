@@ -2,7 +2,7 @@ Arguments:
   D:\Node js\node.exe D:\yarn\bin\yarn.js dev
 
 PATH: 
-  C:\Program Files\Haskell\bin;D:\haskel\8.2.2\lib\extralibs\bin;D:\haskel\8.2.2\bin;D:\oracle\db11g\app\oracle\product\11.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;D:\Git\cmd;C:\Program Files (x86)\Skype\Phone\;D:\masm32\bin;C:\Program Files(x86)\PuTTY\;C:\Program Files\Java\jdk1.8.0_131\bin;D:\Node js\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\haskel\8.2.2\mingw\bin;D:\yarn\bin\;C:\Users\Максим\AppData\Roaming\cabal\bin;D:\haskel\bin;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Local\atom\bin;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Roaming\npm;C:\Users\Максим\AppData\Local\GitHubDesktop\bin;D:\cygwin64FUCK\bin\cmake.exe;;D:\ VS Code\bin;C:\Users\Максим\AppData\Local\Yarn\bin
+  C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.2.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.2.2\bin;D:\haskel\8.2.2\lib\extralibs\bin;D:\haskel\8.2.2\bin;D:\oracle\db11g\app\oracle\product\11.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;D:\Git\cmd;C:\Program Files (x86)\Skype\Phone\;D:\masm32\bin;C:\Program Files(x86)\PuTTY\;C:\Program Files\Java\jdk1.8.0_131\bin;D:\Node js\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\haskel\8.2.2\mingw\bin;D:\yarn\bin\;C:\Program Files\Haskell Platform\8.2.2\mingw\bin;C:\Users\Максим\AppData\Roaming\cabal\bin;C:\Users\Максим\AppData\Roaming\local\bin;D:\HaskelStack;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Local\atom\bin;C:\Users\Максим\AppData\Local\Microsoft\WindowsApps;C:\Users\Максим\AppData\Roaming\npm;C:\Users\Максим\AppData\Local\GitHubDesktop\bin;D:\cygwin64FUCK\bin\cmake.exe;C:\Users\Максим\AppData\Local\Yarn\bin;D:\Microsoft VS Code\bin
 
 Yarn version: 
   1.5.1
@@ -29,14 +29,20 @@ npm manifest:
       "body-parser": "^1.15.2",
       "connect-flash": "~0.1.1",
       "cookie-parser": "~1.4.3",
+      "cors": "^2.8.4",
+      "crypto": "^1.0.1",
+      "crypto-js": "^3.1.9-1",
       "ejs": "~2.5.2",
       "express": "~4.14.0",
+      "express-fileupload": "^0.4.0",
       "express-session": "~1.14.1",
       "express-ws": "^3.0.0",
       "jquery": "^3.3.1",
       "method-override": "~2.3.6",
       "mongoose": "~4.13.1",
       "morgan": "~1.7.0",
+      "multer": "^1.3.0",
+      "node-crypt": "^1.0.1",
       "node-xmpp": "^1.1.0",
       "node-xmpp-server": "^2.2.7",
       "passport": "~0.3.2",
@@ -46,7 +52,9 @@ npm manifest:
       "passport-twitter": "~1.0.4",
       "pg": "^7.4.1",
       "pg-promise": "^8.2.2",
+      "python": "0.0.4",
       "react-router-dom": "^4.2.2",
+      "react-websocket": "^2.0.0",
       "sequelize": "^4.35.2",
       "simple-xmpp": "^1.3.0",
       "ws": "^5.0.0",

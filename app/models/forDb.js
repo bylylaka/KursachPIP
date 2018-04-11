@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
 
- const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-     host: 'localhost',
-     dialect: 'postgres',
-    });
+ // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+ //     host: 'localhost',
+ //     dialect: 'postgres',
+ //    });
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -74,6 +75,9 @@ const Hero = sequelize.define('Hero', {
     },
     user: {
         type: Sequelize.BIGINT
+    },
+    avatarka: {
+        type: Sequelize.STRING
     },
     gold: {
         type: Sequelize.INTEGER
@@ -366,6 +370,29 @@ const Likes = sequelize.define('Likes', {
 });
 
 
+const avatarka = sequelize.define('Avatarka', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    fraction: {
+        type: Sequelize.INTEGER
+    },
+    name: {
+        type: Sequelize.STRING
+    },
+    pathname: {
+        type: Sequelize.STRING
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'avatarka'
+});
+
+
+
 
 
 
@@ -434,6 +461,36 @@ exports.availableCastles = function availableCastles(castle, hero, user, res) {;
     })
 };
 
+
+
+exports.getFraction = function getFraction(hero, res) {        //Get Fraction AND AVATARKY!!!!!!!
+    sequelize.query("select name FROM fraction WHERE id in (select fraction from Castle WHERE" +
+        " id in (select Hero.castle from Hero WHERE Hero.id = " + hero[0].dataValues.id + "))").spread((results, metadata) => {
+
+        sequelize.query('SELECT name, pathname from avatarka where id in ' +
+            '(select Hero.avatarka FROM Hero WHERE id = ' + hero[0].dataValues.id + ')').spread((resultsAva, metadataAva) => {
+
+            sequelize.query('SELECT name, pathname from avatarka where fraction in (select id FROM fraction WHERE id in ' +
+                '(select fraction from Castle WHERE id in (select Hero.castle from Hero ' +
+                'WHERE Hero.id = ' + hero[0].dataValues.id + ')))').spread((resultsAvS, metadataAvS) => {
+
+                    if (results[0])
+                        hero[0].dataValues.fraction = results[0].name;
+                    if (resultsAva[0]) {
+                        hero[0].dataValues.avaname = resultsAva[0].name;
+                        hero[0].dataValues.avapath = resultsAva[0].pathname;
+                    }
+                    if (resultsAvS) {
+                        hero[0].dataValues.avaS = resultsAvS;
+                    }
+
+                    console.log(hero[0].dataValues)
+                    res.send(hero);
+            });
+        });
+    });
+};
+
 exports.Fraction = Fraction;
 exports.Hero = Hero;
 exports.Magic = Magic;
@@ -445,6 +502,7 @@ exports.Facebook = facebook;
 exports.Twitter = twitter;
 exports.Google = google;
 exports.Messages = messages;
+exports.avatarka = avatarka;
 
 exports.Post = Post;
 exports.Comment = Comment;

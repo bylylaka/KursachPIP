@@ -238,7 +238,7 @@ module.exports = function(app, passport) {
 
     app.get('/myHero', isLoggedIn, function(req, res) {
         forDb.Hero.findAll({ where: { user : req.user.user_id } }).then(function (hero) {
-            res.send(hero);
+            forDb.getFraction(hero, res)
         });
     });
 
@@ -251,10 +251,11 @@ module.exports = function(app, passport) {
 
     app.post('/changeProlile', isLoggedIn, function (req, res) {
         console.log('\n\n\n');
-        console.log(req.body);
-        forDb.Hero.update({ name: req.body.name, castle: req.body.castle, gender: req.body.gender, gold: req.body.gold},
-            { where : {user: req.user.user_id } }).then(function () {
-            res.send();
+        forDb.avatarka.findOne({where : {pathname:req.body.photo}}).then(function(avatarka) {
+            forDb.Hero.update({ name: req.body.name, castle: req.body.castle, gender: req.body.gender, gold: req.body.gold, avatarka: avatarka.id},
+                { where : {user: req.user.user_id } }).then(function () {
+                res.send();
+            });
         });
     });
 
@@ -267,9 +268,9 @@ module.exports = function(app, passport) {
     const cn = {
         host: 'localhost', // 'localhost' is the default;
         port: 5432, // 5432 is the default;
-        database: 'heroes',
+        database: 'testDB',
         user: 'postgres',
-        password: '1qaz@WSX'
+        password: 'muxus123'
     };
 
     const db = pgp(cn); // database instance;

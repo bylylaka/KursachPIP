@@ -13,12 +13,16 @@ export default class MyCabinet extends React.Component {
             gender: new String(),
             castle: new String(),
             experience: new String(),
-            gold: new String()
+            gold: new String(),
+            fraction: new String(),
+            photo: new String(),
+            avaS: new Array(),
+            Imga: new Object()
         };
     }
 
     componentDidMount() {
-        const { Profile } = this.props.match.params
+        const { Profile } = this.props.match.params;
         axios
             .get(`/myHero`)
             .then(response => {
@@ -28,8 +32,12 @@ export default class MyCabinet extends React.Component {
                     gender: response.data[0].gender,
                     castle: response.data[0].castle,
                     experience: response.data[0].experience,
-                    gold: response.data[0].gold
+                    gold: response.data[0].gold,
+                    fraction: response.data[0].fraction,
+                    photo: response.data[0].avapath,
+                    avaS: response.data[0].avaS,
                 });
+                console.log(this.state.avaS)
             })
             .catch(error => console.log(error));
     }
@@ -40,9 +48,12 @@ export default class MyCabinet extends React.Component {
         this.setState({ gender: event.target.value });
     }
 
+    handleChangePhoto = event => {
+        this.setState({ photo: event.target.value });
+    }
+
     handleSubmit = event => {
         event.preventDefault();
-
         axios.post(`/changeProlile`, this.state)
             .then(res => {
                 alert('Данные изменены!');
@@ -67,11 +78,59 @@ export default class MyCabinet extends React.Component {
             : <option name = "gender" value={props.gender}>{props.gender}</option>
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     Prolife () {
+
+        var Kartinka= './images/' + this.state.fraction + '/' + this.state.photo;
+        try {
+            this.state.Imga = require(``+Kartinka);
+        } catch (e) {
+            try {
+                Kartinka= './images/emptyAvatar.jpg';
+                this.state.Imga = require(``+Kartinka);
+            } catch (e) {
+                console.log('Нет фоточки((9((9(')
+            }
+        }
+
         return (
             <div>
                 <p>Your profile</p>
+
+                <img src={this.state.Imga} />
+                <br/>
                 <form onSubmit={this.handleSubmit}>
+
+
+
+
+
+                    <select name="photo" onChange={this.handleChangePhoto}>
+                        {
+                            this.state.avaS.map( (ava) =>
+                            (ava.pathname ==  this.state.photo)
+                                ? <option value={ava.pathname} selected>{ava.name}</option>
+                                : <option value={ava.pathname}>{ava.name}</option>)
+                        }
+                    </select>
+
+
+
+
+
+
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
 
                     <div className="Attribute">

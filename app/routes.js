@@ -11,16 +11,19 @@ module.exports = function(app, passport) {
 // normal routes ===============================================================
 
     // show the home page (will also have our login links)
-    app.get('/', function(req, res) {
+    /*
+    f, function(req, res) {
         res.render('index.ejs');
     });
-
+    */
     // PROFILE SECTION =========================
+
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
             user : req.user
         });
     });
+
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -35,9 +38,11 @@ module.exports = function(app, passport) {
     // locally --------------------------------
     // LOGIN ===============================
     // show the login form
+
     app.get('/login', function(req, res) {
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
+
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
@@ -244,13 +249,13 @@ module.exports = function(app, passport) {
 
     app.get('/profiles/:profile', isLoggedIn,  function(req, res) {
         forDb.Hero.findAll({ where: { id : req.params.profile } }).then(function (hero) {
-            console.log(hero.dataValues);
+            //console.log(hero.dataValues);
             res.send(hero);
         });
     });
 
     app.post('/changeProlile', isLoggedIn, function (req, res) {
-        console.log('\n\n\n');
+        //console.log('\n\n\n');
         forDb.avatarka.findOne({where : {pathname:req.body.photo}}).then(function(avatarka) {
             forDb.Hero.update({ name: req.body.name, castle: req.body.castle, gender: req.body.gender, gold: req.body.gold, avatarka: avatarka.id},
                 { where : {user: req.user.user_id } }).then(function () {
@@ -269,9 +274,9 @@ module.exports = function(app, passport) {
     const cn = {
         host: 'localhost', // 'localhost' is the default;
         port: 5432, // 5432 is the default;
-        database: 'testDB',
+        database: 'heroes',
         user: 'postgres',
-        password: 'muxus123'
+        password: '1qaz@WSX'
     };
 
     const db = pgp(cn); // database instance;
@@ -407,7 +412,7 @@ module.exports = function(app, passport) {
     app.post('/addPost', isLoggedIn, function(req, res) {
 
         let filename = null;
-        console.log(req.files);
+        //console.log(req.files);
         if(req.files != null){
             let hash = Date.now() + req.files.file.name;
             let format = hash.split('.')[1];
@@ -493,7 +498,6 @@ module.exports = function(app, passport) {
 
 
 
-
     // PROFILE SECTION =========================
     app.get('/chat', isLoggedIn, function(req, res) {
         res.sendFile(path.join(__dirname+'/../views/ws.html'));
@@ -531,6 +535,7 @@ module.exports = function(app, passport) {
             delete clients[id];
         });
         console.log('User connected');
+
     });
 
 
@@ -551,7 +556,7 @@ module.exports = function(app, passport) {
             castle = hero.dataValues.castle;
 
             forDb.Messages.findAll({ where: { castle: castle}}).then(message => {
-                console.log('\n\n\n' + castle)
+                //console.log('\n\n\n' + castle)
                 message.forEach(function(mes) {
                     ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
                 });
@@ -572,6 +577,57 @@ module.exports = function(app, passport) {
         });
         console.log('User connected');
     });
+
+
+
+
+
+
+
+
+
+
+    /***************************************************JABBER*************************************************************/
+    //let xmpp = require('../lib/simple-xmpp');
+    let xmpp = require('simple-xmpp');
+
+
+    xmpp.connect({
+        jid	                : 'maximus1998g@jabber.ru',
+        password		    : '1qaz@WSX',
+        host				: 'jabber.ru',
+        port				: 5222
+    });
+
+    xmpp.subscribe('maximus0371@jabber.ru');
+    xmpp.getRoster();
+
+    xmpp.on('online', function(data) {
+        xmpp.on('stanza', function(stanza) {
+
+            let body;
+            if(stanza.getChild('body') !== undefined)
+                body = stanza.getChild('body');
+
+            if(body){
+                let jabber = body.parent.attrs.from.toString().split('</body>')[0];
+                jabber = jabber.split('<body>')[1];
+                console.log("\n\n\n\n\n\n" + jabber + "\n\n\n\n\n\n\n");
+
+                /**********/
+
+            }
+        });
+    });
+
+    app.get('/jabber', function(req, res) {
+
+        var stanza = new xmpp.Element('message', {to: 'maximus0371@jabber.ru', type: 'chat',id: '1'}).c('body').t("tralala");
+        xmpp.send(stanza.tree());
+        res.end();
+
+    });
+
 };
 
 
@@ -584,3 +640,7 @@ function isLoggedIn(req, res, next) {
 
     res.send();
 }
+
+
+
+

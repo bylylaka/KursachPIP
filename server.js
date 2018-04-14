@@ -43,17 +43,21 @@ console.log('The magic happens on port ' + port);
 
 /////////////////////////////
 
-/*
-var xmpp = require('simple-xmpp');
 
+
+//GUIDE ---> https://github.com/simple-xmpp/node-simple-xmpp
+
+//let xmpp = require('simple-xmpp');
+
+/*
 xmpp.on('online', function(data) {
     console.log('Connected with JID: ' + data.jid.user);
-    xmpp.send('maximus0371@jabber.com', 'hello! time is ' + new Date(), false);
+    xmpp.send('maximus0371@jabber.ru', 'hello! time is ' + new Date(), false);
 });
+*/
 
-xmpp.on('chat', function(from, message) {
-    xmpp.send(from, 'echo: ' + message);
-});
+/*
+let xmpp = require('./lib/simple-xmpp');
 
 xmpp.on('error', function(err) {
     console.error(err);
@@ -73,6 +77,21 @@ xmpp.connect({
 });
 
 xmpp.subscribe('maximus0371@jabber.ru');
-// check for incoming subscription requests
 xmpp.getRoster();
+var stanza = new xmpp.Element('message', {to: 'maximus0371@jabber.ru', type: 'chat',id: '1'}).c('body').t("qq");
+xmpp.send(stanza.tree());
+
+xmpp.on('online', function(data) {
+    xmpp.on('stanza', function(stanza) {
+        var body = stanza.getChild('body');
+
+        if(body){
+            console.log(body.parent.attrs.from.toString());
+        }
+    });
+});
+
+exports.xmpp = xmpp;
+
 */
+

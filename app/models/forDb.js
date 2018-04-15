@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-  // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-  //     host: 'localhost',
-  //     dialect: 'postgres',
-  //   });
-const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+   const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+       host: 'localhost',
+       dialect: 'postgres',
+     });
+//const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -417,14 +417,14 @@ const Achievements = sequelize.define('Achievements', {
     tableName: 'achievements'
 });
 
-const achievements_to_user = sequelize.define('achievements_to_user', {
+const achievements_to_hero = sequelize.define('achievements_to_hero', {
     id: {
         type: Sequelize.BIGINT,
         primaryKey: true,
         autoIncrement: true
     },
-    user_id: {
-        type: User
+    hero_id: {
+        type: Hero
     },
     achievement_id: {
         type: Achievements
@@ -432,7 +432,7 @@ const achievements_to_user = sequelize.define('achievements_to_user', {
     timestamps: false,
     freezeTableName: true,
     // define the table's name
-    tableName: 'achievements_to_user'
+    tableName: 'achievements_to_hero'
 });
 
 
@@ -585,5 +585,5 @@ exports.Likes = Likes;
 
 
 exports.Achievements = Achievements;
-exports. achievements_to_user = achievements_to_user;
+exports.achievements_to_hero = achievements_to_hero;
 exports.Op = Op;

@@ -267,6 +267,11 @@ module.exports = function(app, passport) {
         });
     });
 
+
+    app.get('/sessionUser', function(req, res) {
+        res.send(req.user);
+    });
+
     /**************************************POSTS LOGIC(BEGIN)**********************************************************/
 
     const promise = require('bluebird');
@@ -310,7 +315,6 @@ module.exports = function(app, passport) {
         });
     });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
     app.use('/post/:post/addComment', bodyParser.urlencoded({
         extended: true
     }));
@@ -344,18 +348,18 @@ module.exports = function(app, passport) {
                 forDb.Achievements.findAll({ where: { type : 'comment', quantity: {[forDb.Op.gte]: comments.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
                     achievements.forEach(function(achievement) {
                         // check achievements of user
-                        forDb.achievements_to_user.findOne({ where: { user_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                        forDb.achievements_to_hero.findOne({ where: { hero_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
                             // add gold
                             if(achievement.dataValues.quantity === comments.count + 1 && !relation){
                                 forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
                                     let gold = hero.dataValues.gold;
                                     hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
                                         // add achievement to achievements_to_user table
-                                        let newAchievementToUser = forDb.achievements_to_user.build({
-                                            user_id: req.user.user_id,
+                                        let newAchievementToHero = forDb.achievements_to_hero.build({
+                                            hero_id: req.user.user_id,
                                             achievement_id: achievement.dataValues.id
                                         });
-                                        newAchievementToUser.save().then();
+                                        newAchievementToHero.save().then();
                                     });
                                 });
                             }
@@ -387,18 +391,18 @@ module.exports = function(app, passport) {
                     forDb.Achievements.findAll({ where: { type : 'like', quantity: {[forDb.Op.gte]: likes.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
                         achievements.forEach(function(achievement) {
                             // check achievements of user
-                            forDb.achievements_to_user.findOne({ where: { user_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                            forDb.achievements_to_hero.findOne({ where: { hero_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
                                 // add gold
                                 if(achievement.dataValues.quantity === likes.count + 1 && !relation){
                                     forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
                                         let gold = hero.dataValues.gold;
                                         hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
                                             // add achievement to achievements_to_user table
-                                            let newAchievementToUser = forDb.achievements_to_user.build({
-                                                user_id: req.user.user_id,
+                                            let newAchievementToHero = forDb.achievements_to_hero.build({
+                                                hero_id: req.user.user_id,
                                                 achievement_id: achievement.dataValues.id
                                             });
-                                            newAchievementToUser.save().then( res.send("Gold added") );
+                                            newAchievementToHero.save().then( res.send("Gold added") );
                                         });
                                     });
                                 }

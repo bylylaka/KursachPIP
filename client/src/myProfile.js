@@ -17,12 +17,39 @@ export default class MyCabinet extends React.Component {
             fraction: new String(),
             photo: new String(),
             avaS: new Array(),
-            Imga: new Object()
+            Imga: new Object(),
+            isAuthenticated: false
         };
+
+        this.logOut = this.logOut.bind(this);
     }
 
     componentDidMount() {
         const { Profile } = this.props.match.params;
+
+        axios.all([
+            axios.get(`/myHero`),
+            axios.get(`/sessionUser`),
+        ])
+            .then(axios.spread((response, session_user) => {
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+                this.setState({
+                    id: response.data[0].id,
+                    name: response.data[0].name,
+                    gender: response.data[0].gender,
+                    castle: response.data[0].castle,
+                    experience: response.data[0].experience,
+                    gold: response.data[0].gold,
+                    fraction: response.data[0].fraction,
+                    photo: response.data[0].avapath,
+                    avaS: response.data[0].avaS,
+                });
+            }))
+            .catch(error => console.log(error));
+
+
+        /*
         axios
             .get(`/myHero`)
             .then(response => {
@@ -37,9 +64,10 @@ export default class MyCabinet extends React.Component {
                     photo: response.data[0].avapath,
                     avaS: response.data[0].avaS,
                 });
-                console.log(this.state.avaS)
+                //console.log(this.state.avaS)
             })
             .catch(error => console.log(error));
+            */
     }
 
 
@@ -132,12 +160,28 @@ export default class MyCabinet extends React.Component {
             </div>)
     }
 
+    logOut(){
+        axios
+            .get(`/logout`)
+            .catch(error => console.log(error));
+        this.props.history.push("/");
+    }
+
     render() {
-        return (
-            <div className="Profile">
-                {this.Prolife ()}
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="Profile">
+                    {this.Prolife ()}
+                    <hr/>
+                    <button onClick={this.logOut}>Выйти</button>
+                </div>
+            );
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
     }
 }
 
@@ -147,4 +191,4 @@ const options = {
     timeout: 5000,
     offset: '30px',
     transition: 'scale'
-}
+};

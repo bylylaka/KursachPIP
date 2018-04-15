@@ -18,7 +18,7 @@ export default class Castle extends React.Component {
     }
 
     componentDidMount() {
-        const { castle } = this.props.match.params
+        const { castle } = this.props.match.params;
 
         axios
             .get(`/castles/${castle}`)

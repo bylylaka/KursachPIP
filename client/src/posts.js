@@ -9,21 +9,25 @@ export default class Posts extends React.Component {
         super();
         this.state = {
             posts: '',
-            users: ''
+            users: '',
+            isAuthenticated: false
         };
     }
 
     componentDidMount() {
 
-        const { post } = this.props.match.params
+        const { post } = this.props.match.params;
 
         axios.all([
             axios.get(`/posts`),
             axios.get(`/addPost/heroes`),
+            axios.get(`/sessionUser`),
         ])
-            .then(axios.spread((post, hero) => {
+            .then(axios.spread((post, hero, session_user) => {
                 this.setState({ posts: post.data });
                 this.setState({ users: hero.data });
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
             }))
             .catch(error => console.log(error));
     }
@@ -31,8 +35,8 @@ export default class Posts extends React.Component {
     Posts () {
         let posts = Object.values(this.state.posts).map((post) => {
             let user = Object.values(this.state.users).map((user) => {
-                if(user.user === post.user_id)
-                    return <a key={user.user}>{user.name} Запостил:<br/></a>
+                if(user.user === post.hero_id)
+                    return <div key={user.user}>{user.name} Запостил:<br/></div>
             });
 
 
@@ -67,13 +71,20 @@ export default class Posts extends React.Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.AddPost ()}
-                <br/>
-                <hr/>
-                {this.Posts ()}
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="App">
+                    {this.AddPost ()}
+                    <br/>
+                    <hr/>
+                    {this.Posts ()}
+                </div>
+            );
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
     }
 }

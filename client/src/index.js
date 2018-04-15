@@ -16,6 +16,9 @@ import Post from "./post";
 import Enter from "./enter";
 import addPost from "./addPost";
 
+import NotFound from "./notFound";
+import { Switch } from 'react-router-dom'
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var BrowserRouter = require ('react-router-dom').BrowserRouter;
@@ -32,7 +35,7 @@ function Header() {
 const BasicExample = () => (
     <div>
         <BrowserRouter>
-            <div>
+            <Switch>
                 <Route exact path="/" component={Main} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
@@ -47,7 +50,8 @@ const BasicExample = () => (
                 <Route path="/current-post/:post" component={Post} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/chatCastle" component={ChatCastle} />
-            </div>
+                <Route component={ NotFound } />
+            </Switch>
         </BrowserRouter>
     </div>
 );

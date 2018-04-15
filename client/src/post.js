@@ -19,8 +19,8 @@ export default class Post extends React.Component {
             classLike: '',
             comment: new String(),
             hero: '',
-
-            post_id: ''
+            post_id: '',
+            isAuthenticated: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,14 +45,17 @@ export default class Post extends React.Component {
             axios.get(`/post/${post}/heroes`),
             axios.get(`/post/${post}/likes`),
             axios.get(`/myHero`),
-            axios.get(`/post/${post}/isPuttedLike`)
+            axios.get(`/post/${post}/isPuttedLike`),
+            axios.get(`/sessionUser`),
         ])
-            .then(axios.spread((post, heroes, likes, hero, isPutted) => {
+            .then(axios.spread((post, heroes, likes, hero, isPutted, session_user) => {
                 this.setState({ post: post.data });
                 this.setState({ heroes: heroes.data });
                 this.setState({ likes: likes.data.length });
                 this.setState({ hero: hero.data });
                 this.setState({isPuttedLike : isPutted.data });
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
 
                 if(this.state.isPuttedLike.length === 0)
                     this.setState({ classLike: 'noLike'});
@@ -77,8 +80,15 @@ export default class Post extends React.Component {
                 );
             }
 
+            let user_name;
+            let user = Object.values(this.state.heroes).map((user) => {
+                if(user.user === post.hero_id)
+                    user_name = user.name;
+            });
+
             return (
                 <React.Fragment>
+                    <h3>From {user_name}</h3>
                     <a key={post.id}><h2>{post.title}</h2><br/>{post.content}</a>
                     <br/><br/>
                     {image}
@@ -158,18 +168,24 @@ export default class Post extends React.Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.Post ()}
-                <a>Комментарии:</a>
-                <hr/>
-                <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
-                <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
-                <br/>
-                {this.AddComment ()}
-                <br/><hr/>
-                <Link to={"/posts"}><button type="button">Вернуться</button></Link>
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="App">
+                    {this.Post ()}
+                    <a>Комментарии:</a>
+                    <hr/>
+                    <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
+                    <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
+                    <br/>
+                    {this.AddComment ()}
+                    <br/><hr/>
+                    <Link to={"/posts"}><button type="button">Вернуться</button></Link>
+                </div>
+            );
+        }
+        else
+            return(
+                <div></div>
+            );
     }
 }

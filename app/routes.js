@@ -4,6 +4,7 @@ var path    = require("path");
 module.exports = function(app, passport) {
     var expressWs = require('express-ws')(app);
     var bodyParser = require ( "body-parser" ) ;
+
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     var clients = {};
@@ -281,22 +282,6 @@ module.exports = function(app, passport) {
 
     const db = pgp(cn); // database instance;
 
-    /*
-    app.get('/post/:post', isLoggedIn, function(req, res) {
-        promise.all([
-            db.query("SELECT * FROM Post WHERE id = " + req.params.post),
-            db.query("SELECT * FROM Comment WHERE post_id = " + req.params.post),
-            db.query("SELECT COUNT(id) FROM  Likes WHERE post_id = " + req.params.post)
-        ]).then(([post, comments, likes]) =>
-            res.send({
-                post,
-                comments,
-                likes
-            }))
-            .catch(err => res.send('Ops, something has gone wrong'))
-    });
-    */
-
 
     app.get('/post/:post/comments', isLoggedIn, function(req, res) {
         forDb.Comment.findAll({ where: { post_id : req.params.post } }).then(function (comments) {
@@ -350,6 +335,32 @@ module.exports = function(app, passport) {
                 clients[key].send(name + ' (сейчас): ' + comment);
             }
             forDb.addComment(comment, id, req.params.post);
+
+            /*******************************ADD GOLD FOR COMMENTS****************************************/
+            forDb.Comment.findAndCountAll({ where: { user_id : req.user.user_id }}).then(comments => {
+                //res.send(result.rows);
+                forDb.Achievements.findAll({ where: { type : 'comment', quantity: {[forDb.Op.gte]: comments.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
+                    achievements.forEach(function(achievement) {
+                        // check achievements of user
+                        forDb.achievements_to_user.findOne({ where: { user_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                            // add gold
+                            if(achievement.dataValues.quantity === comments.count + 1 && !relation){
+                                forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+                                    let gold = hero.dataValues.gold;
+                                    hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
+                                        // add achievement to achievements_to_user table
+                                        let newAchievementToUser = forDb.achievements_to_user.build({
+                                            user_id: req.user.user_id,
+                                            achievement_id: achievement.dataValues.id
+                                        });
+                                        newAchievementToUser.save().then();
+                                    });
+                                });
+                            }
+                        });
+                    });
+                });
+            });
         });
 
         ws.on('close', function() {
@@ -366,7 +377,33 @@ module.exports = function(app, passport) {
                     post_id: req.params.post,
                     user_id: req.user.user_id
                 });
-                newLike.save().then( res.send("Success!") );
+                newLike.save().then();
+
+                /*******************************ADD GOLD FOR LIKES ****************************************/
+                forDb.Likes.findAndCountAll({ where: { user_id : req.user.user_id }}).then(likes => {
+                    //res.send(result.rows);
+                    forDb.Achievements.findAll({ where: { type : 'like', quantity: {[forDb.Op.gte]: likes.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
+                        achievements.forEach(function(achievement) {
+                            // check achievements of user
+                            forDb.achievements_to_user.findOne({ where: { user_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                                // add gold
+                                if(achievement.dataValues.quantity === likes.count + 1 && !relation){
+                                    forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+                                        let gold = hero.dataValues.gold;
+                                        hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
+                                            // add achievement to achievements_to_user table
+                                            let newAchievementToUser = forDb.achievements_to_user.build({
+                                                user_id: req.user.user_id,
+                                                achievement_id: achievement.dataValues.id
+                                            });
+                                            newAchievementToUser.save().then( res.send("Gold added") );
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    });
+                });
             }
             else{
                 let newLike = forDb.Likes.destroy({
@@ -627,6 +664,22 @@ module.exports = function(app, passport) {
         res.end();
 
     });
+
+
+
+    /************************************GETTING GOLD******************************/
+
+    setInterval(function() {
+        forDb.Hero.findAll().then(function (heroes) {
+            heroes.forEach(function(hero) {
+                let id = hero.dataValues.id;
+                let gold = hero.dataValues.gold;
+                forDb.Hero.update({ gold: gold + 10 }, { where : {id: id } }).then(function () {
+                    return 0;
+                });
+            });
+        });
+    }, 100000);
 
 };
 

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
   const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
       host: 'localhost',
@@ -392,6 +393,48 @@ const avatarka = sequelize.define('Avatarka', {
 });
 
 
+const Achievements = sequelize.define('Achievements', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    type: {
+        type: Sequelize.INTEGER
+    },
+    achievement: {
+        type: Sequelize.STRING
+    },
+    quantity: {
+        type: Sequelize.INTEGER
+    },
+    gold: {
+        type: Sequelize.INTEGER
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'achievements'
+});
+
+const achievements_to_user = sequelize.define('achievements_to_user', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    user_id: {
+        type: User
+    },
+    achievement_id: {
+        type: Achievements
+    }},{
+    timestamps: false,
+    freezeTableName: true,
+    // define the table's name
+    tableName: 'achievements_to_user'
+});
+
 
 
 
@@ -507,3 +550,8 @@ exports.avatarka = avatarka;
 exports.Post = Post;
 exports.Comment = Comment;
 exports.Likes = Likes;
+
+
+exports.Achievements = Achievements;
+exports. achievements_to_user = achievements_to_user;
+exports.Op = Op;

@@ -15,15 +15,17 @@ export default class Posts extends React.Component {
 
     componentDidMount() {
 
-        const { post } = this.props.match.params
+        const { post } = this.props.match.params;
 
         axios.all([
             axios.get(`/posts`),
             axios.get(`/addPost/heroes`),
+            axios.get(`/sessionUser`),
         ])
-            .then(axios.spread((post, hero) => {
+            .then(axios.spread((post, hero, session_user) => {
                 this.setState({ posts: post.data });
                 this.setState({ users: hero.data });
+                if(!session_user.data) this.props.history.push("/login");
             }))
             .catch(error => console.log(error));
     }
@@ -31,7 +33,7 @@ export default class Posts extends React.Component {
     Posts () {
         let posts = Object.values(this.state.posts).map((post) => {
             let user = Object.values(this.state.users).map((user) => {
-                if(user.user === post.user_id)
+                if(user.user === post.hero_id)
                     return <a key={user.user}>{user.name} Запостил:<br/></a>
             });
 

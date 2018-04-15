@@ -19,7 +19,6 @@ export default class Post extends React.Component {
             classLike: '',
             comment: new String(),
             hero: '',
-
             post_id: ''
         };
 
@@ -45,9 +44,11 @@ export default class Post extends React.Component {
             axios.get(`/post/${post}/heroes`),
             axios.get(`/post/${post}/likes`),
             axios.get(`/myHero`),
-            axios.get(`/post/${post}/isPuttedLike`)
+            axios.get(`/post/${post}/isPuttedLike`),
+            axios.get(`/sessionUser`),
         ])
-            .then(axios.spread((post, heroes, likes, hero, isPutted) => {
+            .then(axios.spread((post, heroes, likes, hero, isPutted, session_user) => {
+                if(!session_user.data) this.props.history.push("/login");
                 this.setState({ post: post.data });
                 this.setState({ heroes: heroes.data });
                 this.setState({ likes: likes.data.length });
@@ -77,8 +78,16 @@ export default class Post extends React.Component {
                 );
             }
 
+            let user_name;
+            console.log(post.user_id);
+            let user = Object.values(this.state.heroes).map((user) => {
+                if(user.user === post.hero_id)
+                    user_name = user.name;
+            });
+
             return (
                 <React.Fragment>
+                    <h3>From {user_name}</h3>
                     <a key={post.id}><h2>{post.title}</h2><br/>{post.content}</a>
                     <br/><br/>
                     {image}

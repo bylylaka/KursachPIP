@@ -19,6 +19,8 @@ export default class MyCabinet extends React.Component {
             avaS: new Array(),
             Imga: new Object()
         };
+
+        this.logOut = this.logOut.bind(this);
     }
 
     componentDidMount() {
@@ -132,10 +134,19 @@ export default class MyCabinet extends React.Component {
             </div>)
     }
 
+    logOut(){
+        axios
+            .get(`/logout`)
+            .catch(error => console.log(error));
+        this.props.history.push("/");
+    }
+
     render() {
         return (
             <div className="Profile">
                 {this.Prolife ()}
+                <hr/>
+                <button onClick={this.logOut}>Выйти</button>
             </div>
         );
     }
@@ -147,4 +158,4 @@ const options = {
     timeout: 5000,
     offset: '30px',
     transition: 'scale'
-}
+};

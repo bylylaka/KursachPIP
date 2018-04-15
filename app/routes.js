@@ -263,6 +263,11 @@ module.exports = function(app, passport) {
         });
     });
 
+
+    app.get('/sessionUser', function(req, res) {
+        res.send(req.user);
+    });
+
     /**************************************POSTS LOGIC(BEGIN)**********************************************************/
 
     const promise = require('bluebird');
@@ -306,7 +311,6 @@ module.exports = function(app, passport) {
         });
     });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
     app.use('/post/:post/addComment', bodyParser.urlencoded({
         extended: true
     }));

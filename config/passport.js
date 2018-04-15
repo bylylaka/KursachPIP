@@ -2,11 +2,11 @@ var forDb = require('./../app/models/forDb');
 const Sequelize = require('sequelize');
 
 
-  const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-      host: 'localhost',
-      dialect: 'postgres',
-  });
-//const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+  // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+  //     host: 'localhost',
+  //     dialect: 'postgres',
+  // });
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -75,9 +75,12 @@ module.exports = function(passport) {
                             return done(null, false, req.flash('loginMessage', 'No user found.'));
                         }
                         else {
-                            forDb.User.findOne({where : {local: user.id}}).then(usero => {
-                                return done(null, usero.id);
-                            });
+                            if (password == user.password)
+                                forDb.User.findOne({where : {local: user.id}}).then(usero => {
+                                    return done(null, usero.id);
+                                });
+                            else
+                                return done(null, false, req.flash('loginMessage', 'Password is incorrect.'));
                         }
                     });
             });

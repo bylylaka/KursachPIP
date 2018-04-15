@@ -12,8 +12,11 @@ export default class Profile extends React.Component {
             name: new String(),
             gender: new String(),
             castle: new String(),
+            fraction: new String(),
             experience: new String(),
-            gold: new String()
+            gold: new String(),
+            photo: new String(),
+            Imga: new Object()
         };
     }
 
@@ -27,8 +30,10 @@ export default class Profile extends React.Component {
                     name: response.data[0].name,
                     gender: response.data[0].gender,
                     castle: response.data[0].castle,
+                    fraction: response.data[0].fraction,
                     experience: response.data[0].experience,
-                    gold: response.data[0].gold
+                    gold: response.data[0].gold,
+                    photo: response.data[0].avapath
                 });
             })
             .catch(error => console.log(error));
@@ -44,9 +49,23 @@ export default class Profile extends React.Component {
     )}
 
     Prolife () {
+        var Kartinka= './images/' + this.state.fraction + '/' + this.state.photo;
+        try {
+            this.state.Imga = require(``+Kartinka);
+        } catch (e) {
+            try {
+                Kartinka= './images/emptyAvatar.jpg';
+                this.state.Imga = require(``+Kartinka);
+            } catch (e) {
+                console.log('Нет фоточки((9((9(')
+            }
+        }
+
         return (
             <div>
-                <p>Your profile</p>
+                <p>Users profile</p>
+
+                <img src={this.state.Imga} />
                 <form onSubmit={this.handleSubmit}>
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
                     {this.Atrib({name :"gender", value: this.state.gender, readonly: 'true'})}

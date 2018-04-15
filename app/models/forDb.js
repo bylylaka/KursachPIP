@@ -491,6 +491,24 @@ exports.getFraction = function getFraction(hero, res) {        //Get Fraction AN
     });
 };
 
+
+
+
+exports.getCastleInf = function getCastleInf(req, res) {        //Get Heroes in Castle
+    Castle.findAll({ where: { name : req.params.castle } }).then(function (castle) {
+        Fraction.findAll({where: {id : castle[0].dataValues.fraction}}).then(function(fraction){
+            sequelize.query("SELECT Hero.id as id, Hero.name as name, avatarka.pathname as photo FROM Hero JOIN avatarka" +
+                " ON Hero.avatarka = avatarka.id where Hero.castle = " +  castle[0].dataValues.id).spread((heroesCastle, metadata) => {
+
+                    castle[0].dataValues.heroesCastle = heroesCastle;
+                    castle[0].dataValues.fractionName = fraction[0].dataValues.name;
+                    res.send(castle);
+            });
+        })
+    });
+}
+
+
 exports.Fraction = Fraction;
 exports.Hero = Hero;
 exports.Magic = Magic;

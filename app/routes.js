@@ -230,10 +230,7 @@ module.exports = function(app, passport) {
 
 
     app.get('/castles/:castle', isLoggedIn, function(req, res) {
-        //res.send("castle is " + req.params.castle);
-        forDb.Castle.findAll({ where: { name : req.params.castle } }).then(function (castle) {
-            res.send(castle);
-        });
+        forDb.getCastleInf(req, res);
     });
 
     app.get('/myHero', isLoggedIn, function(req, res) {
@@ -244,8 +241,8 @@ module.exports = function(app, passport) {
 
     app.get('/profiles/:profile', isLoggedIn,  function(req, res) {
         forDb.Hero.findAll({ where: { id : req.params.profile } }).then(function (hero) {
-            console.log(hero.dataValues);
-            res.send(hero);
+            forDb.getFraction(hero, res)
+            // res.send(hero);
         });
     });
 

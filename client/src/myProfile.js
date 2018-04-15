@@ -82,17 +82,7 @@ export default class MyCabinet extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
     Prolife () {
-
         var Kartinka= './images/' + this.state.fraction + '/' + this.state.photo;
         try {
             this.state.Imga = require(``+Kartinka);
@@ -113,10 +103,6 @@ export default class MyCabinet extends React.Component {
                 <br/>
                 <form onSubmit={this.handleSubmit}>
 
-
-
-
-
                     <select name="photo" onChange={this.handleChangePhoto}>
                         {
                             this.state.avaS.map( (ava) =>
@@ -125,10 +111,6 @@ export default class MyCabinet extends React.Component {
                                 : <option value={ava.pathname}>{ava.name}</option>)
                         }
                     </select>
-
-
-
-
 
 
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}

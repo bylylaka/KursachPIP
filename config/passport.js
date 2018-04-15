@@ -75,9 +75,12 @@ module.exports = function(passport) {
                             return done(null, false, req.flash('loginMessage', 'No user found.'));
                         }
                         else {
-                            forDb.User.findOne({where : {local: user.id}}).then(usero => {
-                                return done(null, usero.id);
-                            });
+                            if (password == user.password)
+                                forDb.User.findOne({where : {local: user.id}}).then(usero => {
+                                    return done(null, usero.id);
+                                });
+                            else
+                                return done(null, false, req.flash('loginMessage', 'Password is incorrect.'));
                         }
                     });
             });

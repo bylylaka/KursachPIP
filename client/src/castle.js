@@ -70,7 +70,6 @@ export default class Castle extends React.Component {
             </div>
         )
     }
-
     Castle () {
         var castles = Object.values(this.state.date).map((data) => {
             this.state.heroesCastle = data.heroesCastle;

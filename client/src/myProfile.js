@@ -73,7 +73,7 @@ export default class MyCabinet extends React.Component {
     }
 
     Option(props) {
-        return (this.state.gender ==  props.gender)
+        return (this.state.gender ===  props.gender)
             ? <option selected name = "gender" value={props.gender}>{props.gender}</option>
             : <option name = "gender" value={props.gender}>{props.gender}</option>
     }
@@ -84,6 +84,7 @@ export default class MyCabinet extends React.Component {
 
     Prolife () {
         var Kartinka= './images/' + this.state.fraction + '/' + this.state.photo;
+
         try {
             this.state.Imga = require(``+Kartinka);
         } catch (e) {
@@ -106,7 +107,7 @@ export default class MyCabinet extends React.Component {
                     <select name="photo" onChange={this.handleChangePhoto}>
                         {
                             this.state.avaS.map( (ava) =>
-                            (ava.pathname ==  this.state.photo)
+                            (ava.pathname ===  this.state.photo)
                                 ? <option value={ava.pathname} selected>{ava.name}</option>
                                 : <option value={ava.pathname}>{ava.name}</option>)
                         }

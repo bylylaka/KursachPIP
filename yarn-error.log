@@ -53,10 +53,13 @@ npm manifest:
       "pg": "^7.4.1",
       "pg-promise": "^8.2.2",
       "python": "0.0.4",
+      "react-progressive-image": "^0.3.0",
+      "react-progressive-image-loading": "^3.0.2",
       "react-router-dom": "^4.2.2",
       "react-websocket": "^2.0.0",
       "sequelize": "^4.35.2",
       "simple-xmpp": "^1.3.0",
+      "stanza": "0.0.1",
       "ws": "^5.0.0",
       "xmpp-jid": "^1.2.3"
     },

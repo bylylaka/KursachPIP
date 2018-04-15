@@ -6,6 +6,7 @@ import './index.css';
 import Castle from "./castle";
 import AllCastles from "./forCastle";
 import MyProfile from "./myProfile"
+import MyCastle from "./myCastle"
 import Profile from "./profile"
 import Chat from "./Chat"
 import ChatCastle from "./chatCastle"
@@ -37,8 +38,9 @@ const BasicExample = () => (
                 <Route path="/signup" component={Signup} />
                 <Route path="/castle" component={AllCastles} />
                 <Route path="/castles/:castle" component={Castle} />
-                <Route path="/enter/:castle_id" component={Enter} />
                 <Route path="/profile" component={MyProfile} />
+                <Route path="/enter/:castle_id" component={Enter} />
+                <Route path="/myCastle" component={MyCastle} />
                 <Route path="/profiles/:profile" component={Profile} />
                 <Route path="/addPost" component={addPost} />
                 <Route path="/posts" component={Posts} />

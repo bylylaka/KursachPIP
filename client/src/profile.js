@@ -46,10 +46,11 @@ export default class Profile extends React.Component {
                 <p style={{ display: 'inline' }}>{props.value}</p>
                 <br/>
             </div>
-    )}
+        )}
 
     Prolife () {
         var Kartinka= './images/' + this.state.fraction + '/' + this.state.photo;
+        console.log('\n\n\n\n' + Kartinka)
         try {
             this.state.Imga = require(``+Kartinka);
         } catch (e) {

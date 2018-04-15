@@ -8,6 +8,7 @@ module.exports = function(app, passport) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     var clients = {};
+    var castleCh = {};
 
 // normal routes ===============================================================
 
@@ -239,6 +240,10 @@ module.exports = function(app, passport) {
         forDb.getCastleInf(req, res);
     });
 
+    app.get('/myCastle', isLoggedIn, function(req, res) {
+        forDb.getMyCastleInf(req, res);
+    });
+
     app.get('/myHero', isLoggedIn, function(req, res) {
         forDb.Hero.findAll({ where: { user : req.user.user_id } }).then(function (hero) {
             forDb.getFraction(hero, res)
@@ -249,7 +254,6 @@ module.exports = function(app, passport) {
         forDb.Hero.findAll({ where: { id : req.params.profile } }).then(function (hero) {
             forDb.getFraction(hero, res)
             //console.log(hero.dataValues);
-            res.send(hero);
         });
     });
 
@@ -580,15 +584,16 @@ module.exports = function(app, passport) {
         var heroid;
         var castle;
 
-        forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
-            id = user.dataValues.id;
+        // forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
+            id = req.user.user_id;
             clients[id] = ws;
-        });
+        // });
 
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             name = hero.dataValues.name;
             heroid = hero.dataValues.id;
             castle = hero.dataValues.castle;
+            castleCh[id] = hero.dataValues.castle;
 
             forDb.Messages.findAll({ where: { castle: castle}}).then(message => {
                 //console.log('\n\n\n' + castle)
@@ -601,7 +606,9 @@ module.exports = function(app, passport) {
 
         ws.on('message', function (message) {
             for (var key in clients) {
-                clients[key].send(name+':\t'+message);
+                if (castleCh[key] == castle)
+                // console.log(message + castle)
+                    clients[key].send(name+':\t'+message);
             }
             forDb.addMessage(message, name, heroid, castle);
         });

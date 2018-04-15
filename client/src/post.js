@@ -19,7 +19,8 @@ export default class Post extends React.Component {
             classLike: '',
             comment: new String(),
             hero: '',
-            post_id: ''
+            post_id: '',
+            isAuthenticated: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -48,12 +49,13 @@ export default class Post extends React.Component {
             axios.get(`/sessionUser`),
         ])
             .then(axios.spread((post, heroes, likes, hero, isPutted, session_user) => {
-                if(!session_user.data) this.props.history.push("/login");
                 this.setState({ post: post.data });
                 this.setState({ heroes: heroes.data });
                 this.setState({ likes: likes.data.length });
                 this.setState({ hero: hero.data });
                 this.setState({isPuttedLike : isPutted.data });
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
 
                 if(this.state.isPuttedLike.length === 0)
                     this.setState({ classLike: 'noLike'});
@@ -79,7 +81,6 @@ export default class Post extends React.Component {
             }
 
             let user_name;
-            console.log(post.user_id);
             let user = Object.values(this.state.heroes).map((user) => {
                 if(user.user === post.hero_id)
                     user_name = user.name;
@@ -167,18 +168,24 @@ export default class Post extends React.Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.Post ()}
-                <a>Комментарии:</a>
-                <hr/>
-                <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
-                <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
-                <br/>
-                {this.AddComment ()}
-                <br/><hr/>
-                <Link to={"/posts"}><button type="button">Вернуться</button></Link>
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="App">
+                    {this.Post ()}
+                    <a>Комментарии:</a>
+                    <hr/>
+                    <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
+                    <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
+                    <br/>
+                    {this.AddComment ()}
+                    <br/><hr/>
+                    <Link to={"/posts"}><button type="button">Вернуться</button></Link>
+                </div>
+            );
+        }
+        else
+            return(
+                <div></div>
+            );
     }
 }

@@ -14,20 +14,23 @@ export default class Castle extends React.Component {
             fractionName: new String(),
             rating: new String(),
             heroesCastle: new Array(),
-            Imga: new Object()
+            Imga: new Object(),
+            isAuthenticated: false
         };
     }
 
     componentDidMount() {
         const { castle } = this.props.match.params
 
-        axios
-            .get(`/myCastle`)
-            .then(response => {
-                this.setState({
-                    date: response.data
-                });
-            })
+        axios.all([
+            axios.get(`/myCastle`),
+            axios.get(`/sessionUser`),
+        ])
+            .then(axios.spread((castle, session_user) => {
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+                this.setState({date: castle.data });
+            }))
             .catch(error => console.log(error));
     }
 
@@ -105,13 +108,20 @@ export default class Castle extends React.Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.Castle ()}
-                <div style={{position: 'absolute', right: '100px', top: '30px'}}>
-                    <ChatCastle/>
+        if(this.state.isAuthenticated){
+            return (
+                <div className="App">
+                    {this.Castle ()}
+                    <div style={{position: 'absolute', right: '100px', top: '30px'}}>
+                        <ChatCastle/>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
     }
 }

@@ -15,6 +15,8 @@ import Posts from "./posts";
 import Post from "./post";
 import Enter from "./enter";
 import addPost from "./addPost";
+import Achievements from "./achievements";
+
 
 import NotFound from "./notFound";
 import { Switch } from 'react-router-dom'
@@ -50,6 +52,7 @@ const BasicExample = () => (
                 <Route path="/current-post/:post" component={Post} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/chatCastle" component={ChatCastle} />
+                <Route path="/achievements" component={Achievements} />
                 <Route component={ NotFound } />
             </Switch>
         </BrowserRouter>

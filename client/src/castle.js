@@ -13,20 +13,22 @@ export default class Castle extends React.Component {
             fractionName: new String(),
             rating: new String(),
             heroesCastle: new Array(),
-            Imga: new Object()
+            Imga: new Object(),
+            hero_gold: ''
         };
     }
 
     componentDidMount() {
         const { castle } = this.props.match.params;
 
-        axios
-            .get(`/castles/${castle}`)
-            .then(response => {
-                this.setState({
-                    date: response.data
-                });
-            })
+        axios.all([
+            axios.get(`/castles/${castle}`),
+            axios.get(`/sessionHero`),
+        ])
+            .then(axios.spread((castle, session_hero) => {
+                this.setState({ hero_gold : session_hero.data.gold });
+                this.setState({ date: castle.data });
+            }))
             .catch(error => console.log(error));
     }
 
@@ -77,7 +79,11 @@ export default class Castle extends React.Component {
             this.state.fraction = data.fraction;
             this.state.fractionName = data.fractionName;
             this.state.rating = data.rating;
-            return <Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>
+            if(this.state.hero_gold >= data.gold)
+                return (<Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>);
+            else
+                return (<div>Недостаточно голды для вступления в замок))</div>)
+
         })
 
         var Kartinka= './images/'+ this.state.fractionName + '/castle.jpg';

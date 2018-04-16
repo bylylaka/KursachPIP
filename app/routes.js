@@ -235,6 +235,20 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/subHeroMoney/:castle', isLoggedIn, function(req, res) {
+        console.log("\n\n\n\n\n" + req.params.castle + "\n\n\n");
+        forDb.Castle.findOne({ where: { id : req.params.castle } }).then(function (castle) {
+            let goldSub = castle.gold;
+
+            forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+                let goldPrev = hero.gold;
+
+                forDb.Hero.update({ gold: goldPrev - goldSub }, { where : {user: req.user.user_id } }).then(function () {
+                    res.send("Success!");
+                });
+            });
+        });
+    });
 
     app.get('/castles/:castle', isLoggedIn, function(req, res) {
         forDb.getCastleInf(req, res);
@@ -270,6 +284,12 @@ module.exports = function(app, passport) {
 
     app.get('/sessionUser', function(req, res) {
         res.send(req.user);
+    });
+
+    app.get('/sessionHero', function(req, res) {
+        forDb.Hero.findOne({where : { user: req.user.user_id }}).then(function(hero) {
+            res.send(hero);
+        });
     });
 
     /**************************************POSTS LOGIC(BEGIN)**********************************************************/
@@ -318,6 +338,21 @@ module.exports = function(app, passport) {
     app.use('/post/:post/addComment', bodyParser.urlencoded({
         extended: true
     }));
+
+    app.get('/hero_achievements', isLoggedIn, function(req, res) {
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+            forDb.achievements_to_hero.findAll({where : {hero_id: hero.id}}).then(function (achievements) {
+                res.send(achievements);
+            });
+        });
+    });
+
+    app.get('/all_achievements', isLoggedIn, function(req, res) {
+        forDb.Achievements.findAll({order: [['id', 'ASC']]}).then(function(achievements) {
+            res.send(achievements);
+        });
+    });
+
 
     app.ws('/post/:post/addComment', function(ws, req) {
         let id;

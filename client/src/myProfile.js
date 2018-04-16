@@ -18,7 +18,9 @@ export default class MyCabinet extends React.Component {
             photo: new String(),
             avaS: new Array(),
             Imga: new Object(),
-            isAuthenticated: false
+            isAuthenticated: false,
+            hero_achievements: '',
+            all_achievements: ''
         };
 
         this.logOut = this.logOut.bind(this);
@@ -30,10 +32,15 @@ export default class MyCabinet extends React.Component {
         axios.all([
             axios.get(`/myHero`),
             axios.get(`/sessionUser`),
+            axios.get(`/hero_achievements`),
+            axios.get(`/all_achievements`),
         ])
-            .then(axios.spread((response, session_user) => {
+            .then(axios.spread((response, session_user, hero_achievements, all_achievements) => {
                 this.setState({isAuthenticated : session_user.data });
                 if(!session_user.data) this.props.history.push("/login");
+
+                this.setState({hero_achievements: hero_achievements.data });
+                this.setState({all_achievements: all_achievements.data });
                 this.setState({
                     id: response.data[0].id,
                     name: response.data[0].name,
@@ -47,27 +54,6 @@ export default class MyCabinet extends React.Component {
                 });
             }))
             .catch(error => console.log(error));
-
-
-        /*
-        axios
-            .get(`/myHero`)
-            .then(response => {
-                this.setState({
-                    id: response.data[0].id,
-                    name: response.data[0].name,
-                    gender: response.data[0].gender,
-                    castle: response.data[0].castle,
-                    experience: response.data[0].experience,
-                    gold: response.data[0].gold,
-                    fraction: response.data[0].fraction,
-                    photo: response.data[0].avapath,
-                    avaS: response.data[0].avaS,
-                });
-                //console.log(this.state.avaS)
-            })
-            .catch(error => console.log(error));
-            */
     }
 
 
@@ -105,7 +91,6 @@ export default class MyCabinet extends React.Component {
             ? <option selected name = "gender" value={props.gender}>{props.gender}</option>
             : <option name = "gender" value={props.gender}>{props.gender}</option>
     }
-
 
 
 
@@ -155,9 +140,22 @@ export default class MyCabinet extends React.Component {
                     {this.Atrib({name :"castle", value: this.state.castle, readonly: 'true'})}
                     {this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}
                     {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
-                    <button>Send data!</button>
+                    <button>Отправить!</button>
                 </form>
-            </div>)
+            </div>
+        )
+    }
+
+    Achievements(){
+        let achievements = Object.values(this.state.all_achievements).map((achievement) => {
+            let hero_achievemens = Object.values(this.state.hero_achievements).map((hero) => {
+                if(achievement.id === hero.achievement_id){
+                    return <div>{achievement.achievement} Голды получено: {achievement.gold}</div>
+                }
+            });
+            return hero_achievemens;
+        });
+        return achievements;
     }
 
     logOut(){
@@ -172,6 +170,10 @@ export default class MyCabinet extends React.Component {
             return (
                 <div className="Profile">
                     {this.Prolife ()}
+                    <hr/>
+                    <h4>Достижения: </h4>
+                    {this.Achievements ()}
+                    <Link to={"/achievements"}><h6>Посмотреть все достижения</h6></Link>
                     <hr/>
                     <button onClick={this.logOut}>Выйти</button>
                 </div>

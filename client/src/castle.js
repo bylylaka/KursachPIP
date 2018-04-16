@@ -14,8 +14,11 @@ export default class Castle extends React.Component {
             rating: new String(),
             heroesCastle: new Array(),
             Imga: new Object(),
-            hero_gold: ''
+            hero_gold: '',
+            castle_id: ''
         };
+
+        this.subHeroMoney = this.subHeroMoney.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +34,6 @@ export default class Castle extends React.Component {
             }))
             .catch(error => console.log(error));
     }
-
 
     OnlyHero(hero){
         var Kartinka= './images/' + this.state.fractionName + '/' + hero.photo;
@@ -72,6 +74,16 @@ export default class Castle extends React.Component {
             </div>
         )
     }
+
+    subHeroMoney(){
+        axios.all([
+            axios.get(`/subHeroMoney/${this.state.castle_id}`)
+        ])
+            .catch(error => console.log(error));
+
+        this.props.history.push("/enter/"+this.state.castle_id);
+    }
+
     Castle () {
         var castles = Object.values(this.state.date).map((data) => {
             this.state.heroesCastle = data.heroesCastle;
@@ -79,8 +91,15 @@ export default class Castle extends React.Component {
             this.state.fraction = data.fraction;
             this.state.fractionName = data.fractionName;
             this.state.rating = data.rating;
+
+            this.state.castle_id = data.id;
+
+
+
+
             if(this.state.hero_gold >= data.gold)
-                return (<Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>);
+                return (<button onClick={this.subHeroMoney}>Вступить в {data.name}</button>);
+            //<Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>
             else
                 return (<div>Недостаточно голды для вступления в замок))</div>)
 

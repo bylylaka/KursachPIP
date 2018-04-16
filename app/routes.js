@@ -236,7 +236,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/subHeroMoney/:castle', isLoggedIn, function(req, res) {
-        console.log("\n\n\n\n\n" + req.params.castle + "\n\n\n");
         forDb.Castle.findOne({ where: { id : req.params.castle } }).then(function (castle) {
             let goldSub = castle.gold;
 

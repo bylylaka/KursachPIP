@@ -18,7 +18,6 @@ export default class Enter extends React.Component {
 
         axios.all([
             axios.get(`/enter/${castle_id}`),
-            axios.get(`/subHeroMoney/${castle_id}`)
         ])
             .then(axios.spread((enter) => {
                 this.setState({ data: enter.data });
@@ -27,6 +26,14 @@ export default class Enter extends React.Component {
 
         this.intervalId = setInterval(this.Redirect.bind(this), 1000);
     }
+
+    componentWillMount() {
+        setTimeout(() => {
+            window.history.forward()
+        }, 0);
+        window.onunload=function(){null};
+    }
+
 
 
     componentWillUnmount(){

@@ -34,7 +34,6 @@ export default class Castle extends React.Component {
             .catch(error => console.log(error));
     }
 
-
     OnlyHero(hero){
         var Kartinka= './images/' + this.state.fractionName + '/' + hero.photo;
         console.log(Kartinka)

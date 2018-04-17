@@ -64,9 +64,9 @@ export default class Profile extends React.Component {
 
         return (
             <div>
-                <p>Users profile</p>
+                <p>Profile</p>
 
-                <img src={this.state.Imga} />
+                <img className="profilePicta" src={this.state.Imga} />
                 <form onSubmit={this.handleSubmit}>
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
                     {this.Atrib({name :"gender", value: this.state.gender, readonly: 'true'})}

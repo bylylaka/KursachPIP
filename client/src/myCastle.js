@@ -1,5 +1,6 @@
 import axios from "axios/index";
 import ChatCastle from "./chatCastle"
+import './myCastle.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
@@ -65,9 +66,9 @@ export default class Castle extends React.Component {
 
     CastleHeroes(){
         return (
-            <div>
+            <div className="formembers">
                 <p>Castle members:</p>
-                <div>
+                <div className="members">
                     {this.ListHeroes()}
                 </div>
             </div>
@@ -96,12 +97,17 @@ export default class Castle extends React.Component {
 
         return (
             <div>
-                <img src={this.state.Imga} style={{width: '450px'}}/>
-                <h2>Название: {this.state.name}</h2>
-                <h2>Расса: {this.state.fractionName}</h2>
-                <h2>Рейтинг: {this.state.rating}</h2>
-                {castles}
+                <img className="castlePicta" src={this.state.Imga}/>
+                <div className="chatCastle">
+                    <ChatCastle/>
+                </div>
                 {this.CastleHeroes()}
+                <div className="info">
+                    <h2>Название: {this.state.name}</h2>
+                    <h2>Расса: {this.state.fractionName}</h2>
+                    <h2>Рейтинг: {this.state.rating}</h2>
+                    {castles}
+                </div>
             </div>
         )
     }
@@ -109,11 +115,8 @@ export default class Castle extends React.Component {
     render() {
         if(this.state.isAuthenticated){
             return (
-                <div className="App">
+                <div className="myCastle">
                     {this.Castle ()}
-                    <div style={{position: 'absolute', right: '100px', top: '30px'}}>
-                        <ChatCastle/>
-                    </div>
                 </div>
             );
         }

@@ -113,7 +113,7 @@ export default class MyCabinet extends React.Component {
             <div>
                 <p>Your profile</p>
 
-                <img src={this.state.Imga} />
+                <img src={this.state.Imga} className="profilePicta"/>
                 <br/>
                 <form onSubmit={this.handleSubmit}>
 

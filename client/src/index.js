@@ -10,6 +10,7 @@ import MyCastle from "./myCastle"
 import Profile from "./profile"
 import Chat from "./Chat"
 import ChatCastle from "./chatCastle"
+import Menu from "./menu"
 
 import Posts from "./posts";
 import Post from "./post";
@@ -37,24 +38,27 @@ function Header() {
 const BasicExample = () => (
     <div>
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Main} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/castle" component={AllCastles} />
-                <Route path="/castles/:castle" component={Castle} />
-                <Route path="/profile" component={MyProfile} />
-                <Route path="/enter/:castle_id" component={Enter} />
-                <Route path="/myCastle" component={MyCastle} />
-                <Route path="/profiles/:profile" component={Profile} />
-                <Route path="/addPost" component={addPost} />
-                <Route path="/posts" component={Posts} />
-                <Route path="/current-post/:post" component={Post} />
-                <Route path="/chat" component={Chat} />
-                <Route path="/chatCastle" component={ChatCastle} />
-                <Route path="/achievements" component={Achievements} />
-                <Route component={ NotFound } />
-            </Switch>
+            <div>
+                <Menu/>
+                <Switch>
+                    <Route exact path="/" component={Main} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/castle" component={AllCastles} />
+                    <Route path="/castles/:castle" component={Castle} />
+                    <Route path="/profile" component={MyProfile} />
+                    <Route path="/enter/:castle_id" component={Enter} />
+                    <Route path="/myCastle" component={MyCastle} />
+                    <Route path="/profiles/:profile" component={Profile} />
+                    <Route path="/addPost" component={addPost} />
+                    <Route path="/posts" component={Posts} />
+                    <Route path="/current-post/:post" component={Post} />
+                    <Route path="/chat" component={Chat} />
+                    <Route path="/chatCastle" component={ChatCastle} />
+                    <Route path="/achievements" component={Achievements} />
+                    <Route component={ NotFound } />
+                </Switch>
+            </div>
         </BrowserRouter>
     </div>
 );

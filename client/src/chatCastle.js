@@ -1,5 +1,6 @@
 import Websocket from 'react-websocket';
 import axios from "axios/index";
+var Link = require ('react-router-dom').Link;
 var React = require('react');
 
 export default class ChatCastle extends React.Component {
@@ -18,9 +19,13 @@ export default class ChatCastle extends React.Component {
         // listen to onmessage event
         this.connection.onmessage = evt => {
             // add the new message to state
-            this.setState({
-                messages: this.state.messages.concat([evt.data])
-            })
+            var newMessage = {
+                hero: JSON.parse(evt.data).hero,
+                heroid: '/profiles/' + JSON.parse(evt.data).heroid,
+                message: JSON.parse(evt.data).message
+            }
+            this.state.messages.push(newMessage);
+            this.setState({messages:this.state.messages});
         };
     }
 
@@ -46,7 +51,9 @@ export default class ChatCastle extends React.Component {
                     <input type="text" name="message" onChange={this.onChange}/>
                     <input type="submit" value="Отправить"/>
                 </form>
-                <div>{ this.state.messages.map( (msg) => <p >{ msg }</p> )}</div>
+                <div>{ this.state.messages.map( (msg) =>
+                    <p><Link to={ msg.heroid }>{ msg.hero }: { msg.message }</Link></p> )}
+                </div>
             </div>
         );
     }

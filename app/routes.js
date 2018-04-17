@@ -547,7 +547,7 @@ module.exports = function(app, passport) {
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
 
             forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
-                forDb.Castle.findOne({where : {fraction: fraction.dataValues.id}, order: [['id', 'ASC']]}).then(function(castle) {
+                forDb.Castle.findOne({where : {fraction: fraction.dataValues.id}, order: [['rating', 'ASC']]}).then(function(castle) {
                     let gold = hero.gold - 500;
                     if (castle != null)
                         hero.updateAttributes({
@@ -603,6 +603,7 @@ module.exports = function(app, passport) {
         var id;
         var name;
         var heroid;
+        var castle;
 
         forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
             id = user.dataValues.id;
@@ -613,15 +614,21 @@ module.exports = function(app, passport) {
             heroid = hero.dataValues.id;
         });
 
-        forDb.Messages.findAll().then(message => {
+        forDb.Messages.findAll({ where: { castle: null}}).then(message => {
             message.forEach(function(mes) {
-                ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
+                ws.send(JSON.stringify(mes.dataValues));
+                // ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
             });
         });
 
         ws.on('message', function (message) {
             for (var key in clients) {
-                clients[key].send(name+':\t'+message);
+                var newMessage = {
+                    hero: name,
+                    heroid: heroid,
+                    message: message,
+                };
+                clients[key].send(JSON.stringify(newMessage));
             }
             forDb.addMessage(message, name, heroid);
         });
@@ -655,7 +662,7 @@ module.exports = function(app, passport) {
             forDb.Messages.findAll({ where: { castle: castle}}).then(message => {
                 //console.log('\n\n\n' + castle)
                 message.forEach(function(mes) {
-                    ws.send(mes.dataValues.hero+ ':\t'+ mes.dataValues.message);
+                    ws.send(JSON.stringify(mes.dataValues));
                 });
             });
         });
@@ -664,8 +671,12 @@ module.exports = function(app, passport) {
         ws.on('message', function (message) {
             for (var key in clients) {
                 if (castleCh[key] == castle)
-                // console.log(message + castle)
-                    clients[key].send(name+':\t'+message);
+                    var newMessage = {
+                        hero: name,
+                        heroid: heroid,
+                        message: message,
+                    };
+                clients[key].send(JSON.stringify(newMessage));
             }
             forDb.addMessage(message, name, heroid, castle);
         });

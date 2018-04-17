@@ -124,9 +124,9 @@ export default class MyCabinet extends React.Component {
                     <select name="photo" onChange={this.handleChangePhoto}>
                         {
                             this.state.avaS.map( (ava) =>
-                                (ava.pathname ===  this.state.photo)
-                                    ? <option value={ava.pathname} selected>{ava.name}</option>
-                                    : <option value={ava.pathname}>{ava.name}</option>)
+                            (ava.pathname ===  this.state.photo)
+                                ? <option value={ava.pathname} selected>{ava.name}</option>
+                                : <option value={ava.pathname}>{ava.name}</option>)
                         }
                     </select>
 

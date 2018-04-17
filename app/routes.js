@@ -546,33 +546,16 @@ module.exports = function(app, passport) {
     app.post('/submitfraction', isLoggedIn, function(req, res) {
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
 
-            let fraction;
-            switch (req.body.fraction) {
-                case 'alians':
-                    fraction = 1;
-                    break;
-                case 'gnomes':
-                    fraction = 2;
-                    console.log("qq");
-                    break;
-                case 'orda':
-                    fraction = 3;
-                    break;
-                case 'devils':
-                    fraction = 4;
-                    break;
-                default:
-                    alert( 'NO SUCH FRACTION!' );
-            }
-
-            forDb.Castle.findOne({where : {fraction: fraction}, order: [['id', 'ASC']]}).then(function(castle) {
-                let gold = hero.gold - 500;
-                if (castle != null)
-                    hero.updateAttributes({
-                        castle: castle.id,
-                        gold: gold
-                    });
-                res.send("Added castle!");
+            forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
+                forDb.Castle.findOne({where : {fraction: fraction.dataValues.id}, order: [['id', 'ASC']]}).then(function(castle) {
+                    let gold = hero.gold - 500;
+                    if (castle != null)
+                        hero.updateAttributes({
+                            castle: castle.id,
+                            gold: gold
+                        });
+                    res.send("Added castle!");
+                });
             });
         });
     });

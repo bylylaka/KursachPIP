@@ -20,10 +20,14 @@ export default class MyCabinet extends React.Component {
             Imga: new Object(),
             isAuthenticated: false,
             hero_achievements: '',
-            all_achievements: ''
+            all_achievements: '',
+            selected: ''
         };
 
         this.logOut = this.logOut.bind(this);
+        this.getFractionName = this.getFractionName.bind(this);
+        this.handleOnChangeFraction = this.handleOnChangeFraction.bind(this);
+        this.handleSubmitFraction = this.handleSubmitFraction.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +56,7 @@ export default class MyCabinet extends React.Component {
                     photo: response.data[0].avapath,
                     avaS: response.data[0].avaS,
                 });
+                this.setState({selected: response.data[0].fraction });
             }))
             .catch(error => console.log(error));
     }
@@ -112,7 +117,6 @@ export default class MyCabinet extends React.Component {
         return (
             <div>
                 <p>Your profile</p>
-
                 <img src={this.state.Imga} />
                 <br/>
                 <form onSubmit={this.handleSubmit}>
@@ -165,10 +169,93 @@ export default class MyCabinet extends React.Component {
         this.props.history.push("/");
     }
 
+
+
+    handleSubmitFraction(e){
+        e.preventDefault();
+
+
+        switch (this.state.selected) {
+            case 'alians':
+                alert("Теперь вы состоите в Альянсе!");
+                break;
+            case 'gnomes':
+                alert("Количество гномов: +1)");
+                break;
+            case 'orda':
+                alert("Ты и так был орком))");
+                break;
+            case 'devils':
+                alert("Добро пожаловать в Царство Сатаны!");
+                break;
+            default:
+                alert( 'NO SUCH FRACTION!' );
+        }
+
+
+        const data = new FormData();
+        data.append('fraction', this.state.selected);
+
+        axios
+            .post(`/submitfraction`, data)
+            .then(response => {
+                console.log("done");
+            })
+            .catch(error => console.log(error));
+
+        window.location.reload();
+    }
+
+    getFractionName(){
+        switch (this.state.fraction) {
+            case 'alians':
+                return 'Альянс';
+                break;
+            case 'gnomes':
+                return 'Гном';
+                break;
+            case 'orda':
+                return 'ОРК)';
+                break;
+            case 'devils':
+                return 'Дьявол';
+                break;
+        }
+    }
+
+    handleOnChangeFraction(e){
+        this.setState({ selected: e.target.value });
+    }
+
+    addFraction(){
+        return (
+            <form onSubmit={this.handleSubmitFraction}>
+                <div>
+                    <p>Текущая фракция: {this.getFractionName()}</p>
+                    <label>Орда</label>
+                    <input type='radio' id='orda' name='race' value='orda' checked={this.state.selected == 'orda'}  onChange={this.handleOnChangeFraction} />
+                    <br />
+                    <label>Альянс</label>
+                    <input type='radio' id='alians' name='race' value='alians' checked={this.state.selected == 'alians'} onChange={this.handleOnChangeFraction} />
+                    <br />
+                    <label>Гномы</label>
+                    <input type='radio' id='gnomes' name='race' value='gnomes' checked={this.state.selected == 'gnomes'} onChange={this.handleOnChangeFraction} />
+                    <br />
+                    <label>Дьяволы</label>
+                    <input type='radio' id='devils' name='race' value='devils' checked={this.state.selected == 'devils'} onChange={this.handleOnChangeFraction} />
+                </div>
+                <hr/>
+                <div>Смена фракции: 500 голды</div>
+                <br/><button type="submit" disabled={this.state.selected === this.state.fraction}>Присоединиться!</button>
+            </form>
+        );
+    }
+
     render() {
         if(this.state.isAuthenticated){
             return (
                 <div className="Profile">
+                    {this.addFraction ()}
                     {this.Prolife ()}
                     <hr/>
                     <h4>Достижения: </h4>

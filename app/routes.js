@@ -541,8 +541,45 @@ module.exports = function(app, passport) {
     /**************************************POSTS LOGIC(END)************************************************************/
 
 
+
+
+    app.post('/submitfraction', isLoggedIn, function(req, res) {
+        forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
+
+            let fraction;
+            switch (req.body.fraction) {
+                case 'alians':
+                    fraction = 1;
+                    break;
+                case 'gnomes':
+                    fraction = 2;
+                    console.log("qq");
+                    break;
+                case 'orda':
+                    fraction = 3;
+                    break;
+                case 'devils':
+                    fraction = 4;
+                    break;
+                default:
+                    alert( 'NO SUCH FRACTION!' );
+            }
+
+            forDb.Castle.findOne({where : {fraction: fraction}, order: [['id', 'ASC']]}).then(function(castle) {
+                let gold = hero.gold - 500;
+                if (castle != null)
+                    hero.updateAttributes({
+                        castle: castle.id,
+                        gold: gold
+                    });
+                res.send("Added castle!");
+            });
+        });
+    });
+
     /*
     app.post('/submitfraction', isLoggedIn, function(req, res) {        //После регистрации
+        console.log("\n\n\n\n" + req.body.fraction + "\n\n\n\n");
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
                 if (fraction != null)
@@ -554,7 +591,6 @@ module.exports = function(app, passport) {
         });
     });
 
-
     app.get('/submitfraction', isLoggedIn, function(req, res) {        //После входа
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             if (hero.dataValues.fraction == null)
@@ -563,8 +599,8 @@ module.exports = function(app, passport) {
                 res.send("Он уже выбрал фракцию");
         });
     });
+    */
 
-*/
 
 
 

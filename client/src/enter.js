@@ -1,5 +1,4 @@
 import axios from "axios/index";
-import timer from 'react-timer-hoc';
 var React = require('react');
 
 export default class Enter extends React.Component {
@@ -8,7 +7,7 @@ export default class Enter extends React.Component {
         super();
         this.state = {
             data: '',
-            seconds: 4
+            seconds: 3
         };
     }
 

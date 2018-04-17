@@ -76,7 +76,6 @@ export default class Post extends React.Component {
     }
 
 
-
     AddPost(){
         return (
             <form onSubmit={this.handleSubmit}>

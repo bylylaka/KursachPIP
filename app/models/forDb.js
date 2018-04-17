@@ -48,6 +48,9 @@ const Castle = sequelize.define('Castle', {
     },
     rating: {
         type: Sequelize.INTEGER
+    },
+    gold: {
+        type: Sequelize.INTEGER
     }},{
     timestamps: false,
     freezeTableName: true,

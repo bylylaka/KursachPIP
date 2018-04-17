@@ -13,23 +13,27 @@ export default class Castle extends React.Component {
             fractionName: new String(),
             rating: new String(),
             heroesCastle: new Array(),
-            Imga: new Object()
+            Imga: new Object(),
+            hero_gold: '',
+            castle_id: ''
         };
+
+        this.subHeroMoney = this.subHeroMoney.bind(this);
     }
 
     componentDidMount() {
         const { castle } = this.props.match.params;
 
-        axios
-            .get(`/castles/${castle}`)
-            .then(response => {
-                this.setState({
-                    date: response.data
-                });
-            })
+        axios.all([
+            axios.get(`/castles/${castle}`),
+            axios.get(`/sessionHero`),
+        ])
+            .then(axios.spread((castle, session_hero) => {
+                this.setState({ hero_gold : session_hero.data.gold });
+                this.setState({ date: castle.data });
+            }))
             .catch(error => console.log(error));
     }
-
 
     OnlyHero(hero){
         var Kartinka= './images/' + this.state.fractionName + '/' + hero.photo;
@@ -70,6 +74,16 @@ export default class Castle extends React.Component {
             </div>
         )
     }
+
+    subHeroMoney(){
+        axios.all([
+            axios.get(`/subHeroMoney/${this.state.castle_id}`)
+        ])
+            .catch(error => console.log(error));
+
+        this.props.history.push("/enter/"+this.state.castle_id);
+    }
+
     Castle () {
         var castles = Object.values(this.state.date).map((data) => {
             this.state.heroesCastle = data.heroesCastle;
@@ -77,7 +91,18 @@ export default class Castle extends React.Component {
             this.state.fraction = data.fraction;
             this.state.fractionName = data.fractionName;
             this.state.rating = data.rating;
-            return <Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>
+
+            this.state.castle_id = data.id;
+
+
+
+
+            if(this.state.hero_gold >= data.gold)
+                return (<button onClick={this.subHeroMoney}>Вступить в {data.name}</button>);
+            //<Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>
+            else
+                return (<div>Недостаточно голды для вступления в замок))</div>)
+
         })
 
         var Kartinka= './images/'+ this.state.fractionName + '/castle.jpg';

@@ -8,11 +8,20 @@ export default class Chat extends React.Component {
         super(props);
         this.state = {
             messages: new Array(),
-            mes: new String()
+            mes: new String(),
+            isAuthenticated: false
         };
     }
 
     componentDidMount() {
+        axios
+            .get(`/sessionUser`)
+            .then(session_user => {
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+            })
+            .catch(error => console.log(error));
+
         // this is an "echo" websocket service for testing pusposes
         this.connection = new WebSocket('ws://localhost:8080/echo');
         // listen to onmessage event
@@ -40,14 +49,21 @@ export default class Chat extends React.Component {
 
 
 render() {
-    return (
-        <div>
-            <form name="publish" onSubmit={this.handleSubmit}>
-                <input type="text" name="message" onChange={this.onChange}/>
-                <input type="submit" value="Отправить"/>
-            </form>
-            <div>{ this.state.messages.map( (msg) => <p>{ msg }</p> )}</div>
-        </div>
-    );
+    if(this.state.isAuthenticated){
+        return (
+            <div>
+                <form name="publish" onSubmit={this.handleSubmit}>
+                    <input type="text" name="message" onChange={this.onChange}/>
+                    <input type="submit" value="Отправить"/>
+                </form>
+                <div>{ this.state.messages.map( (msg) => <p>{ msg }</p> )}</div>
+            </div>
+        );
+    }
+    else
+        return(
+            <div></div>
+        );
+
 }
 }

@@ -55,6 +55,7 @@ npm manifest:
       "python": "0.0.4",
       "react-progressive-image": "^0.3.0",
       "react-progressive-image-loading": "^3.0.2",
+      "react-router": "^4.2.0",
       "react-router-dom": "^4.2.2",
       "react-websocket": "^2.0.0",
       "sequelize": "^4.35.2",

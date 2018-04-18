@@ -2,11 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91176548-e9a2-496e-92c5-eb1e6412351f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/achivements.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/forCastle.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/alians/Степа.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/alians/Степаныч.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/alians/сынПодруги.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/devils/castle.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/devils/Гюнтер.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/devils/Кирилл.jpeg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/devils/Коля.jpeg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/devils/Никита.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/castle.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/Борис.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/Егор.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/Женя.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/Жорик.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/gnomes/Серый.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/orda/Вояка.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/orda/Паша.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/images/orda/Сэм.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/client/src/achievements.js" afterPath="$PROJECT_DIR$/client/src/achievements.js" />
-      <change beforePath="$PROJECT_DIR$/client/src/forCastle.js" afterPath="$PROJECT_DIR$/client/src/forCastle.js" />
+      <change beforePath="$PROJECT_DIR$/app/models/forDb.js" afterPath="$PROJECT_DIR$/app/models/forDb.js" />
+      <change beforePath="$PROJECT_DIR$/app/routes.js" afterPath="$PROJECT_DIR$/app/routes.js" />
+      <change beforePath="$PROJECT_DIR$/client/src/castle.js" afterPath="$PROJECT_DIR$/client/src/castle.js" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/alians/castle.jpg" afterPath="$PROJECT_DIR$/client/src/images/alians/castle.jpg" />
+      <change beforePath="$PROJECT_DIR$/client/src/myCastle.css" afterPath="$PROJECT_DIR$/client/src/myCastle.css" />
+      <change beforePath="$PROJECT_DIR$/client/src/myCastle.js" afterPath="$PROJECT_DIR$/client/src/myCastle.js" />
+      <change beforePath="$PROJECT_DIR$/client/src/myProfile.js" afterPath="$PROJECT_DIR$/client/src/myProfile.js" />
+      <change beforePath="$PROJECT_DIR$/client/src/profile.css" afterPath="$PROJECT_DIR$/client/src/profile.css" />
+      <change beforePath="$PROJECT_DIR$/client/src/profile.js" afterPath="$PROJECT_DIR$/client/src/profile.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,23 +42,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="achievements.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/achievements.js">
+      <file leaf-file-name="myProfile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/myProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="222">
+              <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="47" selection-end-column="74" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="achivements.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/achivements.css">
+      <file leaf-file-name="profile.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+            <state relative-caret-position="250">
+              <caret line="32" column="57" lean-forward="false" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="348" column="14" lean-forward="false" selection-start-line="348" selection-start-column="14" selection-end-line="348" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -53,20 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>input</find>
-      <find>chatCastle</find>
-      <find>handleOnChangeFraction</find>
-      <find>handleSubmitFraction</find>
-      <find>HEAD</find>
-      <find>submitfraction</find>
-      <find>echo</find>
-      <find>ws</find>
-      <find>handleData</find>
-      <find>log</find>
-      <find>class</find>
-      <find>css</find>
-      <find>for</find>
-      <find>chat</find>
       <find>members</find>
       <find>info</find>
       <find>mem</find>
@@ -83,6 +99,20 @@
       <find>posts</find>
       <find>Likes</find>
       <find>achievements_to_hero</find>
+      <find>Дост</find>
+      <find>Link</find>
+      <find>profiles</find>
+      <find>cast</find>
+      <find>castle</find>
+      <find>getFraction</find>
+      <find>Текущая фрак</find>
+      <find>Picta</find>
+      <find>дости</find>
+      <find>achieve</find>
+      <find>hero_achievements</find>
+      <find>Achievements</find>
+      <find>selected</find>
+      <find>log</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,25 +128,25 @@
         <option value="$PROJECT_DIR$/config/passport.js" />
         <option value="$PROJECT_DIR$/client/src/index.js" />
         <option value="$PROJECT_DIR$/client/src/menu.css" />
-        <option value="$PROJECT_DIR$/client/src/profile.js" />
-        <option value="$PROJECT_DIR$/client/src/profile.css" />
-        <option value="$PROJECT_DIR$/client/src/castle.js" />
-        <option value="$PROJECT_DIR$/client/src/myProfile.js" />
         <option value="$PROJECT_DIR$/client/src/Chat.js" />
         <option value="$PROJECT_DIR$/client/src/chatCastle.js" />
         <option value="$PROJECT_DIR$/client/src/Chat.css" />
-        <option value="$PROJECT_DIR$/client/src/myCastle.js" />
         <option value="$PROJECT_DIR$/client/public/index.html" />
-        <option value="$PROJECT_DIR$/client/src/myCastle.css" />
         <option value="$PROJECT_DIR$/client/src/menu.js" />
         <option value="$PROJECT_DIR$/client/src/index.css" />
         <option value="$PROJECT_DIR$/client/src/post.js" />
-        <option value="$PROJECT_DIR$/app/models/forDb.js" />
-        <option value="$PROJECT_DIR$/app/routes.js" />
         <option value="$PROJECT_DIR$/client/src/forCastle.js" />
         <option value="$PROJECT_DIR$/client/src/forCastle.css" />
         <option value="$PROJECT_DIR$/client/src/achivements.css" />
         <option value="$PROJECT_DIR$/client/src/achievements.js" />
+        <option value="$PROJECT_DIR$/client/src/profile.css" />
+        <option value="$PROJECT_DIR$/app/models/forDb.js" />
+        <option value="$PROJECT_DIR$/client/src/myCastle.js" />
+        <option value="$PROJECT_DIR$/client/src/myCastle.css" />
+        <option value="$PROJECT_DIR$/client/src/castle.js" />
+        <option value="$PROJECT_DIR$/client/src/myProfile.js" />
+        <option value="$PROJECT_DIR$/app/routes.js" />
+        <option value="$PROJECT_DIR$/client/src/profile.js" />
       </list>
     </option>
   </component>
@@ -144,8 +174,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="157" />
-    <option name="y" value="61" />
+    <option name="x" value="381" />
+    <option name="y" value="90" />
     <option name="width" value="1339" />
     <option name="height" value="808" />
   </component>
@@ -164,7 +194,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -195,10 +224,18 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="KursachPIP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KursachPIP" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -209,15 +246,15 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\images" />
-      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src" />
       <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\images\orda" />
       <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\images\alians" />
-      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\public" />
+      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\images\devils" />
+      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\images" />
+      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src\devils" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Максим\Desktop\KursachPIP\client\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -273,11 +310,14 @@
       <workItem from="1524061926311" duration="5352000" />
       <workItem from="1524067900531" duration="1347000" />
       <workItem from="1524078068436" duration="2526000" />
+      <workItem from="1524080811270" duration="7108000" />
+      <workItem from="1524088231349" duration="855000" />
+      <workItem from="1524089144930" duration="1547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113191000" />
+    <option name="totallyTimeSpent" value="122701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -290,7 +330,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27032736" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40549102" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2903907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -315,116 +355,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/7f637b577b995db159a124cd7da1f82f2e2d5e64fcbc8c93e80976bb8ecc510c2fce48e2b6ea076e93d6ce17d4b0a01fdfcee8c09f4511e9f9931296172b64cdc35d.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/19ff0697f4224f9dc462ff1d3dd5b6ddd120e2af31ed719e777c6edd35901b5a52a6350695e7f411276a78cc8c166de499c8a7ae96c3dddc1e11396c512cbd4f337c.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/34bffea826a0afae3fbd35f60f43bd75be0278dfc36e7d7fff396e13d91edee88ea316104d642662111e1ca209dd502dc6b2e2a27fe47b86499dd1e666889fb61354.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/36e348c1522e3561bafb7750bf1be28a7d1f0fd573be9c3ef866fbf40b346b532b493de8c1896345dc6cb05cbfdb780b8298455e272a5e7eda3d07942ce39db4cdff.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/666b0453544ac0d76aa08a32882e518a233e1ddec1e15e16326232386c79f144b3443d8933a104f7572cb6138bb42746737de344fa9d7cf2db895ffa202e0f10262d35eca54830c1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/701e4918eea111df42aa017ea31fbe5653885ef0b82af89a3a76faa3a19aad08fd779ff4d92481b59f9d02c3115a67a7f511268f2b6ce9fd5e208ae56cf74d7b4d3e8e.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/47454ee4fe3f2fe4b6340fc53f9a8f7ee760d362ef0ebbe8da18ec8eb8792e7474b900a239f74cb6e1b4c556686af7a773f2dbfad876a06cc0e8c8c0523be3c26a0bd102c9f68bbf7195.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/09461432ae6a4edf5045b4946771ae032ae5bdea046a93f8dcaaec34848d194f2efe827f796fa3d1410d1caaddfb50e3172292197ed32c7e9927e832a10a99107190.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/489380199e3d8b1a37395e68d6e83bdcaf3242b378d14778ad411050523245d961497d9cf51cab59d2d8ff18808a2ec95a10b24e54d83f380ad74091b5a9ffb335ab694e9587ba14272f.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/4ebecbc74bd3bb3f17f588f22787ae1ad6a76124a4c918cb4dc3bd2ca73600ef0354c9232218dabf686017d5a83eed3697cac2d2a5af05df73c48253a87391419211.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/3af84e5bc3a1cb810eaaf86e719cc4b7bd04afaf6032d630d60c7a9472bf46e590ea8b94509f75ea768d0393286da63be335a19f7a5b297a890f76dcb43c84c04e3b1a2bdf613f4133853a058425.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/2eadcf3cca1067d481a2707b1c3a5b10f5be0184786cb656a7d48c48d68a766882bbff329f2fb8e28ee8e6d0a695baf2ba920b489633329889edf77f8c0eeaec4d20f6.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/1.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/f627b1bc18507c41645b0fee8eed7b1cf1e701734fc5a8b2cb1e2b51ca90a4493ab0e8e3c1299b359490ec375c7d2824f857d67f3cdb81b216c9904c0bfd9a773003.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/da27b74aa58c379f958b89e31aa6dff2d0598c188c060bb15fd55bace1f99a078efe3d7b138f1fe18e26e95c2955e4664ac60a2e2ea106be36fdc414e4500d26b0a0.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/d4b188a80b98d6b0d7ca42438c0a0ee2a0f7477f8dea3a61546aacd27b21f1b4e78cdf6d539eb0ad6f1704b655bb8588e03f67da0cb7c9a0735ee0164df256af567e.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/cebe421fcbb925506ba3375ef20ec00da0754fcf0b77252beeccfb1b5caff00f76fd1c84e44896fb9376103e40f3fe5a992491c5e1323924e3557b2f69edc7d4ef02.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/ce544b8893c41fc2b03fea002476d35614e1c44d5c30ce28500257ed871cbb9618e3637c5ac21d84bab8c1709b9335b5f6262e12ec56bfe4110fba08b0ac4035a60e.PNG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/uploads/995739299d8420acf92dd068856c82a8fd31c54a4d553f409e0ccbc9d362624c9315d6d1d78f6fc361e0aa6f8554296221d8ca2c0260dd98157fc3bd37e5000f49f52235a6fcae3bc749f0f74f.JPG">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/posts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/images/alians/castle1.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/images/alians/castle.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/images/orda/castle.jpg">
@@ -439,35 +374,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/profile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="15" lean-forward="false" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="81" column="35" lean-forward="false" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/myProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/addPost.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
           <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -502,23 +412,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/images/background.jpg" />
-    <entry file="file://$PROJECT_DIR$/client/src/myCastle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="70" column="56" lean-forward="false" selection-start-line="70" selection-start-column="56" selection-end-line="70" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/images/background.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/myCastle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-296">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/index.css">
@@ -545,14 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/forDb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="357" column="11" lean-forward="false" selection-start-line="357" selection-start-column="6" selection-end-line="357" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -576,14 +464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="438" column="79" lean-forward="false" selection-start-line="438" selection-start-column="79" selection-end-line="438" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/Chat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -592,28 +472,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/forCastle.css">
+    <entry file="file://$PROJECT_DIR$/client/src/achievements.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/forCastle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="32" column="35" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/castle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+        <state relative-caret-position="387">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -622,17 +484,178 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/forCastle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="25" column="95" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/forDb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="535" column="37" lean-forward="false" selection-start-line="535" selection-start-column="37" selection-end-line="535" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/achievements.js">
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/Борис.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/Женя.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/Жорик.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/Серый.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/Егор.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/alians/castle1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/castle.png" />
+    <entry file="file://$PROJECT_DIR$/client/src/images/gnomes/castle.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/devils/Кирилл.jpeg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/devils/castle.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/devils/Никита.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/devils/Гюнтер.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/devils/Коля.jpeg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/alians/castle.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/alians/Степаныч.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/alians/сынПодруги.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/alians/Степа.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/orda/Сэм.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/orda/Паша.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/images/orda/Берсерк.png" />
+    <entry file="file://$PROJECT_DIR$/client/src/images/orda/Вояка.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/myCastle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="300">
+          <caret line="13" column="48" lean-forward="false" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/profile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/castle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="77" column="5" lean-forward="false" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/forCastle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/myCastle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="76" column="5" lean-forward="true" selection-start-line="66" selection-start-column="4" selection-end-line="76" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/myProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="47" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="348" column="14" lean-forward="false" selection-start-line="348" selection-start-column="14" selection-end-line="348" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="32" column="57" lean-forward="false" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

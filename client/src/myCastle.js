@@ -98,7 +98,9 @@ export default class Castle extends React.Component {
 
         return (
             <div>
-                <img className="castlePicta" src={this.state.Imga}/>
+                <div className="divCastlePicta">
+                    <img className="castlePicta" src={this.state.Imga}/>
+                </div>
                 <div className="chatCastle">
                     <ChatCastle/>
                 </div>

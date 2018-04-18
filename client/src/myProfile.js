@@ -12,6 +12,7 @@ export default class MyCabinet extends React.Component {
             name: new String(),
             gender: new String(),
             castle: new String(),
+            castleName: new String(),
             experience: new String(),
             gold: new String(),
             fraction: new String(),
@@ -50,6 +51,7 @@ export default class MyCabinet extends React.Component {
                     name: response.data[0].name,
                     gender: response.data[0].gender,
                     castle: response.data[0].castle,
+                    castleName: response.data[0].castleName,
                     experience: response.data[0].experience,
                     gold: response.data[0].gold,
                     fraction: response.data[0].fraction,
@@ -141,8 +143,8 @@ export default class MyCabinet extends React.Component {
                         </select>
                     </div>
 
-                    {this.Atrib({name :"castle", value: this.state.castle, readonly: 'true'})}
-                    {this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}
+                    {this.Atrib({name :"castleName", value: this.state.castleName, readonly: 'true'})}
+                    {/*{this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}*/}
                     {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
                     <button>Отправить!</button>
                 </form>

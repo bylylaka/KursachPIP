@@ -346,6 +346,12 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/some_hero_achievements/:hero', isLoggedIn, function(req, res) {
+        forDb.achievements_to_hero.findAll({where : {hero_id: req.params.hero}}).then(function (achievements) {
+            res.send(achievements);
+        });
+    });
+
     app.get('/all_achievements', isLoggedIn, function(req, res) {
         forDb.Achievements.findAll({order: [['id', 'ASC']]}).then(function(achievements) {
             res.send(achievements);

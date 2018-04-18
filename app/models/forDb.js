@@ -521,18 +521,23 @@ exports.getFraction = function getFraction(hero, res) {        //Get Fraction AN
                 '(select fraction from Castle WHERE id in (select Hero.castle from Hero ' +
                 'WHERE Hero.id = ' + hero[0].dataValues.id + ')))').spread((resultsAvS, metadataAvS) => {
 
-                    if (results[0])
-                        hero[0].dataValues.fraction = results[0].name;
-                    if (resultsAva[0]) {
-                        hero[0].dataValues.avaname = resultsAva[0].name;
-                        hero[0].dataValues.avapath = resultsAva[0].pathname;
-                    }
-                    if (resultsAvS) {
-                        hero[0].dataValues.avaS = resultsAvS;
-                    }
+               Castle.findOne({where : {id: hero[0].dataValues.castle}}).then(function(castle) {
 
-                    //console.log(hero[0].dataValues)
-                    res.send(hero);
+                   if (results[0])
+                       hero[0].dataValues.fraction = results[0].name;
+                   if (resultsAva[0]) {
+                       hero[0].dataValues.avaname = resultsAva[0].name;
+                       hero[0].dataValues.avapath = resultsAva[0].pathname;
+                   }
+                   if (resultsAvS) {
+                       hero[0].dataValues.avaS = resultsAvS;
+                   }
+
+                   if (castle != null)
+                   hero[0].dataValues.castleName = castle.dataValues.name;
+                   //console.log(hero[0].dataValues)
+                   res.send(hero);
+                })
             });
         });
     });

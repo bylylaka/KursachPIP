@@ -67,7 +67,8 @@ export default class Castle extends React.Component {
     CastleHeroes(){
         return (
             <div className="formembers">
-                <p>Castle members:</p>
+                <p>Лица замка</p>
+                <p>{this.state.heroesCastle.length} штук:</p>
                 <div className="members">
                     {this.ListHeroes()}
                 </div>

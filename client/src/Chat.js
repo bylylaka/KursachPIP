@@ -1,5 +1,6 @@
 import Websocket from 'react-websocket';
 import axios from "axios/index";
+import './Chat.css';
 var Link = require ('react-router-dom').Link;
 var React = require('react');
 
@@ -53,14 +54,15 @@ export default class Chat extends React.Component {
 render() {
     if(this.state.isAuthenticated){
         return (
-            <div>
+            <div className="chat">
+                { this.state.messages.map( (msg) =>
+                    <div><Link to={ msg.heroid } className="hero">{ msg.hero }</Link><p>{ msg.message }</p></div> )
+                }
+
                 <form name="publish" onSubmit={this.handleSubmit}>
                     <input type="text" name="message" onChange={this.onChange}/>
                     <input type="submit" value="Отправить"/>
                 </form>
-                <div>{ this.state.messages.map( (msg) =>
-                    <p><Link to={ msg.heroid }>{ msg.hero }: { msg.message }</Link></p> )}
-                    </div>
             </div>
         );
     }

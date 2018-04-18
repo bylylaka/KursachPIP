@@ -46,14 +46,15 @@ export default class ChatCastle extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="chat">
+                { this.state.messages.map( (msg) =>
+                    <div><Link to={ msg.heroid } className="hero">{ msg.hero }</Link><p>{ msg.message }</p></div> )
+                }
+
                 <form name="publish" onSubmit={this.handleSubmit}>
                     <input type="text" name="message" onChange={this.onChange}/>
                     <input type="submit" value="Отправить"/>
                 </form>
-                <div>{ this.state.messages.map( (msg) =>
-                    <p><Link to={ msg.heroid }>{ msg.hero }: { msg.message }</Link></p> )}
-                </div>
             </div>
         );
     }

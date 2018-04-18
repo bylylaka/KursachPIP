@@ -1,4 +1,5 @@
 import axios from "axios/index";
+import './achivements.css';
 var React = require('react');
 
 export default class Achievements extends React.Component {
@@ -26,7 +27,7 @@ export default class Achievements extends React.Component {
 
     Achievements(){
         let achievements = Object.values(this.state.achievements).map((achievement) => {
-          return <div>{achievement.achievement} - награда: {achievement.gold} голды</div>
+          return <div className="achivka">{achievement.achievement} - награда: {achievement.gold} голды</div>
         });
         return achievements;
     }
@@ -34,7 +35,7 @@ export default class Achievements extends React.Component {
     render() {
         if(this.state.isAuthenticated){
             return (
-                <div className="App">
+                <div className="achivements">
                     <h3>Достижения</h3>
                     {this.Achievements ()}
                 </div>

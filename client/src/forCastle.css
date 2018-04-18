@@ -1,0 +1,22 @@
+.castles {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.castle {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 20px;
+    border: 10px solid cornsilk;
+    text-align: center;
+    border-radius: 500px;
+}
+
+.castle:hover {
+    font-size: 40px;
+    margin-bottom: 20px;
+    border: 10px solid coral;
+    text-align: center;
+    border-radius: 500px;
+}

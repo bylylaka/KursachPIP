@@ -356,15 +356,17 @@ module.exports = function(app, passport) {
     app.ws('/post/:post/addComment', function(ws, req) {
         let id;
         let name;
+        let reroi;
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
-            name = hero.name;
-            id = hero.user;
+            name = hero.dataValues.name;
+            reroi = hero.dataValues.id
+            id = hero.dataValues.user;
             clients[id] = ws;
         });
 
         forDb.Comment.findAll({ where: { post_id : req.params.post } }).then(function (comments) {
             comments.forEach(function(comment) {
-                forDb.Hero.findOne({where : {user: comment.dataValues.user_id}}).then(function(hero) {
+                forDb.Hero.findOne({where : {id: comment.dataValues.hero_id}}).then(function(hero) {
                     ws.send(hero.name + ' (' + comment.dataValues.date_and_time + '): ' + comment.dataValues.content);
                 });
             });
@@ -374,29 +376,29 @@ module.exports = function(app, passport) {
             for (let key in clients) {
                 clients[key].send(name + ' (сейчас): ' + comment);
             }
-            forDb.addComment(comment, id, req.params.post);
+            forDb.addComment(comment, reroi, req.params.post);
 
             /*******************************ADD GOLD FOR COMMENTS****************************************/
-            forDb.Comment.findAndCountAll({ where: { user_id : req.user.user_id }}).then(comments => {
-                //res.send(result.rows);
-                forDb.Achievements.findAll({ where: { type : 'comment', quantity: {[forDb.Op.gte]: comments.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
-                    achievements.forEach(function(achievement) {
-                        // check achievements of user
-                        forDb.achievements_to_hero.findOne({ where: { hero_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
-                            // add gold
-                            if(achievement.dataValues.quantity === comments.count + 1 && !relation){
-                                forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+            forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+                forDb.Comment.findAndCountAll({ where: { hero_id : hero.dataValues.id }}).then(comments => {
+                    //res.send(result.rows);
+                    forDb.Achievements.findAll({ where: { type : 'comment', quantity: {[forDb.Op.gte]: comments.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
+                        achievements.forEach(function(achievement) {
+                            // check achievements of user
+                            forDb.achievements_to_hero.findOne({ where: { hero_id : hero.dataValues.id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                                // add gold
+                                if(achievement.dataValues.quantity === comments.count + 1 && !relation){
                                     let gold = hero.dataValues.gold;
                                     hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
                                         // add achievement to achievements_to_user table
                                         let newAchievementToHero = forDb.achievements_to_hero.build({
-                                            hero_id: req.user.user_id,
+                                            hero_id: hero.dataValues.id,
                                             achievement_id: achievement.dataValues.id
                                         });
                                         newAchievementToHero.save().then();
                                     });
-                                });
-                            }
+                                }
+                            });
                         });
                     });
                 });
@@ -411,63 +413,66 @@ module.exports = function(app, passport) {
     });
 
     app.get('/post/:post/addLike', isLoggedIn, function(req, res) {
-        forDb.Likes.findOne({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
-            if(!like){
-                let newLike = forDb.Likes.build({
-                    post_id: req.params.post,
-                    user_id: req.user.user_id
-                });
-                newLike.save().then();
+        forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+        forDb.Likes.findOne({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
+                if(!like){
+                    let newLike = forDb.Likes.build({
+                        post_id: req.params.post,
+                        hero_id: hero.dataValues.id
+                    });
+                    newLike.save().then();
 
-                /*******************************ADD GOLD FOR LIKES ****************************************/
-                forDb.Likes.findAndCountAll({ where: { user_id : req.user.user_id }}).then(likes => {
-                    //res.send(result.rows);
-                    forDb.Achievements.findAll({ where: { type : 'like', quantity: {[forDb.Op.gte]: likes.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
-                        achievements.forEach(function(achievement) {
-                            // check achievements of user
-                            forDb.achievements_to_hero.findOne({ where: { hero_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
-                                // add gold
-                                if(achievement.dataValues.quantity === likes.count + 1 && !relation){
-                                    forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
-                                        let gold = hero.dataValues.gold;
-                                        hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
-                                            // add achievement to achievements_to_user table
-                                            let newAchievementToHero = forDb.achievements_to_hero.build({
-                                                hero_id: req.user.user_id,
-                                                achievement_id: achievement.dataValues.id
+                    /*******************************ADD GOLD FOR LIKES ****************************************/
+                    forDb.Likes.findAndCountAll({ where: { hero_id : hero.dataValues.id }}).then(likes => {
+                        //res.send(result.rows);
+                        forDb.Achievements.findAll({ where: { type : 'like', quantity: {[forDb.Op.gte]: likes.count + 1}}, order: [['id', 'ASC']], limit: 1 }).then(function (achievements) {
+                            achievements.forEach(function(achievement) {
+                                // check achievements of user
+                                forDb.achievements_to_hero.findOne({ where: { hero_id : req.user.user_id, achievement_id: achievement.dataValues.id } }).then(relation => {
+                                    // add gold
+                                    if(achievement.dataValues.quantity === likes.count + 1 && !relation){
+                                        forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+                                            let gold = hero.dataValues.gold;
+                                            hero.update({ gold: gold + achievement.dataValues.gold }).then(function () {
+                                                // add achievement to achievements_to_user table
+                                                let newAchievementToHero = forDb.achievements_to_hero.build({
+                                                    hero_id: hero.dataValues.id,
+                                                    achievement_id: achievement.dataValues.id
+                                                });
+                                                newAchievementToHero.save().then( res.send("Gold added") );
                                             });
-                                            newAchievementToHero.save().then( res.send("Gold added") );
                                         });
-                                    });
-                                }
+                                    }
+                                });
                             });
                         });
                     });
-                });
-            }
-            else{
-                let newLike = forDb.Likes.destroy({
-                    where:{
-                        post_id: req.params.post,
-                        user_id: req.user.user_id
-                    }
-                });
-                res.send("Success!");
-            }
+                }
+                else{
+                    let newLike = forDb.Likes.destroy({
+                        where:{
+                            post_id: req.params.post,
+                            hero_id: hero.dataValues.id
+                        }
+                    });
+                    res.send("Success!");
+                }
+            });
         });
     });
 
 
 
     app.get('/post/:post/isPuttedLike', isLoggedIn, function(req, res) {
-        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, user_id: req.user.user_id } }).then(like => {
+        forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
+        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
             if(!like){
                 res.send(null);
             }
             else{
                 res.send(like.rows);
             }
-
+            });
         });
     });
 

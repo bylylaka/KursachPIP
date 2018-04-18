@@ -343,8 +343,8 @@ const Comment = sequelize.define('Comment', {
     post_id: {
         type: Post
     },
-    user_id: {
-        type: User
+    hero_id: {
+        type: Hero
     },
     date_and_time: {
         type: Sequelize.STRING
@@ -364,7 +364,7 @@ const Likes = sequelize.define('Likes', {
     post_id: {
         type: Post
     },
-    user_id: {
+    hero_id: {
         type: User
     }},{
     timestamps: false,
@@ -471,11 +471,12 @@ exports.addMessage = function addMessage(message, hero, heroId, castle) {       
     newMessage.save();
 };
 
-exports.addComment = function addComment(comment, user_id, post_id) {        //Show all entities
+exports.addComment = function addComment(comment, hero_id, post_id) {        //Show all entities
+    console.log('\n\n\n\n\n\n\n' + hero_id)
     let newComment = Comment.build({
         content: comment,
         post_id: post_id,
-        user_id: user_id
+        hero_id: hero_id
     });
     newComment.save().then(() => {});
 };

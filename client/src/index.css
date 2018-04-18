@@ -11,11 +11,7 @@ body {
   color: white;
 }
 
-input{
-  color: black;
-}
-
-button{
+input, button, textarea, select, option{
   color: black;
 }
 

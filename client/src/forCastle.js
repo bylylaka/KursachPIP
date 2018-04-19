@@ -7,17 +7,22 @@ export default class AllCastles extends React.Component {
 
     constructor() {
         super();
-        this.state = {date: new String()};
+        this.state = {
+            date: new String(),
+            isAuthenticated: false
+        };
     }
 
     componentDidMount() {
-        axios
-            .get("/castle")
-            .then(response => {
-                this.setState({
-                    date: response.data
-                });
-            })
+        axios.all([
+            axios.get(`/castle`),
+            axios.get(`/sessionUser`),
+        ])
+            .then(axios.spread((castle, session_user) => {
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+                this.setState({date: castle.data});
+            }))
             .catch(error => console.log(error));
     }
 
@@ -29,10 +34,16 @@ export default class AllCastles extends React.Component {
     }
 
     render() {
-        return (
-            <div className="castles">
-                {this.AllCastles()}
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="castles">
+                    {this.AllCastles()}
+                </div>
+            );
+        }
+        else
+            return(
+                <div></div>
+            );
     }
 }

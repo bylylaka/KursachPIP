@@ -16,7 +16,8 @@ export default class Castle extends React.Component {
             heroesCastle: new Array(),
             Imga: new Object(),
             hero_gold: '',
-            castle_id: ''
+            castle_id: '',
+            isAuthenticated: false,
         };
 
         this.subHeroMoney = this.subHeroMoney.bind(this);
@@ -28,8 +29,12 @@ export default class Castle extends React.Component {
         axios.all([
             axios.get(`/castles/${castle}`),
             axios.get(`/sessionHero`),
+            axios.get(`/sessionUser`)
         ])
-            .then(axios.spread((castle, session_hero) => {
+            .then(axios.spread((castle, session_hero, session_user) => {
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+
                 this.setState({ hero_gold : session_hero.data.gold });
                 this.setState({ date: castle.data });
             }))
@@ -132,10 +137,17 @@ export default class Castle extends React.Component {
     }
 
     render() {
-        return (
-            <div className="myCastle">
-                {this.Castle ()}
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="myCastle">
+                    {this.Castle ()}
+                </div>
+            );
+        }
+        else
+            return(
+                <div></div>
+            );
+
     }
 }

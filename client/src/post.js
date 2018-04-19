@@ -18,7 +18,7 @@ export default class Post extends React.Component {
             isPuttedLike: '',
             putCounter: 0,
             classLike: '',
-            comment: new String(),
+            comment: '',
             hero: '',
             post_id: '',
             isAuthenticated: false,
@@ -29,6 +29,8 @@ export default class Post extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addLike = this.addLike.bind(this);
+        this.commentsCounter = this.commentsCounter.bind(this);
+        this.getComments = this.getComments.bind(this);
     }
 
     componentDidMount() {
@@ -38,9 +40,15 @@ export default class Post extends React.Component {
         // listen to onmessage event
         this.connection.onmessage = evt => {
             // add the new message to state
-            this.setState({
-                comments: this.state.comments.concat([evt.data])
-            })
+            let newComment = {
+                hero_id: JSON.parse(evt.data).hero_id,
+                hero: JSON.parse(evt.data).hero,
+                content: JSON.parse(evt.data).content,
+                date: JSON.parse(evt.data).date
+            };
+            this.state.comments.push(newComment);
+            this.setState({ comments: this.state.comments });
+            console.log(newComment);
         };
 
         axios.all([
@@ -97,11 +105,7 @@ export default class Post extends React.Component {
             let image;
             if(post.file !== null){
                 image = (
-                    <React.Fragment>
-                        <ProgressiveImage src={`/post/${post.id}/img`}>
-                            {src => <img src={src} alt="image"/>}
-                        </ProgressiveImage>
-                    </React.Fragment>
+                    <img src={`/post/${post.id}/img`} style={{'width': '100%'}}/>
                 );
             }
 
@@ -131,7 +135,6 @@ export default class Post extends React.Component {
             <div>{post}</div>
         )
     }
-
 
     addLike(){
         /*********for front********/
@@ -179,39 +182,95 @@ export default class Post extends React.Component {
     handleSubmit(event){
         event.preventDefault();
         this.connection.send(this.state.comment);
+        this.setState({ comment: ''});
     }
 
     handleChange(event) {
         this.setState({ comment: event.target.value});
     }
 
+
     AddComment(){
         return (
             <form onSubmit={this.handleSubmit} method="post">
-                <div>
-                    <label>Ваш комментарий:</label><br/>
-                    <textarea name="comment" onChange={this.handleChange} required/>
-                </div>
-                <button type="submit">Отправить</button>
+                <div className="divTextArea"><textarea value={this.state.comment} className="commentArea" name="comment" onChange={this.handleChange} placeholder="Написать комментарий..." required/></div>
+                <button type="submit" className="sendCommentButton">Отправить</button>
+                <br/><br/>
             </form>
         );
     }
+
+    commentsCounter(){
+        var counter = 0;
+        let comm_count = Object.values(this.state.comments).map((comments) => {
+            counter++;
+        });
+
+        let comments;
+        if(counter >= 5 && counter <= 20) comments = ' комментариев';
+        else{
+            let subCounter = counter % 10;
+            if (subCounter == 1) {
+                comments = ' комментарий';
+            } else if (subCounter >= 2 && subCounter <= 4) {
+                comments = ' комментария';
+            } else {
+                comments = ' комментариев';
+            }
+
+        }
+
+        return counter + comments;
+    }
+
+    getComments(){
+        let comments = Object.values(this.state.comments).map((comment) => {
+            return (
+                <React.Fragment>
+
+                    <div className="avatar">{ this.heroAvatar(comment.hero_id) }</div>
+
+                    <div className="userAndDate">
+                        <div className="user">{ comment.hero }</div>
+                        <div className="date">{ comment.date }</div>
+                    </div>
+
+                    <div className="comment">{ comment.content }</div>
+
+                    <hr/>
+
+
+
+                </React.Fragment>
+            );
+        });
+        return comments;
+
+
+        //this.state.comments.map( (comment) => <p>{ comment }<hr/></p>)
+    }
+
+    //<div>{ this.state.comments.map( (comment) => <p>{ comment.content}<hr/></p>) }</div>
+    //<div>{this.getComments()}</div>
+
 
     render() {
         if(this.state.isAuthenticated){
             return (
                 <div className="post">
                     {this.Post ()}
-                    <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
+                    <div className="likeAndComment">
+                        <div className="divLike"><button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button></div>
+                        {this.AddComment ()}
+                    </div>
                     <br/>
                     <hr/>
-                    <a>Комментарии:</a>
+                    <a>{this.commentsCounter()}</a>
                     <hr/>
-                    <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
+
+                    <div>{this.getComments()}</div>
+
                     <br/>
-                    {this.AddComment ()}
-                    <br/><hr/>
-                    <Link to={"/posts"}><button type="button">Вернуться</button></Link>
                 </div>
             );
         }

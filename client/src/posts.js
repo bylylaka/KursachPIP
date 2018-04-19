@@ -1,5 +1,4 @@
 import axios from "axios/index";
-import ProgressiveImage from 'react-progressive-image';
 import './css/posts.css';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
@@ -67,12 +66,11 @@ export default class Posts extends React.Component {
 
             let image;
             if(post.file !== null){
+
                 image = (
-                    <React.Fragment>
-                        <ProgressiveImage src={`/post/${post.id}/img`}>
-                            {src => <Link to={"current-post/"+post.id}><img src={src} alt="image" /></Link>}
-                        </ProgressiveImage>
-                    </React.Fragment>
+                    <Link to={"current-post/"+post.id}>
+                        <img src={`/post/${post.id}/img`} style={{'width': '100%'}}/>
+                    </Link>
                 );
             }
 

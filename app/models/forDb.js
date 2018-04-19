@@ -575,13 +575,11 @@ exports.getCastleInf = function getCastleInf(req, res) {        //Get Heroes in 
 };
 
 exports.avatarsForPosts = function avatarsForPosts(req, res) {
-    sequelize.query("select hero.id as id, avatarka.pathname as path, fraction.name as fractionname from avatarka, fraction, hero " +
-        "where hero.avatarka = avatarka.id and avatarka.fraction= fraction.id").spread((avatars, metadata) => {
-
-            res.send(avatars);
+sequelize.query("select hero.id as id, avatarka.pathname as path, fraction.name as fractionname from avatarka, fraction, hero " +
+    "where hero.avatarka = avatarka.id and avatarka.fraction= fraction.id").spread((avatars, metadata) => {
+        res.send(avatars);
     });
 };
-
 
 
 exports.Fraction = Fraction;

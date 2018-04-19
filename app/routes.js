@@ -198,10 +198,6 @@ module.exports = function(app, passport) {
         });
     });
 
-
-
-
-
     app.get('/fraction', isLoggedIn, function(req, res) {
         return forDb.findAl(forDb.Fraction, res);
     });
@@ -359,13 +355,20 @@ module.exports = function(app, passport) {
     });
 
 
+
+    app.get('/test', isLoggedIn, function(req, res) {
+        forDb.heroAvatar(2, res)
+    });
+
+    const axios = require('axios');
+
     app.ws('/post/:post/addComment', function(ws, req) {
         let id;
         let name;
         let reroi;
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             name = hero.dataValues.name;
-            reroi = hero.dataValues.id
+            reroi = hero.dataValues.id;
             id = hero.dataValues.user;
             clients[id] = ws;
         });
@@ -373,14 +376,30 @@ module.exports = function(app, passport) {
         forDb.Comment.findAll({ where: { post_id : req.params.post } }).then(function (comments) {
             comments.forEach(function(comment) {
                 forDb.Hero.findOne({where : {id: comment.dataValues.hero_id}}).then(function(hero) {
-                    ws.send(hero.name + ' (' + comment.dataValues.date_and_time + '): ' + comment.dataValues.content);
+
+                    let newComment = {
+                        hero_id: hero.id,
+                        hero: hero.name,
+                        date: comment.dataValues.date_and_time,
+                        content: comment.dataValues.content,
+                    };
+
+                    ws.send(JSON.stringify(newComment));
                 });
             });
         });
 
         ws.on('message', function (comment) {
             for (let key in clients) {
-                clients[key].send(name + ' (сейчас): ' + comment);
+
+                let newComment = {
+                    hero_id: id,
+                    hero: name,
+                    date: 'только что',
+                    content: comment,
+                };
+                //name + ' (сейчас): ' + comment
+                clients[key].send(JSON.stringify(newComment));
             }
             forDb.addComment(comment, reroi, req.params.post);
 

@@ -1,5 +1,6 @@
 import axios from "axios/index";
-import  { Redirect } from 'react-router-dom'
+import './css/addPost.css';
+import './css/posts.css';
 var React = require('react');
 
 export default class Post extends React.Component {
@@ -10,35 +11,32 @@ export default class Post extends React.Component {
             hero: '',
             title: '',
             content: '',
+            isAuthenticated: false,
+            fileLoaded: ''
         };
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
 
     componentDidMount() {
-        axios
-            .get(`/myHero`)
-            .then(response => {
-                this.setState({
-                    hero: response.data
-                });
-            })
+        axios.all([
+            axios.get('/myHero'),
+            axios.get(`/sessionUser`)
+        ])
+            .then(axios.spread((hero, session_user) => {
+                this.setState({ hero: hero.data });
+                this.setState({isAuthenticated : session_user.data });
+                if(!session_user.data) this.props.history.push("/login");
+            }))
             .catch(error => console.log(error));
     }
 
     handleSubmit(e){
 
         e.preventDefault();
-
-        /*
-
-
-        title: this.state.title,
-        content: this.state.content,
-        hero_id: hero_id
-        */
 
         //console.log(this.uploadInput.files[0].name);
 
@@ -75,33 +73,45 @@ export default class Post extends React.Component {
         this.setState({ content: event.target.value });
     }
 
+    uploadFile(event) {
+        let file = event.target.files[0];
+        //alert(file.name);
+        let qq = '' + file.name;
+        this.setState({ fileLoaded: qq + ' успешно загружен' });
+    }
 
     AddPost(){
         return (
             <form onSubmit={this.handleSubmit}>
                 <div>
-                    <label>Название:</label><br/>
-                    <input type="text" name="title" value={this.state.title} onChange={this.handleChangeTitle} required/><br/>
-                    <br/><label>Содержимое:</label><br/>
-                    <textarea name="content" value={this.state.content} onChange={this.handleChangeContent} required/><br/><br/>
+                    <br/>
+                    <input className="newPostTitle" type="text" name="title" value={this.state.title} onChange={this.handleChangeTitle} placeholder="Тема..." required/><br/>
+                    <br/>
+                    <textarea className="newPostContent" name="content" value={this.state.content} onChange={this.handleChangeContent} placeholder="Здесь вы можете унизить чуждые вам рассы и доказать свое превосходство!" required/><br/><br/>
 
-
-
-                    <input ref={(ref) => { this.uploadInput = ref; }} type="file" name="filename"/>
-
+                    <label for="upload" className="newPostFile">Загрузить файл</label>
+                    <input id="upload" className="newPostFileHover" onChange={this.uploadFile} ref={(ref) => { this.uploadInput = ref; }} type="file" name="filename"/>
 
 
                 </div>
-                <br/><button type="submit">Запилить</button>
+                <br/><button type="submit" className="newPostButton">Запилить</button>
             </form>
         );
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.AddPost ()}
-            </div>
-        );
+        if(this.state.isAuthenticated){
+            return (
+                <div className="post">
+                    {this.AddPost ()}
+                    {this.state.fileLoaded}
+                </div>
+            );
+        }
+        else
+            return(
+              <div></div>
+            );
+
     }
 }

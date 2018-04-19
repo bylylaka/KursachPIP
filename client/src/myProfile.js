@@ -1,5 +1,5 @@
 import axios from "axios/index";
-import './profile.css';
+import './css/profile.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
@@ -21,10 +21,12 @@ export default class MyCabinet extends React.Component {
             isAuthenticated: false,
             hero_achievements: '',
             all_achievements: '',
-            selected: ''
+            selected: '',
+            hero_gold: ''
         };
 
         this.logOut = this.logOut.bind(this);
+        this.subHeroMoney = this.subHeroMoney.bind(this);
         this.getFractionName = this.getFractionName.bind(this);
         this.handleOnChangeFraction = this.handleOnChangeFraction.bind(this);
         this.handleSubmitFraction = this.handleSubmitFraction.bind(this);
@@ -38,11 +40,13 @@ export default class MyCabinet extends React.Component {
             axios.get(`/sessionUser`),
             axios.get(`/hero_achievements`),
             axios.get(`/all_achievements`),
+            axios.get(`/sessionHero`)
         ])
-            .then(axios.spread((response, session_user, hero_achievements, all_achievements) => {
+            .then(axios.spread((response, session_user, hero_achievements, all_achievements, session_hero) => {
                 this.setState({isAuthenticated : session_user.data });
                 if(!session_user.data) this.props.history.push("/login");
 
+                this.setState({ hero_gold : session_hero.data.gold });
                 this.setState({hero_achievements: hero_achievements.data });
                 this.setState({all_achievements: all_achievements.data });
                 this.setState({
@@ -227,6 +231,15 @@ export default class MyCabinet extends React.Component {
         this.setState({ selected: e.target.value });
     }
 
+    subHeroMoney(){
+        axios.all([
+            axios.get(`/subHeroMoney/${this.state.castle_id}`)
+        ])
+            .catch(error => console.log(error));
+
+        this.props.history.push("/enter/"+this.state.castle_id);
+    }
+
     addFraction(){
         return (
             <form onSubmit={this.handleSubmitFraction}>
@@ -246,7 +259,7 @@ export default class MyCabinet extends React.Component {
                 </div>
                 <hr/>
                 <div>Смена фракции: 500 голды</div>
-                <br/><button type="submit" disabled={this.state.selected === this.state.fraction}>Присоединиться!</button>
+                <br/><button type="submit" disabled={this.state.selected === this.state.fraction || this.state.hero_gold < 500}>Присоединиться!</button>
             </form>
         );
     }

@@ -1,5 +1,5 @@
 import axios from "axios/index";
-import './profile.css';
+import './css/profile.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 

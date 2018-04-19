@@ -1,6 +1,6 @@
 import axios from "axios/index";
 import ChatCastle from "./chatCastle"
-import './myCastle.css';
+import './css/myCastle.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 

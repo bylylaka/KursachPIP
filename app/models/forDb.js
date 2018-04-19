@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-   // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-   //     host: 'localhost',
-   //     dialect: 'postgres',
-   //   });
-const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+    const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+        host: 'localhost',
+        dialect: 'postgres',
+      });
+//const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -552,7 +552,7 @@ exports.getMyCastleInf = function getMyCastleInf(req, res) {        //Get Heroes
             })
         });
     });
-}
+};
 
 exports.getCastleInf = function getCastleInf(req, res) {        //Get Heroes in Castle
     Castle.findAll({ where: { name : req.params.castle } }).then(function (castle) {
@@ -566,7 +566,16 @@ exports.getCastleInf = function getCastleInf(req, res) {        //Get Heroes in 
             });
         })
     });
-}
+};
+
+exports.avatarsForPosts = function avatarsForPosts(req, res) {
+    sequelize.query("select hero.id as id, avatarka.pathname as path, fraction.name as fractionname from avatarka, fraction, hero " +
+        "where hero.avatarka = avatarka.id and avatarka.fraction= fraction.id").spread((avatars, metadata) => {
+
+            res.send(avatars);
+    });
+};
+
 
 
 exports.Fraction = Fraction;

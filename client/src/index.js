@@ -2,7 +2,7 @@
 // import ReactDOM from 'react-dom';
 // import { BrowserRouter, Route, Link } from 'react-router-dom';
 // import axios from "axios";
-import './index.css';
+import './css/index.css';
 import Castle from "./castle";
 import AllCastles from "./forCastle";
 import MyProfile from "./myProfile"

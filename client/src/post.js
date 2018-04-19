@@ -1,7 +1,8 @@
 import axios from "axios/index";
 import $ from 'jquery';
-import './index.css';
+import './css/index.css';
 import ProgressiveImage from 'react-progressive-image';
+import './css/posts.css';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
 
@@ -20,7 +21,9 @@ export default class Post extends React.Component {
             comment: new String(),
             hero: '',
             post_id: '',
-            isAuthenticated: false
+            isAuthenticated: false,
+            avatars: '',
+            img: new Object()
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -47,8 +50,10 @@ export default class Post extends React.Component {
             axios.get(`/myHero`),
             axios.get(`/post/${post}/isPuttedLike`),
             axios.get(`/sessionUser`),
+            axios.get(`/getAvatars`)
         ])
-            .then(axios.spread((post, heroes, likes, hero, isPutted, session_user) => {
+            .then(axios.spread((post, heroes, likes, hero, isPutted, session_user, avatars) => {
+                this.setState({ avatars: avatars.data });
                 this.setState({ post: post.data });
                 this.setState({ heroes: heroes.data });
                 this.setState({ likes: likes.data.length });
@@ -63,6 +68,26 @@ export default class Post extends React.Component {
                     this.setState({ classLike: 'yeapLike'});
             }))
             .catch(error => console.log(error));
+    }
+
+    heroAvatar(hero_id){
+
+        let hero = Object.values(this.state.avatars).map((hero) => {
+            if(hero.id === hero_id){
+                let avatar = './images/' + hero.fractionname + '/' + hero.path;
+                try {
+                    this.state.img = require(``+avatar);
+                } catch (e) {
+                    try {
+                        avatar= './images/emptyAvatar.jpg';
+                        this.state.img = require(``+avatar);
+                    } catch (e) {
+                        console.log('Нет фоточки((9((9(')
+                    }
+                }
+            }
+        });
+        return <img src={this.state.img} style={{width: '50px'}}/>
     }
 
     Post () {
@@ -88,11 +113,16 @@ export default class Post extends React.Component {
 
             return (
                 <React.Fragment>
-                    <h3>From {user_name}</h3>
-                    <a key={post.id}><h2>{post.title}</h2><br/>{post.content}</a>
-                    <br/><br/>
-                    {image}
-                    <hr/>
+                    <div className="avatar">{this.heroAvatar(post.hero_id)}</div>
+
+                    <div className="userAndDate">
+                        <div className="user">{user_name}</div>
+                        <div className="date">{post.date_and_time}</div>
+                    </div>
+
+                    <div className="title">{post.title}</div>
+                    <div className="content">{post.content}</div>
+                <div className="image">{image}</div>
                 </React.Fragment>
             );
         });
@@ -170,12 +200,14 @@ export default class Post extends React.Component {
     render() {
         if(this.state.isAuthenticated){
             return (
-                <div className="App">
+                <div className="post">
                     {this.Post ()}
+                    <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
+                    <br/>
+                    <hr/>
                     <a>Комментарии:</a>
                     <hr/>
                     <div>{ this.state.comments.map( (comment) => <p>{ comment }<hr/></p> )}</div>
-                    <button onClick={this.addLike} className={["likeButton", this.state.classLike].join(' ')}>Лукасов: {this.state.likes}</button>
                     <br/>
                     {this.AddComment ()}
                     <br/><hr/>

@@ -537,6 +537,10 @@ module.exports = function(app, passport) {
         forDb.findAl(forDb.Post, res);
     });
 
+    app.get('/getAvatars', isLoggedIn, function(req, res) {
+        forDb.avatarsForPosts(req, res);
+    });
+
 
     /**************************************POSTS LOGIC(END)************************************************************/
 
@@ -547,7 +551,7 @@ module.exports = function(app, passport) {
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
 
             forDb.Fraction.findOne({where : {name: req.body.fraction}}).then(function(fraction) {
-                forDb.Castle.findOne({where : {fraction: fraction.dataValues.id}, order: [['id', 'ASC']]}).then(function(castle) {
+                forDb.Castle.findOne({where : {fraction: fraction.dataValues.id}, order: [['rating', 'ASC']]}).then(function(castle) {
                     let gold = hero.gold - 500;
                     if (castle != null)
                         hero.updateAttributes({

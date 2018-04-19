@@ -1,5 +1,5 @@
 import axios from "axios/index";
-import './myCastle.css';
+import './css/myCastle.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
@@ -38,7 +38,6 @@ export default class Castle extends React.Component {
 
     OnlyHero(hero){
         var Kartinka= './images/' + this.state.fractionName + '/' + hero.photo;
-        console.log(Kartinka)
         try {
             this.state.Imga = require(``+Kartinka);
         } catch (e) {
@@ -60,7 +59,7 @@ export default class Castle extends React.Component {
                 {this.OnlyHero(hero)}
                 <Link to={"/profiles/"+hero.id}>{hero.name}</Link>
             </div>
-        )
+        );
 
         return listItems;
     }
@@ -92,19 +91,14 @@ export default class Castle extends React.Component {
             this.state.fraction = data.fraction;
             this.state.fractionName = data.fractionName;
             this.state.rating = data.rating;
-
             this.state.castle_id = data.id;
-
-
-
 
             if(this.state.hero_gold >= data.gold)
                 return (<button onClick={this.subHeroMoney}>Вступить в {data.name}</button>);
-            //<Link to={"/enter/"+data.id}>Вступить в {data.name}!</Link>
             else
                 return (<div>Недостаточно голды для вступления в замок))</div>)
 
-        })
+        });
 
         var Kartinka= './images/'+ this.state.fractionName + '/castle.jpg';
         try {

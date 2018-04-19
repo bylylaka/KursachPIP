@@ -1,5 +1,6 @@
 import axios from "axios/index";
 import ProgressiveImage from 'react-progressive-image';
+import './css/posts.css';
 let React = require('react');
 let Link = require ('react-router-dom').Link;
 
@@ -10,7 +11,9 @@ export default class Posts extends React.Component {
         this.state = {
             posts: '',
             users: '',
-            isAuthenticated: false
+            isAuthenticated: false,
+            avatars: '',
+            img: new Object()
         };
     }
 
@@ -22,8 +25,10 @@ export default class Posts extends React.Component {
             axios.get(`/posts`),
             axios.get(`/addPost/heroes`),
             axios.get(`/sessionUser`),
+            axios.get(`/getAvatars`)
         ])
-            .then(axios.spread((post, hero, session_user) => {
+            .then(axios.spread((post, hero, session_user, avatars) => {
+                this.setState({ avatars: avatars.data });
                 this.setState({ posts: post.data });
                 this.setState({ users: hero.data });
                 this.setState({isAuthenticated : session_user.data });
@@ -32,11 +37,31 @@ export default class Posts extends React.Component {
             .catch(error => console.log(error));
     }
 
+    heroAvatar(hero_id){
+
+        let hero = Object.values(this.state.avatars).map((hero) => {
+            if(hero.id === hero_id){
+                let avatar = './images/' + hero.fractionname + '/' + hero.path;
+                try {
+                    this.state.img = require(``+avatar);
+                } catch (e) {
+                    try {
+                        avatar= './images/emptyAvatar.jpg';
+                        this.state.img = require(``+avatar);
+                    } catch (e) {
+                        console.log('Нет фоточки((9((9(')
+                    }
+                }
+            }
+        });
+        return <img src={this.state.img} style={{width: '50px'}}/>
+    }
+
     Posts () {
         let posts = Object.values(this.state.posts).map((post) => {
             let user = Object.values(this.state.users).map((user) => {
                 if(user.user === post.hero_id)
-                    return <div key={user.user}>{user.name} Запостил:<br/></div>
+                    return <div key={user.user}>{user.name}<br/></div>
             });
 
 
@@ -53,9 +78,19 @@ export default class Posts extends React.Component {
 
             return (
                 <React.Fragment>
-                    <Link to={"current-post/"+post.id}>{user}<h2>{post.title}</h2>({post.date_and_time})<br/>{post.content}<br/></Link>
-                    <br/><br/>
-                    {image}
+                    <Link to={"current-post/"+post.id}>
+
+                        <div className="avatar">{this.heroAvatar(post.hero_id)}</div>
+
+                        <div className="userAndDate">
+                            <div className="user">{user}</div>
+                            <div className="date">{post.date_and_time}</div>
+                        </div>
+
+                        <div className="title">{post.title}</div>
+                        <div className="content">{post.content}</div>
+                    </Link>
+                    <div className="image">{image}</div>
                     <hr/>
                </React.Fragment>
             )
@@ -66,14 +101,14 @@ export default class Posts extends React.Component {
 
     AddPost(){
         return (
-            <Link to={"/addPost"}><button type="button">Запилить пост</button></Link>
+            <Link to={"/addPost"}><button type="button" className="postButton">Запилить пост</button></Link>
         );
     }
 
     render() {
         if(this.state.isAuthenticated){
             return (
-                <div className="App">
+                <div className="posts">
                     {this.AddPost ()}
                     <br/>
                     <hr/>

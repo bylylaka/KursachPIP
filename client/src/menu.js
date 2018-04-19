@@ -26,6 +26,7 @@ export default class Menu extends React.Component {
         axios
             .get(`/logout`)
             .catch(error => console.log(error));
+        window.location.reload();
     }
 
     render() {
@@ -36,6 +37,7 @@ export default class Menu extends React.Component {
         return (
             <nav className="top-menu">
                 <ul className="menu-main">
+                    <Link to="/">Главная</Link>
                     <Link to="/profile">Профиль</Link>
                     <Link to="/myCastle">Замок</Link>
                     <Link to="/chat">Переговорная</Link>

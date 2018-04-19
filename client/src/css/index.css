@@ -4,16 +4,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 html, body {min-height:100%;height:100%;margin:0;}
 body {
-  background: url(../svg/bk.svg);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
-  -khtml-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  background-size: 100% 100%;
-  color:white;
+  background: url("images/background.png");
+}
+
+*{
+  color: white;
+}
+
+input, button, textarea, select, option{
+  color: black;
 }
 
 #noise {

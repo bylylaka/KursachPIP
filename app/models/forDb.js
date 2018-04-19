@@ -343,8 +343,8 @@ const Comment = sequelize.define('Comment', {
     post_id: {
         type: Post
     },
-    user_id: {
-        type: User
+    hero_id: {
+        type: Hero
     },
     date_and_time: {
         type: Sequelize.STRING
@@ -364,7 +364,7 @@ const Likes = sequelize.define('Likes', {
     post_id: {
         type: Post
     },
-    user_id: {
+    hero_id: {
         type: User
     }},{
     timestamps: false,
@@ -471,11 +471,12 @@ exports.addMessage = function addMessage(message, hero, heroId, castle) {       
     newMessage.save();
 };
 
-exports.addComment = function addComment(comment, user_id, post_id) {        //Show all entities
+exports.addComment = function addComment(comment, hero_id, post_id) {        //Show all entities
+    console.log('\n\n\n\n\n\n\n' + hero_id)
     let newComment = Comment.build({
         content: comment,
         post_id: post_id,
-        user_id: user_id
+        hero_id: hero_id
     });
     newComment.save().then(() => {});
 };
@@ -520,18 +521,23 @@ exports.getFraction = function getFraction(hero, res) {        //Get Fraction AN
                 '(select fraction from Castle WHERE id in (select Hero.castle from Hero ' +
                 'WHERE Hero.id = ' + hero[0].dataValues.id + ')))').spread((resultsAvS, metadataAvS) => {
 
-                    if (results[0])
-                        hero[0].dataValues.fraction = results[0].name;
-                    if (resultsAva[0]) {
-                        hero[0].dataValues.avaname = resultsAva[0].name;
-                        hero[0].dataValues.avapath = resultsAva[0].pathname;
-                    }
-                    if (resultsAvS) {
-                        hero[0].dataValues.avaS = resultsAvS;
-                    }
+               Castle.findOne({where : {id: hero[0].dataValues.castle}}).then(function(castle) {
 
-                    //console.log(hero[0].dataValues)
-                    res.send(hero);
+                   if (results[0])
+                       hero[0].dataValues.fraction = results[0].name;
+                   if (resultsAva[0]) {
+                       hero[0].dataValues.avaname = resultsAva[0].name;
+                       hero[0].dataValues.avapath = resultsAva[0].pathname;
+                   }
+                   if (resultsAvS) {
+                       hero[0].dataValues.avaS = resultsAvS;
+                   }
+
+                   if (castle != null)
+                   hero[0].dataValues.castleName = castle.dataValues.name;
+                   //console.log(hero[0].dataValues)
+                   res.send(hero);
+                })
             });
         });
     });

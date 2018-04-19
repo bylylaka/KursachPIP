@@ -67,7 +67,8 @@ export default class Castle extends React.Component {
     CastleHeroes(){
         return (
             <div className="formembers">
-                <p>Castle members:</p>
+                <p>Лица замка</p>
+                <p>{this.state.heroesCastle.length} штук:</p>
                 <div className="members">
                     {this.ListHeroes()}
                 </div>
@@ -114,7 +115,9 @@ export default class Castle extends React.Component {
 
         return (
             <div>
-                <img className="castlePicta" src={this.state.Imga}/>
+                <div className="divCastlePicta">
+                    <img className="castlePicta" src={this.state.Imga}/>
+                </div>
                 <div className="chatCastle">
                 </div>
                 {this.CastleHeroes()}

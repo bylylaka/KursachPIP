@@ -1,0 +1,23 @@
+.chat {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.chat a{
+    font-size: 25px;
+    margin-bottom: 0;
+}
+
+.chat p{
+    color: rgb(211, 211, 211);
+    font-size: 19px;
+    margin-top: 0;
+}
+
+.chat input[type=text]{
+    width: 70%;
+}
+
+.chat input[type=submit]{
+    width: 100px;
+}

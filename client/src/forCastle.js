@@ -1,5 +1,5 @@
 import axios from "axios/index";
-import './forCastle.css';
+import './css/forCastle.css';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 

@@ -1,5 +1,5 @@
 import axios from "axios/index";
-import './achivements.css';
+import './css/achivements.css';
 var React = require('react');
 
 export default class Achievements extends React.Component {

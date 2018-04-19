@@ -1,6 +1,6 @@
 import Websocket from 'react-websocket';
 import axios from "axios/index";
-import './Chat.css';
+import './css/Chat.css';
 var Link = require ('react-router-dom').Link;
 var React = require('react');
 

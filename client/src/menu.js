@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 import './css/menu.css';
-=======
-import './menu.css';
->>>>>>> f8c8b10e42a95ed02506b198e796ff4353db9aab
 import axios from "axios/index";
 var Link = require ('react-router-dom').Link;
 var React = require('react');
 
 export default class Menu extends React.Component {
 
-<<<<<<< HEAD
     logOut(){
         axios
             .get(`/logout`)
@@ -32,7 +27,7 @@ export default class Menu extends React.Component {
                 </ul>
             </nav>
         );
-=======
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -70,6 +65,5 @@ export default class Menu extends React.Component {
         }
         else
             return <div></div>
->>>>>>> f8c8b10e42a95ed02506b198e796ff4353db9aab
     }
 }

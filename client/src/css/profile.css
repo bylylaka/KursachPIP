@@ -20,3 +20,12 @@
 .Profile h4 {
     color: gold;
 }
+
+.noMoney{
+    visibility: visible;
+}
+
+
+.yeapMoney{
+    visibility: hidden;
+}

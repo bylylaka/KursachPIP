@@ -38,12 +38,12 @@ export default class MyCabinet extends React.Component {
 
         axios.all([
             axios.get(`/myHero`),
-            axios.get(`/sessionUser`),
+            axios.get(`/sessionHero`),
             axios.get(`/hero_achievements`),
             axios.get(`/all_achievements`),
-            axios.get(`/sessionHero`)
+            axios.get(`/sessionUser`)
         ])
-            .then(axios.spread((response, session_user, hero_achievements, all_achievements, session_hero) => {
+            .then(axios.spread((response, session_hero, hero_achievements, all_achievements, session_user) => {
                 this.setState({isAuthenticated : session_user.data });
                 if(!session_user.data) this.props.history.push("/login");
 
@@ -243,6 +243,9 @@ export default class MyCabinet extends React.Component {
     }
 
     addFraction(){
+        let noMoneyMsgClass = 'yeapMoney';
+        if(this.state.hero_gold < 500)
+            noMoneyMsgClass = 'noMoney';
         return (
             <form onSubmit={this.handleSubmitFraction}>
                 <div>
@@ -262,6 +265,7 @@ export default class MyCabinet extends React.Component {
                 <hr/>
                 <div>Смена фракции: 500 голды</div>
                 <br/><button type="submit" disabled={this.state.selected === this.state.fraction || this.state.hero_gold < 500}>Присоединиться!</button>
+                <div className={noMoneyMsgClass}>Недостаточно голды для смены фракции!</div>
             </form>
         );
     }
@@ -277,7 +281,6 @@ export default class MyCabinet extends React.Component {
                     {this.Achievements ()}
                     <Link to={"/achievements"}><h6>Посмотреть все достижения</h6></Link>
                     <hr/>
-                    <button onClick={this.logOut}>Выйти</button>
                 </div>
             );
         }

@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
 
 
     // LOGOUT ==============================
-    app.post('/logout', function(req, res) {
+    app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
@@ -285,7 +285,7 @@ module.exports = function(app, passport) {
         res.send(req.user);
     });
 
-    app.get('/sessionHero', function(req, res) {
+    app.get('/sessionHero', isLoggedIn, function(req, res) {
         forDb.Hero.findOne({where : { user: req.user.user_id }}).then(function(hero) {
             res.send(hero);
         });

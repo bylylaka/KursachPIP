@@ -264,7 +264,7 @@ export default class MyCabinet extends React.Component {
                 </div>
                 <hr/>
                 <div>Смена фракции: 500 голды</div>
-                <br/><button type="submit" disabled={this.state.selected === this.state.fraction || this.state.hero_gold < 500}>Присоединиться!</button>
+                <br/><button className="joinButton" type="submit" disabled={this.state.selected === this.state.fraction || this.state.hero_gold < 500}>Присоединиться!</button>
                 <div className={noMoneyMsgClass}>Недостаточно голды для смены фракции!</div>
             </form>
         );

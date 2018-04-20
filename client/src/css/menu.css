@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Caption');
+
+body{
+    font-family: Impact;
+}
+
 .top-menu {
     margin: 0 60px;
     position: relative;
@@ -61,7 +66,7 @@
     text-decoration: none;
     display: inline-block;
     padding: 15px 30px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 22px;
     color: white;
     transition: .3s linear;
 }

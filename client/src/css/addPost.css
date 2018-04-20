@@ -1,22 +1,25 @@
+body{
+    font-family: Impact;
+}
+
 .newPostTitle{
     width: 100%;
     padding: 15px 5px;
     font-size: 17px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-family: Impact;
 }
 
 .newPostContent{
     width: 100%;
     padding: 50px 5px;
     font-size: 17px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-family: Impact;
 }
 
 .newPostButton{
     background: #5A394E;
     padding: 20px 0;
     width: 100%;
-    font-family: 'PT Sans Caption', sans-serif;
     font-size: 20px;
     border: 1px white solid;
     color: white;
@@ -43,9 +46,9 @@
 
 .newPostFile{
     background: #5A394E;
+    font-family: Impact;
     padding: 20px 0;
     width: 100%;
-    font-family: 'PT Sans Caption', sans-serif;
     font-size: 20px;
     color: white;
     cursor: pointer;

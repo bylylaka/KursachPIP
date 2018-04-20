@@ -67,6 +67,7 @@ module.exports = function(passport) {
         },
         function(req, email, password, done) {
 
+
             // asynchronous
             process.nextTick(function() {
 
@@ -102,7 +103,6 @@ module.exports = function(passport) {
             process.nextTick(function() {
 
                 if (!req.user) {
-
                     forDb.Local.findOne({where: {email: email}}).then(function (user) {
 
                         if (!user) {
@@ -145,7 +145,7 @@ module.exports = function(passport) {
                 else {
                     forDb.Local.findOne({where : {email: email}}).then(user => {
                         if (!user) {
-                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
+                            forDb.User.findOne({where : {id: req.user.user_id}}).then(function(usero) {
                                 var newLocal = forDb.Local.build({       //save
                                     email: email,
                                     password : password

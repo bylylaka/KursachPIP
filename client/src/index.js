@@ -1,5 +1,3 @@
-import axios from "axios/index";
-
 import './css/index.css';
 import Castle from "./castle";
 import AllCastles from "./forCastle";
@@ -9,7 +7,6 @@ import Profile from "./profile"
 import Chat from "./Chat"
 import ChatCastle from "./chatCastle"
 import Menu from "./menu"
-
 import Posts from "./posts";
 import Post from "./post";
 import Enter from "./enter";
@@ -17,12 +14,14 @@ import addPost from "./addPost";
 import Achievements from "./achievements";
 
 
+import loginFailure from "./loginFailure"
+import signupFailure from "./signupFailure"
+
 import NotFound from "./notFound";
 import { Switch } from 'react-router-dom'
 
 import twitter from '../src/icons/twitter.png';
 import facebook from '../src/icons/facebook.png';
-
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -33,7 +32,7 @@ var Link = require ('react-router-dom').Link;
 
 function Header() {
     return (<div>
-        <header><h1>Герои меча и магии</h1></header>
+        <header><Link to="/"><h1 className="heroesTitle">Герои меча и магии</h1></Link></header>
     </div>);
 }
 
@@ -58,6 +57,10 @@ const BasicExample = () => (
                     <Route path="/chat" component={Chat} />
                     <Route path="/chatCastle" component={ChatCastle} />
                     <Route path="/achievements" component={Achievements} />
+
+                    <Route path="/loginFailure" component={loginFailure} />
+                    <Route path="/signupFailure" component={signupFailure} />
+
                     <Route component={ NotFound } />
                 </Switch>
             </div>
@@ -84,11 +87,11 @@ let sectionTwitter = {
 const Main = () => (
         <div className="text-center">
             <Header/>
-            <p>Login or Register with:</p>
+            <h3>Скорее заходи или регистрируйся!</h3>
 
             <div className="localLogin">
-                <Link to="/login"> Local Login</Link>
-                <Link to="/signup"> Local Signup</Link>
+                <Link to="/login">Войти</Link>
+                <Link to="/signup">Зарегистрироваться</Link>
             </div>
 
             <div className="ouathLogin">
@@ -109,34 +112,15 @@ const Login = () => (
         <Header/>
         <form action="/login" method="post">
             <div>
-                <label>Email</label>
-                <input type="text" name="email"/>
+                <br/>
+                <input className="email" type="text" name="email" placeholder="Email"/>
             </div>
             <div>
-                <label>Password</label>
-                <input type="password" name="password"/>
+                <br/>
+                <input className="password" type="password" name="password" placeholder="Пароль"/>
             </div>
 
-            <button type="submit">Login</button>
-        </form>
-    </div>
-);
-
-
-const Signup = () => (
-    <div className="text-center">
-        <Header/>
-        <form action="/signup" method="post">
-            <div>
-                <label>Email</label><br/>
-                <input type="text" name="email"/>
-            </div>
-            <div>
-                <label>Придумайте Password</label><br/>
-                <input type="password" name="password"/>
-            </div>
-
-            <button type="submit">Signup</button>
+            <button className="passwordAndEmailButton" type="submit">Войти</button>
         </form>
     </div>
 );
@@ -150,4 +134,23 @@ const About = () => (
 );
 
 
-ReactDOM.render(<BasicExample/>, document.getElementById('root'))
+const Signup = () => (
+    <div className="text-center">
+        <Header/>
+        <form action="/signup" method="post">
+            <div>
+                <br/>
+                <input className="email" type="text" name="email" placeholder="Email"/>
+            </div>
+            <div>
+                <br/>
+                <input className="password" type="password" name="password" placeholder="Пароль"/>
+            </div>
+
+            <button className="passwordAndEmailButton" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+);
+
+
+ReactDOM.render(<BasicExample/>, document.getElementById('root'));

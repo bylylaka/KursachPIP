@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Caption');
 
+body{
+    font-family: Impact;
+}
+
 .posts, .post{
     width: 70%;
     margin: 0 auto;
-    font-family: 'PT Sans Caption', sans-serif;
 }
 
 .postButton{
     background: #5A394E;
     padding: 20px 0;
     width: 100%;
-    font-family: 'PT Sans Caption', sans-serif;
     font-size: 20px;
     color: white;
     border: 1px white solid;
@@ -28,7 +30,6 @@
     background: #5A394E;
     padding: 20px 0;
     width: 100%;
-    font-family: 'PT Sans Caption', sans-serif;
     font-size: 20px;
     color: white;
     border: 1px white solid;
@@ -90,6 +91,7 @@
 
 .comment{
     margin-left: 60px;
+    word-wrap: break-word;
 }
 
 
@@ -133,11 +135,11 @@
 
 
 .commentArea{
-    padding: 4px 5px;
+    padding: 7px 5px;
     width: calc(100% - 10px);
     margin: 4px 0 0 0;
     font-size: 17px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-family: Impact;
 }
 
 .divLike{
@@ -160,6 +162,7 @@ button,
 button:active,
 button:focus {
     outline: none;
+    font-family: Impact;
 }
 
 textarea {

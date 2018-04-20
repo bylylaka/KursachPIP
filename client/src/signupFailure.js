@@ -1,4 +1,5 @@
 import './css/index.css';
+var Link = require ('react-router-dom').Link;
 var React = require('react');
 
 export default class signupFailure extends React.Component {
@@ -14,7 +15,7 @@ export default class signupFailure extends React.Component {
 
     Header() {
         return (<div>
-            <header><h1>Герои меча и магии</h1></header>
+            <header><Link to="/"><h1>Герои меча и магии</h1></Link></header>
         </div>);
     }
 

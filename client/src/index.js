@@ -81,7 +81,7 @@ let sectionTwitter = {
     width: "75px",
     height: "75px",
     backgroundImage: `url(${twitter})`,
-    backgroundSize: 'cover',
+    backgroundSize: 'cover'
 };
 
 const Main = () => (
@@ -96,11 +96,11 @@ const Main = () => (
 
             <div className="ouathLogin">
                 <form action="/auth/facebook" method="POST">
-                    <button className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
+                    <button title="Вход через Facebook" className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
                 </form>
 
                 <form action="/auth/twitter" method="POST">
-                    <button className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
+                    <button title="Вход через Twitter" className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
                 </form>
             </div>
 

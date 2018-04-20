@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect : 'http://localhost:3000/profile',
-            failureRedirect : 'http://localhost:3000'
+            failureRedirect : 'http://localhost:3000/NeLink'
         }));
 
     // twitter --------------------------------
@@ -92,7 +92,7 @@ module.exports = function(app, passport) {
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {
             successRedirect : 'http://localhost:3000/profile',
-            failureRedirect : 'http://localhost:3000'
+            failureRedirect : 'http://localhost:3000/NeLink'
         }));
 
 
@@ -131,7 +131,7 @@ module.exports = function(app, passport) {
     app.get('/connect/facebook/callback',
         passport.authorize('facebook', {
             successRedirect : 'http://localhost:3000/profile',
-            failureRedirect : '/'
+            failureRedirect : '/qwe'
         }));
 
     // twitter --------------------------------

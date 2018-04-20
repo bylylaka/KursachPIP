@@ -284,7 +284,6 @@ module.exports = function(passport) {
 
         },
         function(req, token, tokenSecret, profile, done) {
-
             // asynchronous
             process.nextTick(function() {
 
@@ -361,8 +360,8 @@ module.exports = function(passport) {
                             });
                         }
                         else {
-                             console.log('That account was already taken.');
-                            return done(null, false, req.flash('signupMessage', 'That account was already taken.'));
+                            console.log('\n\n\n\n\n\n\nThat account was already taken.');
+                            return done(null, null, req.flash('signupMessage', 'That account was already taken.'));
                         }
                     });
                 }

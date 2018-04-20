@@ -113,3 +113,7 @@ form{
 .passwordAndEmailButton:active{
   background: rgba(0, 0, 0, 0);
 }
+
+.entering{
+  margin-left: 20px;
+}

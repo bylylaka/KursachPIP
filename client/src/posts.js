@@ -61,6 +61,7 @@ export default class Posts extends React.Component {
             let user = Object.values(this.state.users).map((user) => {
                 if(user.user === post.hero_id)
                     return <div key={user.user}>{user.name}<br/></div>
+
             });
 
 
@@ -76,15 +77,16 @@ export default class Posts extends React.Component {
 
             return (
                 <React.Fragment>
-                    <Link to={"current-post/"+post.id}>
 
+                    <Link to={"/profiles/"+post.hero_id}>
                         <div className="avatar">{this.heroAvatar(post.hero_id)}</div>
-
                         <div className="userAndDate">
                             <div className="user">{user}</div>
                             <div className="date">{post.date_and_time}</div>
                         </div>
+                    </Link>
 
+                    <Link to={"current-post/"+post.id}>
                         <div className="title">{post.title}</div>
                         <div className="content">{post.content}</div>
                     </Link>

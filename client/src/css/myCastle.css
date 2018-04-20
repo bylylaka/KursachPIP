@@ -1,6 +1,3 @@
-.myCastle {
-}
-
 .myCastle .castlePicta {
     width: 100%;
 }
@@ -14,27 +11,41 @@
     border-bottom: 10px solid rgba(255,255,0,0.6);
 }
 
+.castleContent{
+    width: 70%;
+    margin: 0 15%;
+}
 
 .myCastle .formembers {
     font-size: 25px;
     float: left;
-    width: 25%;
+    width: 30%;
+    margin-right: 2.5%;
 }
 
+.formembers p, .formembers .members{
+    width: 50%;
+    margin: 0 25%;
+    margin-top: 20px;
+}
+
+
 .myCastle .chatCastle{
-    margin-top: 1%;
+    margin-top: 20px;
     position: absolute;
     right: 0;
     z-index: 1;
-    margin-right: 3%;
-    width: 35%;
+    margin-left: 2.5%;
+    width: 30%;
 }
 
 .myCastle .info{
     text-align: center;
     align-items: center;
-    position: absolute;
-    width: 80%;
+    width: 30%;
+    float: left;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
     z-index: 0;
 
 }
@@ -60,9 +71,35 @@
 }
 
 .myCastle .chat input[type=text]{
-    width: 70%;
+    width: 40%;
 }
 
 .myCastle .chat input[type=submit]{
     width: 100px;
+}
+
+.enterCastle{
+    background: #5A394E;
+    padding: 20px 0;
+    width: 100%;
+    font-size: 20px;
+    border: 1px white solid;
+    color: white;
+    cursor: pointer;
+
+    transition: .3s linear;
+    box-shadow:
+            inset 1px 0 0 rgba(255,255,255,.1),
+            inset -1px 0 0 rgba(255,255,255,.1),
+            inset 150px 0 150px -150px rgba(255,255,255,.12),
+            inset -150px 0 150px -150px rgba(255,255,255,.12);
+}
+
+.enterCastle:hover {
+    background: rgb(72, 46, 62);
+
+}
+
+.enterCastle:active{
+    background: rgba(0, 0, 0, 0);
 }

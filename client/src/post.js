@@ -117,12 +117,14 @@ export default class Post extends React.Component {
 
             return (
                 <React.Fragment>
-                    <div className="avatar">{this.heroAvatar(post.hero_id)}</div>
 
-                    <div className="userAndDate">
-                        <div className="user">{user_name}</div>
-                        <div className="date">{post.date_and_time}</div>
-                    </div>
+                    <Link to={'/profiles/'+post.hero_id}>
+                        <div className="avatar">{this.heroAvatar(post.hero_id)}</div>
+                        <div className="userAndDate">
+                            <div className="user">{user_name}</div>
+                            <div className="date">{post.date_and_time}</div>
+                        </div>
+                    </Link>
 
                     <div className="title">{post.title}</div>
                     <div className="content">{post.content}</div>
@@ -228,12 +230,13 @@ export default class Post extends React.Component {
             return (
                 <React.Fragment>
 
-                    <div className="avatar">{ this.heroAvatar(comment.hero_id) }</div>
-
-                    <div className="userAndDate">
-                        <div className="user">{ comment.hero }</div>
-                        <div className="date">{ comment.date }</div>
-                    </div>
+                    <Link to={'/profiles/'+comment.hero_id}>
+                        <div className="avatar">{ this.heroAvatar(comment.hero_id) }</div>
+                        <div className="userAndDate">
+                            <div className="user">{ comment.hero }</div>
+                            <div className="date">{ comment.date }</div>
+                        </div>
+                    </Link>
 
                     <div className="comment">{ comment.content }</div>
 
@@ -246,13 +249,7 @@ export default class Post extends React.Component {
         });
         return comments;
 
-
-        //this.state.comments.map( (comment) => <p>{ comment }<hr/></p>)
     }
-
-    //<div>{ this.state.comments.map( (comment) => <p>{ comment.content}<hr/></p>) }</div>
-    //<div>{this.getComments()}</div>
-
 
     render() {
         if(this.state.isAuthenticated){

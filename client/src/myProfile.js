@@ -150,7 +150,7 @@ export default class MyCabinet extends React.Component {
                     {this.Atrib({name :"castleName", value: this.state.castleName, readonly: 'true'})}
                     {/*{this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}*/}
                     {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
-                    <button>Отправить!</button>
+                    <button className="joinButton">Отправить!</button>
                 </form>
             </div>
         )

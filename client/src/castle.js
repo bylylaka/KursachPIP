@@ -16,7 +16,9 @@ export default class Castle extends React.Component {
             heroesCastle: new Array(),
             Imga: new Object(),
             hero_gold: '',
+            hero_castle: '',
             castle_id: '',
+            gold: '',
             isAuthenticated: false,
         };
 
@@ -35,6 +37,7 @@ export default class Castle extends React.Component {
                 this.setState({isAuthenticated : session_user.data });
                 if(!session_user.data) this.props.history.push("/login");
 
+                this.setState({ hero_castle : session_hero.data.castle });
                 this.setState({ hero_gold : session_hero.data.gold });
                 this.setState({ date: castle.data });
             }))
@@ -70,10 +73,23 @@ export default class Castle extends React.Component {
     }
 
     CastleHeroes(){
+        let members;
+        if(this.state.heroesCastle.length >= 5 && this.state.heroesCastle.length <= 20) members = ' союзников';
+        else{
+            let subCounter = this.state.heroesCastle.length % 10;
+            if (subCounter == 1) {
+                members = ' союзник';
+            } else if (subCounter >= 2 && subCounter <= 4) {
+                members = ' союзника';
+            } else {
+                members = ' союзников';
+            }
+
+        }
+
         return (
             <div className="formembers">
-                <p>Лица замка</p>
-                <p>{this.state.heroesCastle.length} штук:</p>
+                <p>{this.state.heroesCastle.length}{members}</p>
                 <div className="members">
                     {this.ListHeroes()}
                 </div>
@@ -98,11 +114,14 @@ export default class Castle extends React.Component {
             this.state.fractionName = data.fractionName;
             this.state.rating = data.rating;
             this.state.castle_id = data.id;
+            this.state.gold = data.gold;
 
-            if(this.state.hero_gold >= data.gold)
-                return (<button onClick={this.subHeroMoney}>Вступить в {data.name}</button>);
+            if(this.state.hero_castle === this.state.castle_id)
+                return (<button className="enterCastle">Вы являетесь союзником этого замка!</button>);
+            else if(this.state.hero_gold >= data.gold)
+                return (<button onClick={this.subHeroMoney} className="enterCastle">Вступить в {data.name}</button>);
             else
-                return (<div>Недостаточно голды для вступления в замок))</div>)
+                return (<button className="enterCastle">Недостаточно голды для вступления!</button>);
 
         });
 
@@ -123,14 +142,19 @@ export default class Castle extends React.Component {
                 <div className="divCastlePicta">
                     <img className="castlePicta" src={this.state.Imga}/>
                 </div>
-                <div className="chatCastle">
-                </div>
-                {this.CastleHeroes()}
-                <div className="info">
-                    <h2>Название: {this.state.name}</h2>
-                    <h2>Расса: {this.state.fractionName}</h2>
-                    <h2>Рейтинг: {this.state.rating}</h2>
-                    {castles}
+                <div className="castleContent">
+
+                    <div className="chatCastle"></div>
+
+                    {this.CastleHeroes()}
+
+                    <div className="info">
+                        <h2>Название: {this.state.name}</h2>
+                        <h2>Расса: {this.state.fractionName}</h2>
+                        <h2>Рейтинг: {this.state.rating}</h2>
+                        <h2>Голды за союз: {this.state.gold}</h2>
+                        {castles}
+                    </div>
                 </div>
             </div>
         )

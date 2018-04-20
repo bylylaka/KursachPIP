@@ -1,4 +1,5 @@
 import axios from "axios/index";
+import './css/index.css';
 var React = require('react');
 
 export default class Enter extends React.Component {
@@ -40,7 +41,7 @@ export default class Enter extends React.Component {
     }
 
     Enter () {
-        return (<div>Success entering! Redirect after {this.state.seconds} seconds...</div>);
+        return (<div className="entering">Success entering! Redirect after {this.state.seconds} seconds...</div>);
     }
 
     Redirect() {

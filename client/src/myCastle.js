@@ -65,10 +65,23 @@ export default class Castle extends React.Component {
     }
 
     CastleHeroes(){
+        let members;
+        if(this.state.heroesCastle.length >= 5 && this.state.heroesCastle.length <= 20) members = ' союзников';
+        else{
+            let subCounter = this.state.heroesCastle.length % 10;
+            if (subCounter == 1) {
+                members = ' союзник';
+            } else if (subCounter >= 2 && subCounter <= 4) {
+                members = ' союзника';
+            } else {
+                members = ' союзников';
+            }
+
+        }
+
         return (
             <div className="formembers">
-                <p>Лица замка</p>
-                <p>{this.state.heroesCastle.length} штук:</p>
+                <p>{this.state.heroesCastle.length}{members}</p>
                 <div className="members">
                     {this.ListHeroes()}
                 </div>
@@ -101,15 +114,20 @@ export default class Castle extends React.Component {
                 <div className="divCastlePicta">
                     <img className="castlePicta" src={this.state.Imga}/>
                 </div>
-                <div className="chatCastle">
-                    <ChatCastle/>
-                </div>
-                {this.CastleHeroes()}
-                <div className="info">
-                    <h2>Название: {this.state.name}</h2>
-                    <h2>Расса: {this.state.fractionName}</h2>
-                    <h2>Рейтинг: {this.state.rating}</h2>
-                    {castles}
+                <div className="castleContent">
+
+                    <div className="chatCastle">
+                        <ChatCastle/>
+                    </div>
+
+                    {this.CastleHeroes()}
+
+                    <div className="info">
+                        <h2>Название: {this.state.name}</h2>
+                        <h2>Расса: {this.state.fractionName}</h2>
+                        <h2>Рейтинг: {this.state.rating}</h2>
+                        {castles}
+                    </div>
                 </div>
             </div>
         )

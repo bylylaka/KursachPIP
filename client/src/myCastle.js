@@ -29,7 +29,7 @@ export default class Castle extends React.Component {
         ])
             .then(axios.spread((castle, session_user) => {
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
                 this.setState({date: castle.data });
             }))
             .catch(error => console.log(error));

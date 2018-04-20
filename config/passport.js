@@ -2,11 +2,11 @@ var forDb = require('./../app/models/forDb');
 const Sequelize = require('sequelize');
 
 
-    const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-        host: 'localhost',
-        dialect: 'postgres',
-    });
-//const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+    // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+    //     host: 'localhost',
+    //     dialect: 'postgres',
+    // });
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -245,7 +245,7 @@ module.exports = function(passport) {
 
                     forDb.Facebook.findOne({where : {id: profile.id}}).then(function(userF) {
                         if (!userF) {
-                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
+                            forDb.User.findOne({where : {id: req.user.user_id}}).then(function(usero) {
 
                                 var newFacebook = forDb.Facebook.build({       //save
                                     id: profile.id,
@@ -342,7 +342,7 @@ module.exports = function(passport) {
 
                     forDb.Twitter.findOne({where : {id: profile.id}}).then(function(userT) {
                         if (!userT) {
-                            forDb.User.findOne({where : {id: req.user.id}}).then(function(usero) {
+                            forDb.User.findOne({where : {id: req.user.user_id}}).then(function(usero) {
 
                                 var newTwitter = forDb.Twitter.build({       //save
                                     id: profile.id,

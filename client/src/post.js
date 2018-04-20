@@ -68,7 +68,7 @@ export default class Post extends React.Component {
                 this.setState({ hero: hero.data });
                 this.setState({isPuttedLike : isPutted.data });
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
 
                 if(this.state.isPuttedLike.length === 0)
                     this.setState({ classLike: 'noLike'});

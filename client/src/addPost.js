@@ -29,7 +29,7 @@ export default class Post extends React.Component {
             .then(axios.spread((hero, session_user) => {
                 this.setState({ hero: hero.data });
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
             }))
             .catch(error => console.log(error));
     }

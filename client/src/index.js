@@ -87,7 +87,7 @@ let sectionTwitter = {
 const Main = () => (
         <div className="text-center">
             <Header/>
-            <h3>Скорее заходи или регистрируйся!</h3>
+            <h2>Скорее присоединяйся и в бой!</h2>
 
             <div className="localLogin">
                 <Link to="/login">Войти</Link>

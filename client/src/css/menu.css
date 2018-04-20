@@ -65,7 +65,7 @@ body{
 .menu-main a {
     text-decoration: none;
     display: inline-block;
-    padding: 15px 30px;
+    padding: 20px 30px;
     font-size: 22px;
     color: white;
     transition: .3s linear;

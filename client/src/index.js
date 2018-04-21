@@ -15,6 +15,8 @@ import Achievements from "./achievements";
 import Main from "./main"
 import signUp from "./signUp"
 import addLocal from "./addLocal"
+import NeLink from "./NeLink"
+
 
 
 import loginFailure from "./loginFailure"
@@ -63,6 +65,7 @@ const BasicExample = () => (
                     <Route path="/addLocal" component={addLocal} />
                     <Route path="/loginFailure" component={loginFailure} />
                     <Route path="/signupFailure" component={signupFailure} />
+                    <Route path="/NeLink" component={NeLink} />
 
                     <Route component={ NotFound } />
                 </Switch>
@@ -70,45 +73,6 @@ const BasicExample = () => (
         </BrowserRouter>
     </div>
 );
-
-
-
-// let sectionFacebook = {
-//     width: "75px",
-//     height: "75px",
-//     backgroundImage: `url(${facebook})`,
-//     backgroundSize: 'cover',
-// };
-//
-// let sectionTwitter = {
-//     width: "75px",
-//     height: "75px",
-//     backgroundImage: `url(${twitter})`,
-//     backgroundSize: 'cover',
-// };
-//
-// const Main = () => (
-//         <div className="text-center">
-//             <Header/>
-//             <h2>Скорее присоединяйся и в бой!</h2>
-//
-//             <div className="localLogin">
-//                 <Link to="/login">Войти</Link>
-//                 <Link to="/signup">Зарегистрироваться</Link>
-//             </div>
-//
-//             <div className="ouathLogin">
-//                 <form action="/auth/facebook" method="POST">
-//                     <button className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
-//                 </form>
-//
-//                 <form action="/auth/twitter" method="POST">
-//                     <button className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
-//                 </form>
-//             </div>
-//
-//         </div>
-// );
 
 const Login = () => (
     <div className="text-center">

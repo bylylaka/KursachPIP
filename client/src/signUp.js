@@ -14,7 +14,7 @@ export default class signUp extends React.Component {
     render() {
         return (
             <div className="text-center">
-                {this.Header}
+                {this.Header()}
                 <form action="/signup" method="post">
                     <div>
                         <br/>

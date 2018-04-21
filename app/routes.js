@@ -576,7 +576,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/getAvatars', isLoggedIn, function(req, res) {
-        forDb.avatarsForPosts(req, res);
+        forDb.avatars(req, res);
     });
 
 
@@ -669,6 +669,7 @@ module.exports = function(app, passport) {
                     hero: name,
                     heroid: heroid,
                     message: message,
+                    date_and_time: 'только что'
                 };
                 clients[key].send(JSON.stringify(newMessage));
             }
@@ -717,6 +718,7 @@ module.exports = function(app, passport) {
                         hero: name,
                         heroid: heroid,
                         message: message,
+                        date_and_time: 'только что'
                     };
                 clients[key].send(JSON.stringify(newMessage));
             }

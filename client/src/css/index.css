@@ -114,6 +114,6 @@ form{
   background: rgba(0, 0, 0, 0);
 }
 
-.entering{
+.entering, .userAccount{
   margin-left: 20px;
 }

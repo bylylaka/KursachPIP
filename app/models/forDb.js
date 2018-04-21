@@ -296,6 +296,9 @@ const messages = sequelize.define('Messages', {
     },
     message: {
         type: Sequelize.STRING
+    },
+    date_and_time: {
+        type: Sequelize.STRING
     }},{
     timestamps: false,
     freezeTableName: true,
@@ -574,7 +577,7 @@ exports.getCastleInf = function getCastleInf(req, res) {        //Get Heroes in 
     });
 };
 
-exports.avatarsForPosts = function avatarsForPosts(req, res) {
+exports.avatars = function avatars(req, res) {
 sequelize.query("select hero.id as id, avatarka.pathname as path, fraction.name as fractionname from avatarka, fraction, hero " +
     "where hero.avatarka = avatarka.id and avatarka.fraction= fraction.id").spread((avatars, metadata) => {
         res.send(avatars);

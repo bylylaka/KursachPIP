@@ -37,7 +37,6 @@ export default class Menu extends React.Component {
         return (
             <nav className="top-menu">
                 <ul className="menu-main">
-                    <Link to="/">Главная</Link>
                     <Link to="/profile">Профиль</Link>
                     <Link to="/myCastle">Замок</Link>
                     <Link to="/chat">Переговорная</Link>

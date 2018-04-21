@@ -64,8 +64,12 @@ export default class Castle extends React.Component {
     ListHeroes(){
         const listItems = this.state.heroesCastle.map((hero) =>
             <div>
-                {this.OnlyHero(hero)}
-                <Link to={"/profiles/"+hero.id}>{hero.name}</Link>
+                <Link to={"/profiles/"+hero.id}>
+                    {this.OnlyHero(hero)}
+                    <br/>
+                    {hero.name}
+                    <hr/>
+                </Link>
             </div>
         );
 

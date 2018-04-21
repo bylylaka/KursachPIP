@@ -37,7 +37,7 @@
     right: 0;
     z-index: 1;
     margin-left: 2.5%;
-    width: 30%;
+    width: 40%;
 }
 
 .myCastle .info{
@@ -46,7 +46,7 @@
     width: 30%;
     float: left;
     margin-right: 2.5%;
-    margin-left: 2.5%;
+    //margin-left: 2.5%;
     z-index: 0;
 
 }
@@ -56,7 +56,7 @@
 }
 
 .myCastle .chat {
-    width: 100%;
+    width: 70%;
     margin-bottom: 25px;
 }
 
@@ -103,4 +103,17 @@
 
 .enterCastle:active{
     background: rgba(0, 0, 0, 0);
+}
+
+.userAndDateCastle{
+    margin-bottom: 30px;
+    vertical-align: middle;
+    text-align: left;
+    display: inline-block;
+    margin-top: 13px;
+    font-size: 16px;
+}
+
+.messageSendBlockCastle{
+    width: 138%;
 }

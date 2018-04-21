@@ -79,7 +79,6 @@ export default class Post extends React.Component {
     }
 
     heroAvatar(hero_id){
-
         let hero = Object.values(this.state.avatars).map((hero) => {
             if(hero.id === hero_id){
                 let avatar = './images/' + hero.fractionname + '/' + hero.path;

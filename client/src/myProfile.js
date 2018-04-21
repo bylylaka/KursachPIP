@@ -191,19 +191,20 @@ export default class MyCabinet extends React.Component {
                     </select>
 
 
-                    {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
+                    <div>Name: {this.state.name}</div>
 
                     <div className="Attribute">
-                        <p>gender:</p>
-                        <select name="gender" onChange={this.handleChange}>
-                            {this.Option({gender: 'man'})}
-                            {this.Option({gender: 'woman'})}
-                        </select>
+                        <p>Gender:</p>
+                        <div>
+                            <select name="gender" onChange={this.handleChange}>
+                                {this.Option({gender: 'man'})}
+                                {this.Option({gender: 'woman'})}
+                            </select>
+                        </div>
                     </div>
 
-                    {this.Atrib({name :"castleName", value: this.state.castleName, readonly: 'true'})}
-                    {/*{this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}*/}
-                    {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
+                    <div>Castle: {this.state.castleName}</div>
+                    <div>Gold: {this.state.gold}</div>
                     <button className="joinButton">Отправить!</button>
                 </form>
             </div>

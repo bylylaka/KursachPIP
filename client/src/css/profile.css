@@ -59,3 +59,18 @@ body{
 .joinButton:active{
     background: rgba(0, 0, 0, 0);
 }
+
+.AddAccounts{
+    position: absolute;
+    left: 0;
+    width: 210px;
+    background-color: rgba(0,0,0,0.2);
+    padding-bottom: 50px;
+    text-align: center;
+    align-items: center;
+}
+
+.AddAccounts button{
+    display: block;
+    margin: 0 auto;
+}

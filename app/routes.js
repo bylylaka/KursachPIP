@@ -125,7 +125,7 @@ module.exports = function(app, passport) {
     // facebook -------------------------------
 
     // send to facebook to do the authentication
-    app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+    app.post('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
 
     // handle the callback after facebook has authorized the user
     app.get('/connect/facebook/callback',
@@ -137,7 +137,7 @@ module.exports = function(app, passport) {
     // twitter --------------------------------
 
     // send to twitter to do the authentication
-    app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+    app.post('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
 
     // handle the callback after twitter has authorized the user
     app.get('/connect/twitter/callback',
@@ -262,6 +262,10 @@ module.exports = function(app, passport) {
         forDb.Hero.findAll({ where: { user : req.user.user_id } }).then(function (hero) {
             forDb.getFraction(hero, res)
         });
+    });
+
+    app.get('/accountAuthInfo', isLoggedIn, function(req, res) {
+        res.send(req.user)
     });
 
     app.get('/profiles/:profile', isLoggedIn,  function(req, res) {

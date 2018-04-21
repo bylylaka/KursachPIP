@@ -20,7 +20,7 @@ export default class Chat extends React.Component {
             .get(`/sessionUser`)
             .then(session_user => {
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
             })
             .catch(error => console.log(error));
 

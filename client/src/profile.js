@@ -35,7 +35,7 @@ export default class Profile extends React.Component {
         ])
             .then(axios.spread((response, session_user, hero_achievements, all_achievements) => {
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
 
                 this.setState({hero_achievements: hero_achievements.data });
                 this.setState({all_achievements: all_achievements.data });

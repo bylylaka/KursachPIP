@@ -20,7 +20,7 @@ export default class Achievements extends React.Component {
             .then(axios.spread((achievements, session_user) => {
                 this.setState({achievements: achievements.data});
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
+                if(!session_user.data) this.props.history.push("/");
             }))
             .catch(error => console.log(error));
     }

@@ -12,6 +12,9 @@ import Post from "./post";
 import Enter from "./enter";
 import addPost from "./addPost";
 import Achievements from "./achievements";
+import Main from "./main"
+import signUp from "./signUp"
+import addLocal from "./addLocal"
 
 
 import loginFailure from "./loginFailure"
@@ -44,7 +47,7 @@ const BasicExample = () => (
                 <Switch>
                     <Route exact path="/" component={Main} />
                     <Route path="/login" component={Login} />
-                    <Route path="/signup" component={Signup} />
+                    <Route path="/signup" component={signUp} />
                     <Route path="/castle" component={AllCastles} />
                     <Route path="/castles/:castle" component={Castle} />
                     <Route path="/profile" component={MyProfile} />
@@ -57,7 +60,7 @@ const BasicExample = () => (
                     <Route path="/chat" component={Chat} />
                     <Route path="/chatCastle" component={ChatCastle} />
                     <Route path="/achievements" component={Achievements} />
-
+                    <Route path="/addLocal" component={addLocal} />
                     <Route path="/loginFailure" component={loginFailure} />
                     <Route path="/signupFailure" component={signupFailure} />
 
@@ -70,42 +73,42 @@ const BasicExample = () => (
 
 
 
-let sectionFacebook = {
-    width: "75px",
-    height: "75px",
-    backgroundImage: `url(${facebook})`,
-    backgroundSize: 'cover',
-};
-
-let sectionTwitter = {
-    width: "75px",
-    height: "75px",
-    backgroundImage: `url(${twitter})`,
-    backgroundSize: 'cover'
-};
-
-const Main = () => (
-        <div className="text-center">
-            <Header/>
-            <h2>Скорее присоединяйся и в бой!</h2>
-
-            <div className="localLogin">
-                <Link to="/login">Войти</Link>
-                <Link to="/signup">Зарегистрироваться</Link>
-            </div>
-
-            <div className="ouathLogin">
-                <form action="/auth/facebook" method="POST">
-                    <button title="Вход через Facebook" className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
-                </form>
-
-                <form action="/auth/twitter" method="POST">
-                    <button title="Вход через Twitter" className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
-                </form>
-            </div>
-
-        </div>
-);
+// let sectionFacebook = {
+//     width: "75px",
+//     height: "75px",
+//     backgroundImage: `url(${facebook})`,
+//     backgroundSize: 'cover',
+// };
+//
+// let sectionTwitter = {
+//     width: "75px",
+//     height: "75px",
+//     backgroundImage: `url(${twitter})`,
+//     backgroundSize: 'cover',
+// };
+//
+// const Main = () => (
+//         <div className="text-center">
+//             <Header/>
+//             <h2>Скорее присоединяйся и в бой!</h2>
+//
+//             <div className="localLogin">
+//                 <Link to="/login">Войти</Link>
+//                 <Link to="/signup">Зарегистрироваться</Link>
+//             </div>
+//
+//             <div className="ouathLogin">
+//                 <form action="/auth/facebook" method="POST">
+//                     <button className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
+//                 </form>
+//
+//                 <form action="/auth/twitter" method="POST">
+//                     <button className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
+//                 </form>
+//             </div>
+//
+//         </div>
+// );
 
 const Login = () => (
     <div className="text-center">
@@ -134,23 +137,23 @@ const About = () => (
 );
 
 
-const Signup = () => (
-    <div className="text-center">
-        <Header/>
-        <form action="/signup" method="post">
-            <div>
-                <br/>
-                <input className="email" type="text" name="email" placeholder="Email"/>
-            </div>
-            <div>
-                <br/>
-                <input className="password" type="password" name="password" placeholder="Пароль"/>
-            </div>
-
-            <button className="passwordAndEmailButton" type="submit">Зарегистрироваться</button>
-        </form>
-    </div>
-);
+// const Signup = () => (
+//     <div className="text-center">
+//         <Header/>
+//         <form action="/signup" method="post">
+//             <div>
+//                 <br/>
+//                 <input className="email" type="text" name="email" placeholder="Email"/>
+//             </div>
+//             <div>
+//                 <br/>
+//                 <input className="password" type="password" name="password" placeholder="Пароль"/>
+//             </div>
+//
+//             <button className="passwordAndEmailButton" type="submit">Зарегистрироваться</button>
+//         </form>
+//     </div>
+// );
 
 
 ReactDOM.render(<BasicExample/>, document.getElementById('root'));

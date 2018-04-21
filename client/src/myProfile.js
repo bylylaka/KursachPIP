@@ -1,5 +1,8 @@
 import axios from "axios/index";
 import './css/profile.css';
+import addLocal from "./addLocal";
+import twitter from '../src/icons/twitter.png';
+import facebook from '../src/icons/facebook.png';
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
@@ -23,7 +26,11 @@ export default class MyCabinet extends React.Component {
             hero_achievements: '',
             all_achievements: '',
             selected: '',
-            hero_gold: ''
+            hero_gold: '',
+            local_id: '',
+            facebook_id: '',
+            twitter_id: '',
+            allAccounts: '',
         };
 
         this.logOut = this.logOut.bind(this);
@@ -41,15 +48,23 @@ export default class MyCabinet extends React.Component {
             axios.get(`/sessionHero`),
             axios.get(`/hero_achievements`),
             axios.get(`/all_achievements`),
-            axios.get(`/sessionUser`)
+            axios.get(`/sessionUser`),
+            axios.get(`/accountAuthInfo`)
         ])
-            .then(axios.spread((response, session_hero, hero_achievements, all_achievements, session_user) => {
+            .then(axios.spread((response, session_hero, hero_achievements, all_achievements, session_user, accountAuthInfo) => {
                 this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/login");
-
+                if(!session_user.data) this.props.history.push("/");
                 this.setState({ hero_gold : session_hero.data.gold });
                 this.setState({hero_achievements: hero_achievements.data });
                 this.setState({all_achievements: all_achievements.data });
+                this.setState({local_id: accountAuthInfo.data.local_id, facebook_id: accountAuthInfo.data.facebook_id,
+                    twitter_id: accountAuthInfo.data.twitter_id});
+
+                if (this.state.local_id != null && this.state.facebook_id != null && this.state.twitter_id != null)
+                    this.setState({allAccounts: 'Da' });
+                else
+                    this.setState({allAccounts: null })
+
                 this.setState({
                     id: response.data[0].id,
                     name: response.data[0].name,
@@ -101,6 +116,45 @@ export default class MyCabinet extends React.Component {
         return (this.state.gender ===  props.gender)
             ? <option selected name = "gender" value={props.gender}>{props.gender}</option>
             : <option name = "gender" value={props.gender}>{props.gender}</option>
+    }
+
+
+
+
+    AuthWayLocal(props) {
+        return (props.znach !=  null)
+            ? <div/>
+            :  <Link to={"/addLocal"}>Локальную</Link>
+    }
+
+    AuthWayFacebook(props) {
+        return (props.znach !=  null)
+            ? <div/>
+            : <form action="/connect/facebook" method="POST">
+                <button className="oauth" style={sectionFacebook} alt="Вход через Facebook" title="Вход через Facebook"></button>
+            </form>
+    }
+
+    AuthWayTwitter(props) {
+        return (props.znach !=  null)
+            ? <div/>
+            : <form action="/connect/twitter" method="POST">
+                <button className="oauth" style={sectionTwitter} alt="Вход через Twitter" title="Вход через Twitter"></button>
+            </form>
+    }
+
+
+
+    AddAccounts() {
+        if (this.state.local_id == null || this.state.facebook_id == null || this.state.twitter_id == null)
+            return (
+                <div className="AddAccounts">
+                    <p style={{color: "rgba(100,100,255,0.6)"}}>Присоеденить учетную запись:</p>
+                    {this.AuthWayLocal({way: 'local', znach: this.state.local_id})}
+                    {this.AuthWayFacebook({way: 'facebook', znach: this.state.facebook_id})}
+                    {this.AuthWayTwitter({way: 'twitter', znach: this.state.twitter_id})}
+                </div>
+            )
     }
 
 
@@ -274,6 +328,7 @@ export default class MyCabinet extends React.Component {
         if(this.state.isAuthenticated){
             return (
                 <div className="Profile">
+                    {this.AddAccounts()}
                     {this.addFraction ()}
                     {this.Prolife ()}
                     <hr/>
@@ -298,4 +353,19 @@ const options = {
     timeout: 5000,
     offset: '30px',
     transition: 'scale'
+};
+
+
+var sectionFacebook = {
+    width: "75px",
+    height: "75px",
+    backgroundImage: `url(${facebook})`,
+    backgroundSize: 'cover',
+};
+
+var sectionTwitter = {
+    width: "75px",
+    height: "75px",
+    backgroundImage: `url(${twitter})`,
+    backgroundSize: 'cover',
 };

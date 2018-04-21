@@ -2,11 +2,11 @@ var forDb = require('./../app/models/forDb');
 const Sequelize = require('sequelize');
 
 
-     const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
-         host: 'localhost',
-         dialect: 'postgres',
-     });
-//const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
+     // const sequelize = new Sequelize('heroes', 'postgres', '1qaz@WSX', {
+     //     host: 'localhost',
+     //     dialect: 'postgres',
+     // });
+const sequelize = new Sequelize('postgres://postgres:muxus123@localhost:5432/testDB');
 
 sequelize
     .authenticate()
@@ -123,7 +123,8 @@ module.exports = function(passport) {
 
                                             var newHero = forDb.Hero.build({       //saveLocal
                                                 name: email,
-                                                user: usero.dataValues.id
+                                                user: usero.dataValues.id,
+                                                gold: 500
                                             });
                                             newHero.save();
 
@@ -212,7 +213,8 @@ module.exports = function(passport) {
 
                                         var newHero = forDb.Hero.build({       //saveLocal
                                             name: profile.name.givenName+' '+profile.name.familyName,
-                                            user: usero.dataValues.id
+                                            user: usero.dataValues.id,
+                                            gold: 500
                                         });
                                         newHero.save();
 
@@ -310,7 +312,8 @@ module.exports = function(passport) {
 
                                         var newHero = forDb.Hero.build({       //saveLocal
                                             name: profile._json.name,
-                                            user: usero.dataValues.id
+                                            user: usero.dataValues.id,
+                                            gold: 500
                                         });
                                         newHero.save();
 

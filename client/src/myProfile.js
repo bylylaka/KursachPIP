@@ -176,7 +176,7 @@ export default class MyCabinet extends React.Component {
 
         return (
             <div>
-                <p>Your profile</p>
+                <p className="profileTitle">Профиль</p>
                 <img src={this.state.Imga} className="profilePicta"/>
                 <br/>
                 <form onSubmit={this.handleSubmit}>
@@ -185,7 +185,7 @@ export default class MyCabinet extends React.Component {
                         {
                             this.state.avaS.map( (ava) =>
                             (ava.pathname ===  this.state.photo)
-                                ? <option value={ava.pathname} selected>{ava.name}</option>
+                                ? <option className="red" value={ava.pathname} selected>{ava.name}</option>
                                 : <option value={ava.pathname}>{ava.name}</option>)
                         }
                     </select>

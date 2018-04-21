@@ -23,10 +23,22 @@ body{
 
 .Profile h4 {
     color: gold;
+    text-align: center;
+}
+
+.Profile h6{
+    margin-bottom: -15px;
+    margin-top: -15px;
+    text-align: center;
 }
 
 .noMoney{
     visibility: visible;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #FFCCCC;
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -73,4 +85,37 @@ body{
 .AddAccounts button{
     display: block;
     margin: 0 auto;
+}
+
+select{
+    width: 100%;
+    background: #5A394E;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: Impact;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+select:focus,
+select:hover,
+option:hover,
+option:focus {
+    border: 1px solid white;
+    outline:none;
+}
+
+select option {
+    margin: 40px;
+    background: #5A394E;
+    color: white;
+ }
+
+.profileTitle{
+    text-align: center;
+    margin-top: -15px;
 }

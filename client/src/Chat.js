@@ -119,7 +119,7 @@ export default class Chat extends React.Component {
         if(this.state.isAuthenticated){
             return (
                 <div className="chat">
-                    <p id="blink" onClick={this.scrollToBottom}><i id="scrollDown"></i></p>
+                    <p id="blink" onClick={this.scrollToBottom} title="Scroll вниз"><i id="scrollDown"></i></p>
                     {this.getMessages()}
                     <form name="publish" onSubmit={this.handleSubmit}>
                         <div className="messageSendBlock">
@@ -127,7 +127,7 @@ export default class Chat extends React.Component {
                             <button className="sendMessageButton" type="submit">Отправить</button>
                         </div>
                     </form>
-                    <p id="blink" onClick={this.scrollToTop}><i id="scrollUp"></i></p>
+                    <p id="blink" onClick={this.scrollToTop} title="Scroll вверх"><i id="scrollUp"></i></p>
                 </div>
             );
         }

@@ -50,11 +50,11 @@ export default class Main extends React.Component {
 
                     <div className="ouathLogin">
                         <form action="/auth/facebook" method="POST">
-                            <button className="oauth" style={sectionFacebook} alt="Вход через Facebook"></button>
+                            <button className="oauth" style={sectionFacebook} alt="Вход через Facebook" title="Вход через Facebook"></button>
                         </form>
 
                         <form action="/auth/twitter" method="POST">
-                            <button className="oauth" style={sectionTwitter} alt="Вход через Twitter"></button>
+                            <button className="oauth" style={sectionTwitter} alt="Вход через Twitter" title="Вход через Twitter"></button>
                         </form>
                     </div>
 

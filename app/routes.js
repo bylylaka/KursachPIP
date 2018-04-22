@@ -225,7 +225,7 @@ module.exports = function(app, passport) {
         //forDb.Local.findOne({where : {id: req.user.user_id}}).then(function(user) {
         //forDb.findAl(forDb.Castle, res);
         //forDb.Local.findOne({where : {id: req.user}}).then(function(user) {
-            forDb.availableCastles(forDb.Castle, forDb.Hero, req.user, res);
+        forDb.availableCastles(forDb.Castle, forDb.Hero, req.user, res);
         //});
     });
 
@@ -447,7 +447,7 @@ module.exports = function(app, passport) {
 
     app.get('/post/:post/addLike', isLoggedIn, function(req, res) {
         forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
-        forDb.Likes.findOne({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
+            forDb.Likes.findOne({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
                 if(!like){
                     let newLike = forDb.Likes.build({
                         post_id: req.params.post,
@@ -498,13 +498,13 @@ module.exports = function(app, passport) {
 
     app.get('/post/:post/isPuttedLike', isLoggedIn, function(req, res) {
         forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {
-        forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
-            if(!like){
-                res.send(null);
-            }
-            else{
-                res.send(like.rows);
-            }
+            forDb.Likes.findAndCountAll({ where: { post_id : req.params.post, hero_id: hero.dataValues.id } }).then(like => {
+                if(!like){
+                    res.send(null);
+                }
+                else{
+                    res.send(like.rows);
+                }
             });
         });
     });
@@ -692,8 +692,8 @@ module.exports = function(app, passport) {
         var castle;
 
         // forDb.User.findOne({where : {id: req.user.user_id}}).then(function(user) {
-            id = req.user.user_id;
-            clients[id] = ws;
+        id = req.user.user_id;
+        clients[id] = ws;
         // });
 
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
@@ -734,54 +734,46 @@ module.exports = function(app, passport) {
 
 
 
-
-
-
-
-
-
-
     /***************************************************JABBER*************************************************************/
-    //let xmpp = require('../lib/simple-xmpp');
-    let xmpp = require('simple-xmpp');
+        //let xmpp = require('../lib/simple-xmpp');
+    // let xmpp = require('simple-xmpp');
+    //
+    //
+    // xmpp.connect({
+    //     jid	                : 'maximus1998g@jabber.ru',
+    //     password		    : '1qaz@WSX',
+    //     host				: 'jabber.ru',
+    //     port				: 5222
+    // });
 
-
-    xmpp.connect({
-        jid	                : 'maximus1998g@jabber.ru',
-        password		    : '1qaz@WSX',
-        host				: 'jabber.ru',
-        port				: 5222
-    });
-
-    xmpp.subscribe('maximus0371@jabber.ru');
-    xmpp.getRoster();
-
-    xmpp.on('online', function(data) {
-        xmpp.on('stanza', function(stanza) {
-
-            let body;
-            if(stanza.getChild('body') !== undefined)
-                body = stanza.getChild('body');
-
-            if(body){
-                let jabber = body.parent.attrs.from.toString().split('</body>')[0];
-                jabber = jabber.split('<body>')[1];
-                console.log("\n\n\n\n\n\n" + jabber + "\n\n\n\n\n\n\n");
-
-                /**********/
-
-            }
-        });
-    });
-
-    app.get('/jabber', function(req, res) {
-
-        var stanza = new xmpp.Element('message', {to: 'maximus0371@jabber.ru', type: 'chat',id: '1'}).c('body').t("tralala");
-        xmpp.send(stanza.tree());
-        res.end();
-
-    });
-
+    // xmpp.subscribe('maximus0371@jabber.ru');
+    // xmpp.getRoster();
+    //
+    // xmpp.on('online', function(data) {
+    //     xmpp.on('stanza', function(stanza) {
+    //
+    //         let body;
+    //         if(stanza.getChild('body') !== undefined)
+    //             body = stanza.getChild('body');
+    //
+    //         if(body){
+    //             let jabber = body.parent.attrs.from.toString().split('</body>')[0];
+    //             jabber = jabber.split('<body>')[1];
+    //             console.log("\n\n\n\n\n\n" + jabber + "\n\n\n\n\n\n\n");
+    //
+    //             /**********/
+    //
+    //         }
+    //     });
+    // });
+    //
+    // app.get('/jabber', function(req, res) {
+    //
+    //     var stanza = new xmpp.Element('message', {to: 'maximus0371@jabber.ru', type: 'chat',id: '1'}).c('body').t("tralala");
+    //     xmpp.send(stanza.tree());
+    //     res.end();
+    //
+    // });
 
 
     /************************************GETTING GOLD******************************/

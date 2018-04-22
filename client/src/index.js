@@ -16,7 +16,7 @@ import Main from "./main"
 import signUp from "./signUp"
 import addLocal from "./addLocal"
 import NeLink from "./NeLink"
-
+import JabTe from "./JabTest"
 
 
 import loginFailure from "./loginFailure"
@@ -46,6 +46,7 @@ const BasicExample = () => (
         <BrowserRouter>
             <div>
                 <Menu/>
+                <JabTe/>
                 <Switch>
                     <Route exact path="/" component={Main} />
                     <Route path="/login" component={Login} />
@@ -66,6 +67,7 @@ const BasicExample = () => (
                     <Route path="/loginFailure" component={loginFailure} />
                     <Route path="/signupFailure" component={signupFailure} />
                     <Route path="/NeLink" component={NeLink} />
+                    <Route path="/JabTe" component={JabTe} />
 
                     <Route component={ NotFound } />
                 </Switch>

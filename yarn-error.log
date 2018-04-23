@@ -23,6 +23,16 @@ npm manifest:
       "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
     "dependencies": {
+  <<<<<<< HEAD
+      "body-parser": "^1.18.2",
+      "express": "^4.16.2",
+      "formidable": "^1.1.1",
+      "fs": "0.0.1-security",
+      "jquery": "^3.3.1",
+      "lodash": "^4.17.5",
+      "nodemon": "^1.17.1",
+      "passport-twitter": "^1.0.4",
+  =======
       "axios": "^0.18.0",
       "bcrypt-nodejs": "latest",
       "bluebird": "^3.5.1",
@@ -50,6 +60,7 @@ npm manifest:
       "passport-google-oauth": "~1.0.0",
       "passport-local": "~1.0.0",
       "passport-twitter": "~1.0.4",
+  >>>>>>> origin/develop
       "pg": "^7.4.1",
       "pg-promise": "^8.2.2",
       "python": "0.0.4",
@@ -1660,16 +1671,10 @@ Lockfile:
       xmldom "0.1.x"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c concurrently --kill-others-on-fail "yarn server" "yarn client"
-  Directory: C:\Users\Максим\Desktop\KursachPIP
-  Output:
-  
-      at ProcessTermError.MessageError (D:\yarn\lib\cli.js:186:110)
-      at new ProcessTermError (D:\yarn\lib\cli.js:226:113)
-      at ChildProcess.<anonymous> (D:\yarn\lib\cli.js:30281:17)
-      at ChildProcess.emit (events.js:159:13)
-      at maybeClose (internal/child_process.js:943:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:220:5)
+  SyntaxError: C:\Users\Максим\Desktop\KursachPIP\package.json: Unexpected token < in JSON at position 254
+      at JSON.parse (<anonymous>)
+      at D:\yarn\lib\cli.js:1036:59
+      at Generator.next (<anonymous>)
+      at step (D:\yarn\lib\cli.js:98:30)
+      at D:\yarn\lib\cli.js:109:13
+      at <anonymous>

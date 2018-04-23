@@ -1,0 +1,121 @@
+body{
+    font-family: Impact;
+}
+
+.Profile{
+    font-size: 30px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 10px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 20%;
+    margin: 0 auto;
+}
+
+.Attribute p{
+    display: inline;
+}
+
+.Profile .profilePicta {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+.Profile h4 {
+    color: gold;
+    text-align: center;
+}
+
+.Profile h6{
+    margin-bottom: -15px;
+    margin-top: -15px;
+    text-align: center;
+}
+
+.noMoney{
+    visibility: visible;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #FFCCCC;
+    width: 100%;
+    text-align: center;
+}
+
+
+.yeapMoney{
+    visibility: hidden;
+}
+
+.joinButton{
+    background: #5A394E;
+    padding: 20px 0;
+    width: 100%;
+    font-size: 20px;
+    border: 1px white solid;
+    color: white;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: .3s linear;
+    box-shadow:
+            inset 1px 0 0 rgba(255,255,255,.1),
+            inset -1px 0 0 rgba(255,255,255,.1),
+            inset 150px 0 150px -150px rgba(255,255,255,.12),
+            inset -150px 0 150px -150px rgba(255,255,255,.12);
+}
+
+.joinButton:hover{
+    background: rgb(72, 46, 62);
+
+}
+
+.joinButton:active{
+    background: rgba(0, 0, 0, 0);
+}
+
+.AddAccounts{
+    position: absolute;
+    left: 0;
+    width: 210px;
+    background-color: rgba(0,0,0,0.2);
+    padding-bottom: 50px;
+    text-align: center;
+    align-items: center;
+}
+
+.AddAccounts button{
+    display: block;
+    margin: 0 auto;
+}
+
+select{
+    width: 100%;
+    background: #5A394E;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: Impact;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+select:focus,
+select:hover,
+option:hover,
+option:focus {
+    border: 1px solid white;
+    outline:none;
+}
+
+select option {
+    margin: 40px;
+    background: #5A394E;
+    color: white;
+ }
+
+.profileTitle{
+    text-align: center;
+    margin-top: -15px;
+}

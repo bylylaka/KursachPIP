@@ -1,0 +1,119 @@
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  display: block;
+}
+
+html, body {min-height:100%;height:100%;margin:0;}
+body {
+  background: url("../images/background.png");
+  font-family: Impact;
+}
+
+*{
+  color: white;
+}
+
+input, button, textarea, select, option{
+  color: black;
+}
+
+#noise {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/noise.png");
+  background-attachment: fixed;
+}
+@media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {#noise {background-image: url("../images/noise@2x.png");}}
+
+header{
+  text-align: center;
+  font-size: 35px;
+  color: #ccc;
+  text-shadow: 12px 12px rgba(0,0,0,0.3);
+}
+
+.text-center{
+  font-size: 20px;
+  text-align: center;
+  width: 720px;
+  margin: 0 calc((100% - 720px)/2);
+}
+
+.heroesTitle{
+  margin-bottom: -20px;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+  margin-right: 50px;
+}
+
+form{
+  display: inline;
+  margin-right: 30px;
+}
+
+.oauth{
+    width: 50px;
+    height: 50px;
+    background: url('../icons/facebook.png') no-repeat;
+    border:none;
+    cursor: pointer ;
+}
+
+.localLogin{
+  float: left;
+  margin-top: 25px;
+  margin-left: 85px;
+}
+
+
+.ouathLogin{
+  float: right;
+  margin-right: 85px;
+}
+
+.errorMessage{
+  font-size: 22px;
+  color: #FFCCCC;
+}
+
+.email, .password{
+  width: 100%;
+  padding: 15px 5px;
+  font-size: 17px;
+  font-family: Impact;
+}
+
+.passwordAndEmailButton{
+  background: #5A394E;
+  padding: 20px 0;
+  width: 102%;
+  font-size: 20px;
+  border: 1px white solid;
+  color: white;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: .3s linear;
+  box-shadow:
+          inset 1px 0 0 rgba(255,255,255,.1),
+          inset -1px 0 0 rgba(255,255,255,.1),
+          inset 150px 0 150px -150px rgba(255,255,255,.12),
+          inset -150px 0 150px -150px rgba(255,255,255,.12);
+}
+
+.passwordAndEmailButton:hover{
+  background: rgb(72, 46, 62);
+
+}
+
+.passwordAndEmailButton:active{
+  background: rgba(0, 0, 0, 0);
+}
+
+.entering, .userAccount{
+  margin-left: 20px;
+}

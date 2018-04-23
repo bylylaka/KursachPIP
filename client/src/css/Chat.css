@@ -1,0 +1,122 @@
+.chat {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.chat a{
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.chat p{
+    color: rgb(211, 211, 211);
+    font-size: 19px;
+    margin-top: 0;
+}
+
+.chat input[type=text]{
+    width: 67.5%;
+    margin-right: 2.5%;
+    padding: 22px 5px;
+    font-size: 17px;
+    font-family: Impact;
+    float: left;
+}
+
+.chat input[type=submit]{
+    width: 100px;
+}
+
+.message{
+    margin-left: 60px;
+    word-wrap: break-word;
+    font-size: 20px;
+}
+
+.sendMessageButton{
+    background: #5A394E;
+    padding: 20px 0;
+    width: calc(100% - 70% - 10px - 4px);
+    font-size: 20px;
+    color: white;
+    border: 1px white solid;
+    cursor: pointer;
+    transition: .3s linear;
+}
+
+.sendMessageButton:hover{
+    background: rgb(72, 46, 62);
+
+}
+
+.sendMessageButton:active{
+    background: rgba(0, 0, 0, 0);
+}
+
+.messageSendBlock{
+    width: 100%;
+}
+
+i {
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 25px;
+
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+    font-weight: bold;
+    color: #FFF;
+}
+
+#scrollDown, #scrollDownCastle{
+    cursor: pointer;
+    margin-bottom: -40px;
+    margin-left: -15%;
+    -webkit-transform: rotate(45deg);
+}
+
+#scrollUp, #scrollUpCastle{
+    cursor: pointer;
+    margin-bottom: -150px;
+    margin-left: -15%;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+
+#scrollDownCastle, #scrollUpCastle{
+    margin-left: 45%;
+}
+
+
+@-webkit-keyframes scrollDown{
+    0% { color: #FFFFFF; }
+    50% { color: #5A394E; }
+    100% { color: #FFFFFF; }
+}
+
+@keyframes scrollDown{
+    0% { color: #FFFFFF; }
+    50% { color: #5A394E; }
+    100% { color: #FFFFFF; }
+}
+
+#blink {
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+    font-weight: bold;
+    color: #FFF;
+}
+
+@-webkit-keyframes blink{
+  0% { color: #FFFFFF; }
+  50% { color: #5A394E; }
+  100% { color: #FFFFFF; }
+}
+
+@keyframes blink{
+  0% { color: #FFFFFF; }
+  50% { color: #5A394E; }
+  100% { color: #FFFFFF; }
+}

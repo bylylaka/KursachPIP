@@ -1,0 +1,11 @@
+.achivements {
+    width: 450px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+}
+
+.achivements h3{
+    font-size: 25px;
+    color: gold;
+}

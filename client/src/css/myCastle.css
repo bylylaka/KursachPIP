@@ -1,0 +1,122 @@
+html{
+    overflow-x: hidden;
+}
+
+.myCastle .castlePicta {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.myCastle .divCastlePicta {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    vertical-align: top;
+    margin-top: -70px;
+    border-bottom: 10px solid rgba(255,255,0,0.6);
+}
+
+.castleContent{
+    width: 70%;
+    margin: 0 15%;
+}
+
+.myCastle .formembers {
+    font-size: 25px;
+    float: left;
+    width: 30%;
+    margin-right: 2.5%;
+}
+
+.formembers p, .formembers .members{
+    width: 50%;
+    margin: 0 25%;
+    margin-top: 20px;
+}
+
+
+.myCastle .chatCastle{
+    margin-top: 20px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    margin-left: 2.5%;
+    width: 40%;
+}
+
+.myCastle .info{
+    text-align: center;
+    align-items: center;
+    width: 30%;
+    float: left;
+    margin-right: 2.5%;
+    z-index: 0;
+
+}
+
+.myCastle .info button{
+    margin: 0 auto;
+}
+
+.myCastle .chat {
+    width: 70%;
+    margin-bottom: 25px;
+}
+
+.myCastle .chat a{
+    font-size: 25px;
+    margin-bottom: 0;
+}
+
+.myCastle .chat p{
+    color: rgb(211, 211, 211);
+    font-size: 19px;
+    margin-top: 0;
+}
+
+.myCastle .chat input[type=text]{
+    width: 40%;
+}
+
+.myCastle .chat input[type=submit]{
+    width: 100px;
+}
+
+.enterCastle{
+    background: #5A394E;
+    padding: 20px 0;
+    width: 100%;
+    font-size: 20px;
+    border: 1px white solid;
+    color: white;
+    cursor: pointer;
+
+    transition: .3s linear;
+    box-shadow:
+            inset 1px 0 0 rgba(255,255,255,.1),
+            inset -1px 0 0 rgba(255,255,255,.1),
+            inset 150px 0 150px -150px rgba(255,255,255,.12),
+            inset -150px 0 150px -150px rgba(255,255,255,.12);
+}
+
+.enterCastle:hover {
+    background: rgb(72, 46, 62);
+
+}
+
+.enterCastle:active{
+    background: rgba(0, 0, 0, 0);
+}
+
+.userAndDateCastle{
+    margin-bottom: 30px;
+    vertical-align: middle;
+    text-align: left;
+    display: inline-block;
+    margin-top: 13px;
+    font-size: 16px;
+}
+
+.messageSendBlockCastle{
+    width: 138%;
+}

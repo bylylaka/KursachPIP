@@ -16,36 +16,11 @@ var expressWs = require('express-ws')(app);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 const http = require('http')
 const socketIO = require('socket.io')
 const server = http.createServer(app)
 const io = socketIO(server)
 server.listen(8888, () => console.log(`Listening on port ${8888}`))
-
-
-
-io.on('connection', socket => {
-    // console.log('New client connected')
-
-    socket.on('change color', (color) => {
-        // console.log('Color Changed to: ', color);
-        io.sockets.emit('change color', color)
-    })
-    socket.on('disconnect', () => {
-        // console.log('user disconnected')
-    })
-})
 
 
 var xmpp = require('simple-xmpp');
@@ -55,40 +30,23 @@ xmpp.connect({
     password: '1qaz@WSX',
     host: 'jabber.ru',
     port: 5222
-});
-
-xmpp.on('online', function (data) {
-    // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n');
-    // console.log('Connected with JID: ' + data.jid.user);
-    // console.log('Yes, I\'m connected!');
-});
+},
+    xmpp.send('maximus1998g@jabber.ru', 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!')
+);
 
 xmpp.on('chat', function (from, message) {
-    // console.log('\n\n\n' + message + 'n\n\n');
-    io.sockets.emit('change color', message);
-    // xmpp.send(from, 'echo: ' + message);
-});
+    if (message != '' && message != null && message != ' ') {
+        console.log('\n\n\n' + message);
+        io.sockets.emit('achievements', message);
 
-xmpp.on('error', function (err) {
-    // console.log('\n\n\n\n\n\n\nerror\n\n\n\n\n\n');
-    console.error(err);
+        setTimeout(function () {
+            xmpp.send(from, 'ech: ' + 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
+        }, 5000000);
+    }
 });
-
-xmpp.on('subscribe', function (from) {
-    // console.log('\n\n\n\n\n\n\nsubssscribe\n\n\n\n\n\n');
-    //if (from === 'a.friend@gmail.com') {
-      //  xmpp.acceptSubscription(from)
-    //}
-});
-
 xmpp.getRoster();
 
-setInterval(function() {
-    xmpp.send('maximus1998g@jabber.ru', 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
-}, 10000000);
-
-
-
+exports.xmpp = xmpp;
 
 
 

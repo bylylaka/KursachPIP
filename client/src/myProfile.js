@@ -149,7 +149,7 @@ export default class MyCabinet extends React.Component {
         if (this.state.local_id == null || this.state.facebook_id == null || this.state.twitter_id == null)
             return (
                 <div className="AddAccounts">
-                    <p style={{color: "rgba(100,100,255,0.6)"}}>Присоеденить учетную запись:</p>
+                    <div className="joinSoc" style={{color: "rgba(100,100,255,0.6)"}}>Присоеденить учетную запись:</div>
                     {this.AuthWayLocal({way: 'local', znach: this.state.local_id})}
                     {this.AuthWayFacebook({way: 'facebook', znach: this.state.facebook_id})}
                     {this.AuthWayTwitter({way: 'twitter', znach: this.state.twitter_id})}
@@ -304,21 +304,30 @@ export default class MyCabinet extends React.Component {
         return (
             <form onSubmit={this.handleSubmitFraction}>
                 <div>
-                    <p>Текущая фракция: {this.getFractionName()}</p>
-                    <label>Орда</label>
-                    <input type='radio' id='orda' name='race' value='orda' checked={this.state.selected == 'orda'}  onChange={this.handleOnChangeFraction} />
-                    <br />
-                    <label>Альянс</label>
-                    <input type='radio' id='alians' name='race' value='alians' checked={this.state.selected == 'alians'} onChange={this.handleOnChangeFraction} />
-                    <br />
-                    <label>Гномы</label>
-                    <input type='radio' id='gnomes' name='race' value='gnomes' checked={this.state.selected == 'gnomes'} onChange={this.handleOnChangeFraction} />
-                    <br />
-                    <label>Дьяволы</label>
-                    <input type='radio' id='devils' name='race' value='devils' checked={this.state.selected == 'devils'} onChange={this.handleOnChangeFraction} />
+                    <p className="currFraction">Текущая фракция: {this.getFractionName()}</p>
+
+                    <label class="container">Орда
+                        <input type='radio' id='orda' name='race' value='orda' checked={this.state.selected == 'orda'}  onChange={this.handleOnChangeFraction} />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Альянс
+                        <input type='radio' id='alians' name='race' value='alians' checked={this.state.selected == 'alians'} onChange={this.handleOnChangeFraction} />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Гномы
+                        <input type='radio' id='gnomes' name='race' value='gnomes' checked={this.state.selected == 'gnomes'} onChange={this.handleOnChangeFraction} />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Дьяволы
+                        <input type='radio' id='devils' name='race' value='devils' checked={this.state.selected == 'devils'} onChange={this.handleOnChangeFraction} />
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <hr/>
-                <div>Смена фракции: 500 голды</div>
+                <p className="changeFraction">Смена фракции: 500 голды</p>
                 <br/><button className="joinButton" type="submit" disabled={this.state.selected === this.state.fraction || this.state.hero_gold < 500}>Присоединиться!</button>
                 <div className={noMoneyMsgClass}>Недостаточно голды для смены фракции!</div>
             </form>

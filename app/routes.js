@@ -1,5 +1,6 @@
 var forDb = require('./models/forDb');
 var path    = require("path");
+var server = require('../server');
 
 module.exports = function(app, passport) {
     var expressWs = require('express-ws')(app);
@@ -428,6 +429,7 @@ module.exports = function(app, passport) {
                                             hero_id: hero.dataValues.id,
                                             achievement_id: achievement.dataValues.id
                                         });
+                                        server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
                                         newAchievementToHero.save().then();
                                     });
                                 }
@@ -472,6 +474,7 @@ module.exports = function(app, passport) {
                                                     hero_id: hero.dataValues.id,
                                                     achievement_id: achievement.dataValues.id
                                                 });
+                                                server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
                                                 newAchievementToHero.save().then( res.send("Gold added") );
                                             });
                                         });
@@ -788,6 +791,7 @@ module.exports = function(app, passport) {
                 });
             });
         });
+        server.xmpp.send('maximus1998g@jabber.ru', ' +10 голды!');
     }, 100000);
 
 };

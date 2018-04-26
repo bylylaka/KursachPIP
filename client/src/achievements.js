@@ -27,8 +27,13 @@ export default class Achievements extends React.Component {
 
     Achievements(){
         let achievements = Object.values(this.state.achievements).map((achievement) => {
-          return <div className="achivka">{achievement.achievement} - награда: {achievement.gold} голды</div>
+          return (
+                  <li>
+                      <div className="achivka">{achievement.achievement} - награда: {achievement.gold} голды</div>
+                  </li>
+          )
         });
+
         return achievements;
     }
 
@@ -36,8 +41,10 @@ export default class Achievements extends React.Component {
         if(this.state.isAuthenticated){
             return (
                 <div className="achivements">
-                    <h3>Достижения</h3>
-                    {this.Achievements ()}
+                    <h1>Достижения</h1>
+                    <ul>
+                        {this.Achievements ()}
+                    </ul>
                 </div>
             );
         }

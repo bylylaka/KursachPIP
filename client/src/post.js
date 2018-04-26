@@ -194,7 +194,7 @@ export default class Post extends React.Component {
     AddComment(){
         return (
             <form onSubmit={this.handleSubmit} method="post">
-                <div className="divTextArea"><textarea value={this.state.comment} className="commentArea" name="comment" onChange={this.handleChange} placeholder="Написать комментарий..." required/></div>
+                <div className="divTextArea"><input value={this.state.comment} className="commentArea" name="comment" onChange={this.handleChange} placeholder="Написать комментарий..." required/></div>
                 <button type="submit" className="sendCommentButton">Отправить</button>
                 <br/><br/>
             </form>

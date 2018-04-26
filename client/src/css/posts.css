@@ -7,6 +7,7 @@ body{
 .posts, .post{
     width: 70%;
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .postButton{
@@ -61,15 +62,13 @@ body{
 
 .image{
     width: 70%;
-    margin-bottom: 30px;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin: 60px 15% 30px 15%;
 }
 
 .content{
     width: 100%;
+    margin-bottom: -30px;
     word-wrap: break-word;
-    margin-bottom: 50px;
 }
 
 .avatar{
@@ -136,7 +135,7 @@ body{
 
 
 .commentArea{
-    padding: 6px 5px;
+    padding: 15px 5px;
     width: calc(100% - 10px);
     margin: 4px 0 0 0;
     font-size: 17px;
@@ -168,4 +167,30 @@ button:focus {
 
 textarea {
     resize: none;
+}
+
+@media only screen and (max-width: 1495px) {
+    .menu-main a{
+        padding: 20px 20px !important;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .menu-main a{
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .likeButton{
+        width: 110px;
+    }
+
+    .commentArea{
+        width:
+    }
+
+    .divTextArea {
+        width: calc(95% - 110px);
+    }
 }

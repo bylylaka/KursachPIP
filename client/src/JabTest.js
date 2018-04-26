@@ -22,9 +22,10 @@ export default class JabTe extends React.Component {
             alert('Полученное сообщение: ' + color);
         })
 
+        //<h1>QQ</h1>
         return (
             <div style={{ textAlign: "center" }}>
-                <h1>БДСМ СТРАНИЦА</h1>
+
                 {/*<button onClick={() => this.send()}>Change Color</button>*/}
             </div>
         )

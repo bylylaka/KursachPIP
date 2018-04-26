@@ -76,16 +76,16 @@ xmpp.on('error', function (err) {
 
 xmpp.on('subscribe', function (from) {
     // console.log('\n\n\n\n\n\n\nsubssscribe\n\n\n\n\n\n');
-    if (from === 'a.friend@gmail.com') {
-        xmpp.acceptSubscription(from)
-    }
+    //if (from === 'a.friend@gmail.com') {
+      //  xmpp.acceptSubscription(from)
+    //}
 });
 
 xmpp.getRoster();
 
 setInterval(function() {
     xmpp.send('maximus1998g@jabber.ru', 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
-}, 20000);
+}, 10000000);
 
 
 

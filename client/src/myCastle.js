@@ -121,10 +121,6 @@ export default class Castle extends React.Component {
                 </div>
                 <div className="castleContent">
 
-                    <div className="chatCastle">
-                        <ChatCastle/>
-                    </div>
-
                     {this.CastleHeroes()}
 
                     <div className="info">
@@ -132,6 +128,10 @@ export default class Castle extends React.Component {
                         <h2>Расса: {this.state.fractionName}</h2>
                         <h2>Рейтинг: {this.state.rating}</h2>
                         {castles}
+                    </div>
+
+                    <div className="chatCastle">
+                        <ChatCastle/>
                     </div>
                 </div>
             </div>

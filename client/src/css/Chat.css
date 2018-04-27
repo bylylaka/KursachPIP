@@ -33,7 +33,7 @@
     font-size: 20px;
 }
 
-.sendMessageButton{
+.sendMessageButton, .sendMessageButtonCastle{
     background: #5A394E;
     padding: 20px 0;
     width: calc(100% - 70% - 10px - 4px);
@@ -44,12 +44,12 @@
     transition: .3s linear;
 }
 
-.sendMessageButton:hover{
+.sendMessageButton:hover, .sendMessageButtonCastle:hover{
     background: rgb(72, 46, 62);
 
 }
 
-.sendMessageButton:active{
+.sendMessageButton:active, .sendMessageButtonCastle:active{
     background: rgba(0, 0, 0, 0);
 }
 
@@ -101,7 +101,12 @@ i {
 
 
 #scrollDownCastle, #scrollUpCastle{
-    margin-left: 45%;
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+#scrollUpCastle{
+    margin-top: 40px;
 }
 
 
@@ -134,6 +139,19 @@ i {
   0% { color: #FFFFFF; }
   50% { color: #5A394E; }
   100% { color: #FFFFFF; }
+}
+
+
+
+@media only screen and (max-width: 1100px) {
+    .sendMessageButtonCastle{
+        width: 72%;
+    }
+
+    .myCastle .chat input[type=text] {
+        width: 69%;
+        margin-bottom: 20px;
+    }
 }
 
 @media only screen and (max-width: 650px) {

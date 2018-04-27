@@ -21,11 +21,28 @@ html{
     margin: 0 15%;
 }
 
+.heroProfile{
+    width: 100px;
+    margin: 0 calc(50% - 50px);
+}
+
+.heroProfile a img{
+    width: 100px;
+}
+
+.heroProfileName{
+    text-align: center;
+}
+
 .myCastle .formembers {
     font-size: 25px;
     float: left;
-    width: 30%;
-    margin-right: 2.5%;
+    width: 40%;
+}
+
+.formembersCastle{
+    width: 100%;
+    font-size: 25px;
 }
 
 .formembers p, .formembers .members{
@@ -36,20 +53,15 @@ html{
 
 
 .myCastle .chatCastle{
-    margin-top: 20px;
     position: absolute;
     right: 0;
-    z-index: 1;
-    margin-left: 2.5%;
-    width: 40%;
+    width: 50%;
 }
 
 .myCastle .info{
     text-align: center;
     align-items: center;
-    width: 30%;
-    float: left;
-    margin-right: 2.5%;
+    width: 100%;
     z-index: 0;
 }
 
@@ -130,13 +142,11 @@ html{
 
 
 
-
-
 @media only screen and (max-width: 800px) {
 
     .castleContent{
-        width: 100%;
-        margin: 0;
+        width: 90%;
+        margin: 0 5%;
     }
 
     .myCastle .divCastlePicta {
@@ -144,11 +154,6 @@ html{
         vertical-align: bottom;
     }
 
-}
-
-
-
-@media only screen and (max-width: 800px) {
     .myCastle .sendMessageButton{
         width: 72%;
     }
@@ -158,9 +163,12 @@ html{
         margin-bottom: 25px;
         margin-right: 0;
     }
+
+    .divCastlePicta{
+        margin-top: -50px;
+    }
+
 }
-
-
 
 
 @media only screen and (max-width: 600px) {
@@ -170,15 +178,13 @@ html{
         width: 100%;
     }
 
-    .myCastle .info{
-        width: 50%;
-        float: right;
-        margin-right: 0;
+    .myCastle .formembers{
+        width: 100%;
+        float: none;
     }
 
-    .myCastle .formembers {
-        float: left;
-        width: 50%;
-        margin-right: 0;
+    .myCastle .info{
+        width: 100%;
+        float: none;
     }
 }

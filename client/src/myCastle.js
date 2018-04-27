@@ -49,17 +49,17 @@ export default class Castle extends React.Component {
             }
         }
 
-        return <img src={this.state.Imga} style={{width: '50px'}}/>
+        return <img src={this.state.Imga}/>
     }
 
 
     ListHeroes(){
         const listItems = this.state.heroesCastle.map((hero) =>
-            <div>
+            <div className="heroProfile">
                 <Link to={"/profiles/"+hero.id}>
                     {this.OnlyHero(hero)}
                     <br/>
-                    {hero.name}
+                    <div className="heroProfileName">{hero.name}</div>
                     <hr/>
                 </Link>
             </div>
@@ -90,6 +90,7 @@ export default class Castle extends React.Component {
                 <div className="members">
                     {this.ListHeroes()}
                 </div>
+                <hr/>
             </div>
         )
     }
@@ -121,14 +122,14 @@ export default class Castle extends React.Component {
                 </div>
                 <div className="castleContent">
 
-                    {this.CastleHeroes()}
-
                     <div className="info">
-                        <h2>Название: {this.state.name}</h2>
+                        <h1>{this.state.name}</h1>
                         <h2>Расса: {this.state.fractionName}</h2>
                         <h2>Рейтинг: {this.state.rating}</h2>
                         {castles}
                     </div>
+
+                    {this.CastleHeroes()}
 
                     <div className="chatCastle">
                         <ChatCastle/>

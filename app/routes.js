@@ -429,7 +429,7 @@ module.exports = function(app, passport) {
                                             hero_id: hero.dataValues.id,
                                             achievement_id: achievement.dataValues.id
                                         });
-                                        server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
+                                        //server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
                                         newAchievementToHero.save().then();
                                     });
                                 }
@@ -474,7 +474,7 @@ module.exports = function(app, passport) {
                                                     hero_id: hero.dataValues.id,
                                                     achievement_id: achievement.dataValues.id
                                                 });
-                                                server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
+                                                //server.xmpp.send('maximus1998g@jabber.ru', 'НОВОЕ ДОСТИЖЕНИЕ!\n' + '<<< ' + achievement.dataValues.achievement + ' >>>' + '\n +' + achievement.dataValues.gold +  ' голды!');
                                                 newAchievementToHero.save().then( res.send("Gold added") );
                                             });
                                         });
@@ -734,49 +734,6 @@ module.exports = function(app, passport) {
         });
         console.log('User connected');
     });
-
-
-
-    /***************************************************JABBER*************************************************************/
-        //let xmpp = require('../lib/simple-xmpp');
-    // let xmpp = require('simple-xmpp');
-    //
-    //
-    // xmpp.connect({
-    //     jid	                : 'maximus1998g@jabber.ru',
-    //     password		    : '1qaz@WSX',
-    //     host				: 'jabber.ru',
-    //     port				: 5222
-    // });
-
-    // xmpp.subscribe('maximus0371@jabber.ru');
-    // xmpp.getRoster();
-    //
-    // xmpp.on('online', function(data) {
-    //     xmpp.on('stanza', function(stanza) {
-    //
-    //         let body;
-    //         if(stanza.getChild('body') !== undefined)
-    //             body = stanza.getChild('body');
-    //
-    //         if(body){
-    //             let jabber = body.parent.attrs.from.toString().split('</body>')[0];
-    //             jabber = jabber.split('<body>')[1];
-    //             console.log("\n\n\n\n\n\n" + jabber + "\n\n\n\n\n\n\n");
-    //
-    //             /**********/
-    //
-    //         }
-    //     });
-    // });
-    //
-    // app.get('/jabber', function(req, res) {
-    //
-    //     var stanza = new xmpp.Element('message', {to: 'maximus0371@jabber.ru', type: 'chat',id: '1'}).c('body').t("tralala");
-    //     xmpp.send(stanza.tree());
-    //     res.end();
-    //
-    // });
 
 
     /************************************GETTING GOLD******************************/

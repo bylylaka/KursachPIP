@@ -149,7 +149,7 @@ export default class MyCabinet extends React.Component {
         if (this.state.local_id == null || this.state.facebook_id == null || this.state.twitter_id == null)
             return (
                 <div className="AddAccounts">
-                    <div className="joinSoc" style={{color: "rgba(100,100,255,0.6)"}}>Присоеденить учетную запись:</div>
+                    <div className="joinSoc" style={{color: "rgba(100,100,255,0.6)"}}>Присоединить учетную запись:</div>
                     {this.AuthWayLocal({way: 'local', znach: this.state.local_id})}
                     {this.AuthWayFacebook({way: 'facebook', znach: this.state.facebook_id})}
                     {this.AuthWayTwitter({way: 'twitter', znach: this.state.twitter_id})}

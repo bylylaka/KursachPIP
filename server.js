@@ -40,7 +40,7 @@ xmpp.on('chat', function (from, message) {
         io.sockets.emit('achievements', message);
 
         setTimeout(function () {
-            xmpp.send(from, 'ech: ' + 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
+            //xmpp.send(from, 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
         }, 5000000);
     }
 });

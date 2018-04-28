@@ -45,8 +45,10 @@ export default class Menu extends React.Component {
 
         let dropDownMenu;
         let classForblockMenu = '';
+        let display = (<div onClick={this.toggleState} className="openMenu">Меню</div>);
         if (this.state.isOpened) {
             classForblockMenu = 'blockMenu';
+            display = '';
             dropDownMenu = (
                 <nav className="top-menu">
                     <ul className="menu-main">
@@ -63,7 +65,8 @@ export default class Menu extends React.Component {
         }
         return (
             <div className={classForblockMenu}>
-                <div onClick={this.toggleState} className="openMenu">Меню</div>
+                {/*<div onClick={this.toggleState} className="openMenu">Меню</div>*/}
+                {display}
                 {dropDownMenu}
             </div>
         );

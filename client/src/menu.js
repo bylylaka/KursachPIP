@@ -8,7 +8,7 @@ export default class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAuthenticated: false
+            isAuthenticated: false,
         };
     }
 

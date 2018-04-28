@@ -749,7 +749,7 @@ module.exports = function(app, passport) {
             });
         });
         server.xmpp.send('maximus1998g@jabber.ru', ' +10 голды!');
-    }, 100000);
+    }, 500000);
 
 };
 

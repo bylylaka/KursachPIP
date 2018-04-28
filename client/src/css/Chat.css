@@ -33,7 +33,7 @@
     font-size: 20px;
 }
 
-.sendMessageButton{
+.sendMessageButton, .sendMessageButtonCastle{
     background: #5A394E;
     padding: 20px 0;
     width: calc(100% - 70% - 10px - 4px);
@@ -44,12 +44,12 @@
     transition: .3s linear;
 }
 
-.sendMessageButton:hover{
+.sendMessageButton:hover, .sendMessageButtonCastle:hover{
     background: rgb(72, 46, 62);
 
 }
 
-.sendMessageButton:active{
+.sendMessageButton:active, .sendMessageButtonCastle:active{
     background: rgba(0, 0, 0, 0);
 }
 
@@ -69,24 +69,44 @@ i {
     color: #FFF;
 }
 
-#scrollDown, #scrollDownCastle{
+#scrollDown{
+    cursor: pointer;
+    margin-bottom: 30px;
+    margin-left: -120%;
+    -webkit-transform: rotate(45deg);
+}
+
+#scrollDownCastle{
     cursor: pointer;
     margin-bottom: -40px;
     margin-left: -15%;
     -webkit-transform: rotate(45deg);
 }
 
-#scrollUp, #scrollUpCastle{
+#scrollUp{
     cursor: pointer;
     margin-bottom: -150px;
-    margin-left: -15%;
+    margin-left: -120%;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+#scrollUpCastle{
+    cursor: pointer;
+    margin-bottom: -150px;
+    margin-left: -150%;
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
 }
 
 
 #scrollDownCastle, #scrollUpCastle{
-    margin-left: 45%;
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+#scrollUpCastle{
+    margin-top: 40px;
 }
 
 
@@ -119,4 +139,36 @@ i {
   0% { color: #FFFFFF; }
   50% { color: #5A394E; }
   100% { color: #FFFFFF; }
+}
+
+
+
+@media only screen and (max-width: 1100px) {
+    .sendMessageButtonCastle{
+        width: 72%;
+    }
+
+    .myCastle .chat input[type=text] {
+        width: 69%;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    #scrollDown, #scrollUp{
+        margin: 15px auto;
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .sendMessageButton{
+        width: 100%;
+    }
+
+    .chat input[type=text]{
+        width: calc(100% - 13px);
+        margin-bottom: 25px;
+        margin-right: 0;
+    }
 }

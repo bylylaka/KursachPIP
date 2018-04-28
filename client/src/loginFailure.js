@@ -15,7 +15,14 @@ export default class LoginFailure extends React.Component {
 
     Header() {
         return (<div>
-            <header><Link to="/"><h1>Герои меча и магии</h1></Link></header>
+            <div>
+                <header>
+                    <Link to="/">
+                        <h1 className="heroesTitle">Герои меча и магии</h1>
+                        <h2 className="heroesTitle">COMMUNITY</h2>
+                    </Link>
+                </header>
+            </div>
         </div>);
     }
 

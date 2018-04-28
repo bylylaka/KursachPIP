@@ -5,7 +5,13 @@
     font-size: 20px;
 }
 
-.achivements h3{
-    font-size: 25px;
+.achivements h1{
     color: gold;
+    margin-top: 0;
+}
+
+li{
+    text-align: left;
+    margin-left: 15px;
+    margin-bottom: 10px
 }

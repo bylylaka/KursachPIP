@@ -2,10 +2,10 @@ import "./css/main.css"
 var React = require('react');
 var Link = require ('react-router-dom').Link;
 
-export default class addLocal extends React.Component {
+export default class Login extends React.Component {
 
     Header() {
-        return (<div>
+        return (
             <div>
                 <header>
                     <Link to="/">
@@ -14,16 +14,15 @@ export default class addLocal extends React.Component {
                     </Link>
                 </header>
             </div>
-        </div>);
+        );
     }
 
 
     render() {
         return (
             <div className="text-center">
-                {this.Header}
-                <form action="/connect/local" method="post">
-                    <p>Присоеденить локалку</p>
+                {this.Header()}
+                <form action="/login" method="post">
                     <div>
                         <br/>
                         <input className="email" type="text" name="email" placeholder="Email"/>
@@ -33,7 +32,7 @@ export default class addLocal extends React.Component {
                         <input className="password" type="password" name="password" placeholder="Пароль"/>
                     </div>
 
-                    <button className="passwordAndEmailButton" type="submit">Зарегистрироваться</button>
+                    <button className="passwordAndEmailButton" type="submit">Войти</button>
                 </form>
             </div>
         );

@@ -37,14 +37,37 @@ xmpp.connect({
 xmpp.on('chat', function (from, message) {
     if (message != '' && message != null && message != ' ') {
         console.log('\n\n\n' + message);
-        io.sockets.emit('change color', message);
+        io.sockets.emit('achievements', message);
 
         setTimeout(function () {
-            xmpp.send(from, 'ech: ' + 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
-        }, 180000);
+            xmpp.send(from, 'СХОДИ ПРОГУЛЯЙСЯ, СОВСЕМ ОДИЧАЛ УЖЕ - ЗА СВОИМ КОМПУКТЕРОМ СУТКАМИ СИДИШЬ!ы');
+        }, 5000000);
     }
 });
 xmpp.getRoster();
+
+exports.xmpp = xmpp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // set up our express application

@@ -13,9 +13,9 @@ export default class JabTe extends React.Component {
         }
 
         const socket = new socketIOClient("http://localhost:8888");
-        socket.on('change color', (color) => {
+        socket.on('achievements', (color) => {
             console.log('Полученное сообщение: ' + color);
-            alert('Полученное сообщение: ' + color);
+            alert(color);
         })
     }
 
@@ -38,6 +38,7 @@ export default class JabTe extends React.Component {
         //     })
         // }
 
+        //<h1>QQ</h1>
         return (
             <div style={{ textAlign: "center" }}>
                 {/*<button onClick={() => this.send()}>Change Color</button>*/}

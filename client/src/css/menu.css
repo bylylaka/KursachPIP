@@ -72,13 +72,112 @@ body{
 }
 .menu-main a.current,
 .menu-main a:hover {background: rgba(0,0,0,.2);}
-@media (max-width: 680px) {
-    .top-menu {margin: 0;}
-    .menu-main li {
+
+.openMenu{
+    visibility: hidden;
+    display: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 0;
+    padding: 10px 30px;
+    background-color: rgba(67, 68, 160, 0.4);
+    z-index: 1000;
+}
+
+
+.crestik{
+    visibility: hidden;
+    display: none;
+}
+
+.checker {
+    visibility: visible;
+    display: block;
+}
+
+
+@media (max-width: 480px) {
+    .openMenu{
+        visibility: visible;
         display: block;
-        margin-right: 0;
     }
+
+    .forHTML{
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    .blockMenu{
+        margin: 0;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(67, 68, 160, 0.4);
+        z-index: 999;
+    }
+
+    .top-menu {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        /*left: 10%;*/
+        /*top: 5%;*/
+        width: 80%;
+        height: 90%;
+        margin: 5% 10%;
+        z-index: 1000;
+        min-height: 310px;
+    }
+
+    .checker{
+        visibility: hidden;
+        display: none;
+    }
+
+    body, html {
+        width: 100%;
+        height: 100%;
+    }
+
+    .menu-main {
+        min-height: 87vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
     .menu-main:before,
     .menu-main:after {content: none;}
-    .menu-main a {display: block;}
+    .menu-main a {
+        display: block;
+        line-height: 0;
+    }
+
+    .crestik{
+        visibility: visible;
+        display: block;
+    }
 }
+
+.Tees{
+    display: none;
+}
+
+.top-menu p{
+    position: absolute;
+    top: -20px;
+    right: 0;
+    border: 3px solid black;
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 5px;
+    color: red;
+    background: white;
+    cursor: pointer;
+}
+

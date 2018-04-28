@@ -128,7 +128,7 @@ export default class ChatCastle extends React.Component {
                     <form name="publish" onSubmit={this.handleSubmit}>
                         <div className="messageSendBlockCastle">
                             <input type="text" name="message" value={this.state.mes} onChange={this.onChange} placeholder="Написать сообщение..."/>
-                            <button className="sendMessageButton" type="submit">Отправить</button>
+                            <button className="sendMessageButtonCastle" type="submit">Отправить</button>
                         </div>
                     </form>
                     <p id="blink" onClick={this.scrollToTop} title="Scroll вверх"><i id="scrollUpCastle"></i></p>

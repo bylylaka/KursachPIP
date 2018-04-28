@@ -49,6 +49,10 @@ export default class Menu extends React.Component {
         if (this.state.isOpened) {
             classForblockMenu = 'blockMenu';
             display = '';
+        document.body.classList.remove('forHTML');
+        if (this.state.isOpened) {
+            classForblockMenu = 'blockMenu';
+            document.body.classList.add('forHTML');
             dropDownMenu = (
                 <nav className="top-menu">
                     <ul className="menu-main">

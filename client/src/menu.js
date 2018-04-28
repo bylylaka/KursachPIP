@@ -35,7 +35,6 @@ export default class Menu extends React.Component {
         else
             return <div></div>
         return (
-            <div className="blockMenu">
                 <nav className="top-menu">
                     <ul className="menu-main">
                         <div><Link to="/profile">Профиль</Link></div>
@@ -47,7 +46,6 @@ export default class Menu extends React.Component {
                         <div><Link to="/" onClick={this.logOut}>Выйти</Link></div>
                     </ul>
                 </nav>
-            </div>
         );
     }
 }

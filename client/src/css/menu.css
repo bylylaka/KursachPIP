@@ -85,15 +85,27 @@ body{
     z-index: 1000;
 }
 
-.forHTML{
-    overflow-y: hidden;
-    overflow-x: hidden;
+
+.crestik{
+    visibility: hidden;
+    display: none;
 }
+
+.checker {
+    visibility: visible;
+    display: block;
+}
+
 
 @media (max-width: 480px) {
     .openMenu{
         visibility: visible;
         display: block;
+    }
+
+    .forHTML{
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 
     .blockMenu{
@@ -107,12 +119,20 @@ body{
 
     .top-menu {
         margin: 0;
-        position: fixed;
+        padding: 0;
+        position: absolute;
+        /*left: 10%;*/
+        /*top: 5%;*/
         width: 80%;
         height: 90%;
         margin: 5% 10%;
         z-index: 1000;
         min-height: 310px;
+    }
+
+    .checker{
+        visibility: hidden;
+        display: none;
     }
 
     body, html {
@@ -132,10 +152,32 @@ body{
     .menu-main:after {content: none;}
     .menu-main a {
         display: block;
-        height: 0
+        line-height: 0;
+    }
+
+    .crestik{
+        visibility: visible;
+        display: block;
     }
 }
 
 .Tees{
     display: none;
 }
+
+.top-menu p{
+    position: absolute;
+    top: -20px;
+    right: 0;
+    border: 3px solid black;
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 5px;
+    color: red;
+    background: white;
+    cursor: pointer;
+}
+

@@ -18,13 +18,13 @@ export default class Menu extends React.Component {
         axios
             .get(`/sessionUser`)
             .then(session_user => {
-                this.setState({isAuthenticated : session_user.data });
-                if(!session_user.data) this.props.history.push("/");
+                this.setState({isAuthenticated: session_user.data});
+                if (!session_user.data) this.props.history.push("/");
             })
             .catch(error => console.log(error));
     }
 
-    logOut(){
+    logOut() {
         axios
             .get(`/logout`)
             .catch(error => console.log(error));
@@ -32,13 +32,12 @@ export default class Menu extends React.Component {
     }
 
     toggleState() {
-        this.setState({ isOpened: !this.state.isOpened });
+        this.setState({isOpened: !this.state.isOpened});
     }
 
 
-
     render() {
-        if(this.state.isAuthenticated) {
+        if (this.state.isAuthenticated) {
         }
         else
             return <div></div>
@@ -46,33 +45,40 @@ export default class Menu extends React.Component {
         let dropDownMenu;
         let classForblockMenu = '';
         let display = (<div onClick={this.toggleState} className="openMenu">Меню</div>);
-        if (this.state.isOpened) {
-            classForblockMenu = 'blockMenu';
-            display = '';
+        let crestik = '';
         document.body.classList.remove('forHTML');
+
+        let classNameForCheck = 'top-menu checker';
         if (this.state.isOpened) {
+            display = '';
+            crestik = (<p className="crestik" onClick={this.toggleState}>X</p>);
             classForblockMenu = 'blockMenu';
             document.body.classList.add('forHTML');
-            dropDownMenu = (
-                <nav className="top-menu">
-                    <ul className="menu-main">
-                        <Link to="/profile">Профиль</Link>
-                        <Link to="/myCastle">Замок</Link>
-                        <Link to="/chat">Переговорная</Link>
-                        <Link to="/posts">Мемасы</Link>
-                        <Link to="/castle">Ночлежки</Link>
-                        <Link to="/achievements">Заслуги</Link>
-                        <Link to="/" onClick={this.logOut}>Выйти</Link>
-                    </ul>
-                </nav>
+
+            classNameForCheck = 'top-menu';
+        }
+
+        dropDownMenu = (
+            <nav className={classNameForCheck}>
+                {crestik}
+                <ul className="menu-main">
+                    <Link onClick={this.toggleState} to="/profile">Профиль</Link>
+                    <Link onClick={this.toggleState} to="/myCastle">Замок</Link>
+                    <Link onClick={this.toggleState} to="/chat">Переговорная</Link>
+                    <Link onClick={this.toggleState} to="/posts">Мемасы</Link>
+                    <Link onClick={this.toggleState} to="/castle">Ночлежки</Link>
+                    <Link onClick={this.toggleState} to="/achievements">Заслуги</Link>
+                    <Link to="/" onClick={this.logOut}>Выйти</Link>
+                </ul>
+            </nav>
+        );
+
+            return (
+                <div className={classForblockMenu}>
+                    {/*<div onClick={this.toggleState} className="openMenu">Меню</div>*/}
+                    {display}
+                    {dropDownMenu}
+                </div>
             );
         }
-        return (
-            <div className={classForblockMenu}>
-                {/*<div onClick={this.toggleState} className="openMenu">Меню</div>*/}
-                {display}
-                {dropDownMenu}
-            </div>
-        );
     }
-}

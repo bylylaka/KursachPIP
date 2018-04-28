@@ -1,7 +1,6 @@
 .castles {
     width: 400px;
     margin: 0 auto;
-    margin-top: 50px;
 }
 
 .castle {
@@ -19,4 +18,12 @@
     border: 10px solid coral;
     text-align: center;
     border-radius: 500px;
+}
+
+.divCastlePicta{
+    margin: 0;
+}
+
+.castlePicta{
+    margin-top: 0;
 }

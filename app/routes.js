@@ -374,10 +374,10 @@ module.exports = function(app, passport) {
     app.ws('/post/:post/addComment', function(ws, req) {
         let id;
         let name;
-        let reroi;
+        let heroi;
         forDb.Hero.findOne({where : {user: req.user.user_id}}).then(function(hero) {
             name = hero.dataValues.name;
-            reroi = hero.dataValues.id;
+            heroi = hero.dataValues.id;
             id = hero.dataValues.user;
             clients[id] = ws;
         });
@@ -402,7 +402,7 @@ module.exports = function(app, passport) {
             for (let key in clients) {
 
                 let newComment = {
-                    hero_id: id,
+                    hero_id: heroi,
                     hero: name,
                     date: 'только что',
                     content: comment,
@@ -410,7 +410,7 @@ module.exports = function(app, passport) {
                 //name + ' (сейчас): ' + comment
                 clients[key].send(JSON.stringify(newComment));
             }
-            forDb.addComment(comment, reroi, req.params.post);
+            forDb.addComment(comment, heroi, req.params.post);
 
             /*******************************ADD GOLD FOR COMMENTS****************************************/
             forDb.Hero.findOne({ where: { user : req.user.user_id } }).then(function (hero) {

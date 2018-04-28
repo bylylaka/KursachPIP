@@ -108,7 +108,7 @@ export default class Profile extends React.Component {
                     {this.Atrib({name :"name", value: this.state.name, readonly: 'true'})}
                     {this.Atrib({name :"gender", value: this.state.gender, readonly: 'true'})}
                     {this.Atrib({name :"castle", value: this.state.castleName, readonly: 'true'})}
-                    {this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}
+                    {/*{this.Atrib({name :"experience", value: this.state.experience, readonly: 'true'})}*/}
                     {this.Atrib({name :"gold", value: this.state.gold, readonly: 'true'})}
                 </form>
             </div>)

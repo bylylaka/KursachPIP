@@ -9,7 +9,9 @@ export default class Menu extends React.Component {
         super(props);
         this.state = {
             isAuthenticated: false,
+            isOpened: false
         };
+        this.toggleState = this.toggleState.bind(this);
     }
 
     componentDidMount() {
@@ -29,23 +31,41 @@ export default class Menu extends React.Component {
         window.location.reload();
     }
 
+    toggleState() {
+        this.setState({ isOpened: !this.state.isOpened });
+    }
+
+
+
     render() {
         if(this.state.isAuthenticated) {
         }
         else
             return <div></div>
+
+        let dropDownMenu;
+        let classForblockMenu = '';
+        if (this.state.isOpened) {
+            classForblockMenu = 'blockMenu';
+            dropDownMenu = (
+                <nav className="top-menu">
+                    <ul className="menu-main">
+                        <Link to="/profile">Профиль</Link>
+                        <Link to="/myCastle">Замок</Link>
+                        <Link to="/chat">Переговорная</Link>
+                        <Link to="/posts">Мемасы</Link>
+                        <Link to="/castle">Ночлежки</Link>
+                        <Link to="/achievements">Заслуги</Link>
+                        <Link to="/" onClick={this.logOut}>Выйти</Link>
+                    </ul>
+                </nav>
+            );
+        }
         return (
-            <nav className="top-menu">
-                <ul className="menu-main">
-                    <Link to="/profile">Профиль</Link>
-                    <Link to="/myCastle">Замок</Link>
-                    <Link to="/chat">Переговорная</Link>
-                    <Link to="/posts">Мемасы</Link>
-                    <Link to="/castle">Ночлежки</Link>
-                    <Link to="/achievements">Заслуги</Link>
-                    <Link to="/" onClick={this.logOut}>Выйти</Link>
-                </ul>
-            </nav>
+            <div className={classForblockMenu}>
+                <div onClick={this.toggleState} className="openMenu">Меню</div>
+                {dropDownMenu}
+            </div>
         );
     }
 }

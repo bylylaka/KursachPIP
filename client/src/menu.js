@@ -35,17 +35,19 @@ export default class Menu extends React.Component {
         else
             return <div></div>
         return (
-            <nav className="top-menu">
-                <ul className="menu-main">
-                    <Link to="/profile">Профиль</Link>
-                    <Link to="/myCastle">Замок</Link>
-                    <Link to="/chat">Переговорная</Link>
-                    <Link to="/posts">Мемасы</Link>
-                    <Link to="/castle">Ночлежки</Link>
-                    <Link to="/achievements">Заслуги</Link>
-                    <Link to="/" onClick={this.logOut}>Выйти</Link>
-                </ul>
-            </nav>
+            <div className="blockMenu">
+                <nav className="top-menu">
+                    <ul className="menu-main">
+                        <div><Link to="/profile">Профиль</Link></div>
+                        <div><Link to="/myCastle">Замок</Link></div>
+                        <div><Link to="/chat">Переговорная</Link></div>
+                        <div><Link to="/posts">Мемасы</Link></div>
+                        <div><Link to="/castle">Ночлежки</Link></div>
+                        <div><Link to="/achievements">Заслуги</Link></div>
+                        <div><Link to="/" onClick={this.logOut}>Выйти</Link></div>
+                    </ul>
+                </nav>
+            </div>
         );
     }
 }
